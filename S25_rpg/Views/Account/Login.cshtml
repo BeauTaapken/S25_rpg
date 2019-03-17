@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal
+@using Microsoft.AspNetCore.Routing
+@using Microsoft.CodeAnalysis
+@{
+    ViewData["Title"] = "Login";
+}
+
+@model AccountViewModel
+
+<div class="horizontal-center-login font-size">
+    <div class="text-right">
+        <button name="btRegister" class="btn btn-primary">@Html.ActionLink("Register", "Register", "Account", null, new { @class = "white-link font-size" })</button>
+    </div>
+    <div class="text-center">
+        <h1>@ViewData["Title"]</h1>
+        <div class="blocked-item shadow-lg p-3 mb-5 bg-white rounded">
+            @using (Html.BeginForm("CheckLogin", "Account", FormMethod.Post, new { @class = "item-center login-register-height" }))
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="top-margin">
+                @Html.TextBoxFor(m => m.Username, new { @name = "username", @placeholder = "Username", @class = "form-control" })
+            </div>
+            <div class="in-between-margin">
+                @Html.PasswordFor(m => m.Password, new { @name = "password", @placeholder = "Password", @class = "form-control" })
+            </div>
+
+            <input type="submit" value="Log in" class="btn btn-primary float-right align-button-hovering-box" />
+            }
+        </div>
+    </div>
+</div>

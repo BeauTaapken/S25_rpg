@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+@model AccountViewModel
+
+<div class="horizontal-center-register font-size">
+    <div class="text-right">
+        <button name="btLogin" class="btn btn-primary">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "white-link font-size" })</button>
+    </div>
+
+    <div class="text-center ">
+        <h1>@ViewData["Title"]</h1>
+        <div class="blocked-item shadow-lg p-3 mb-5 bg-white rounded">
+            @using (Html.BeginForm("AddAccount", "Account", FormMethod.Post, new { @class = "item-center login-register-height" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="top-margin">
+                    @Html.TextBoxFor(m => m.Username, new { @name = "username", @placeholder = "Username", @class = "form-control" })
+                </div>
+                <div class="in-between-margin">
+                    @Html.PasswordFor(m => m.Password, new { @name = "password", @placeholder = "Password", @class = "form-control" })
+                </div>
+                <div class="in-between-margin">
+                    <input type="password" name="repeatpassword" placeholder="Repeat password" class="form-control" />
+                </div>
+                <div class="in-between-margin">
+                    @Html.TextBoxFor(m => m.Email, new { @name = "email", @placeholder = "Email", @class = "form-control" })
+                </div>
+                <input type="submit" value="Register" class="btn btn-primary float-right align-button-hovering-box" />
+            }
+        </div>
+    </div>
+</div>
