@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using S25_rpg.DAL;
+using S25_rpg.DAL.Context;
+using S25_rpg.DAL.IContext;
 
 namespace S25_rpg
 {
@@ -33,6 +35,7 @@ namespace S25_rpg
             });
 
             services.AddScoped<IAccountContext, AccountContext>();
+            services.AddScoped<IAccountCharacterContext, AccountCharacterContext>();
             services.AddTransient(options => new DatabaseConnection(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

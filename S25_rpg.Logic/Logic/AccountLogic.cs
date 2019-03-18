@@ -1,17 +1,17 @@
-﻿using System;
-using S25_rpg.DAL;
+﻿using S25_rpg.DAL.IContext;
+using S25_rpg.DAL.Repository;
 using S25_rpg.Logic.Models;
 
-namespace S25_rpg.Logic
+namespace S25_rpg.Logic.Logic
 {
     public class AccountLogic
     {
+        private AccountRepository Repository { get; }
+
         public AccountLogic(IAccountContext accountContext)
         {
             Repository = new AccountRepository(accountContext);
         }
-
-        private AccountRepository Repository { get; }
 
         public bool Login(string username, string password)
         {

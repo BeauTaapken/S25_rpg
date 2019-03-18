@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using S25_rpg.DAL.IContext;
 using S25_rpg.Interfaces;
 
-namespace S25_rpg.DAL
+namespace S25_rpg.DAL.Repository
 {
     public class AccountRepository
     {
@@ -16,17 +14,17 @@ namespace S25_rpg.DAL
 
         public bool Login(IAccount account)
         {
-            return _accountContext.CheckAccount(account);
+            return _accountContext.Login(account);
         }
 
         public int GetAccountId(IAccount account)
         {
-            return _accountContext.getAccountId(account);
+            return _accountContext.GetAccountId(account);
         }
 
         public bool CheckIfAccountExist(IAccount account)
         {
-            return _accountContext.checkIfAccountExist(account);
+            return _accountContext.CheckIfAccountExist(account);
         }
 
         public void AddAccount(IAccount account)

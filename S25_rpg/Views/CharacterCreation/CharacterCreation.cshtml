@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Character creation";
+}
+
+@model CharacterViewModel
+
+<div class="horizontal-center-register font-size text-center">
+    <h1>@ViewData["Title"]</h1>
+    <div class="text-center blocked-item shadow-lg p-3 mb-5 bg-white rounded">
+        @using (Html.BeginForm("CreateCharacter", "CharacterCreation", FormMethod.Post, new { @class = "item-center login-register-height" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="top-margin">
+                @Html.DropDownListFor(m => m.Haircolor_idHaircolor, new SelectList(@ViewBag.Haircolor, "idHaircolor", "Color"), "-- Select haircolor--", new { @class = "form-control" })
+            </div>
+            <div class="in-between-margin">
+                @Html.DropDownListFor(m => m.Eyecolor_idEyecolor, new SelectList(@ViewBag.Eyecolor, "idEyecolor", "Color"), "-- Select eyecolor--", new { @class = "form-control" })
+            </div>
+            <div class="in-between-margin">
+                @Html.TextBoxFor(m => m.Height, new { @name = "height", @placeholder = "Height in cm", @class = "form-control", @type = "number" })
+            </div>
+            <div class="in-between-margin">
+                @Html.TextBoxFor(m => m.Weight, new { @name = "weight", @placeholder = "Weight in kg", @class = "form-control", @type = "number" })
+            </div>
+            <div class="in-between-margin">
+                @Html.DropDownListFor(m => m.Class_idClass, new SelectList(@ViewBag.CharClass, "idClass", "Classname"), "-- Select class--", new { @class = "form-control" })
+            </div>
+            <div class="in-between-margin">
+                <input type="number" class="d-none" value="@ViewBag.userId" name="userId" />
+            </div>
+
+            <input type="submit" value="Create character" class="btn btn-primary float-right align-button-hovering-box" />
+        }
+    </div>
+</div>
+

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using S25_rpg.DAL.Dto;
+using S25_rpg.DAL.IContext;
 using S25_rpg.Interfaces;
 
-namespace S25_rpg.DAL
+namespace S25_rpg.DAL.Context
 {
     public class AccountContext : IAccountContext
     {
@@ -16,18 +14,18 @@ namespace S25_rpg.DAL
             _connection = connection;
         }
 
-        public bool CheckAccount(IAccount account)
+        public bool Login(IAccount account)
         {
             try
             {
                 _connection.mySqlConnection.Open();
 
-                MySqlCommand checkAccount = new MySqlCommand(
+                MySqlCommand login = new MySqlCommand(
                     "SELECT * FROM Account WHERE Username = @username AND Password = @password",
                     _connection.mySqlConnection);
-                checkAccount.Parameters.AddWithValue("@username", account.Username);
-                checkAccount.Parameters.AddWithValue("@password", account.Password);
-                if (int.Parse(checkAccount.ExecuteScalar().ToString()) == 1)
+                login.Parameters.AddWithValue("@username", account.Username);
+                login.Parameters.AddWithValue("@password", account.Password);
+                if (int.Parse(login.ExecuteScalar().ToString()) != 0)
                 {
                     return true;
                 }
@@ -44,32 +42,19 @@ namespace S25_rpg.DAL
             }
         }
 
-        public bool checkIfAccountExist(IAccount account)
+        public bool CheckIfAccountExist(IAccount account)
         {
             try
             {
                 _connection.mySqlConnection.Open();
-
-                int test = 0;
 
                 MySqlCommand checkIfAccountExists =
                     new MySqlCommand("SELECT * FROM Account WHERE Username = @username OR Email = @email",
                         _connection.mySqlConnection);
                 checkIfAccountExists.Parameters.AddWithValue("@username", account.Username);
                 checkIfAccountExists.Parameters.AddWithValue("@email", account.Email);
-                //var reader = checkIfAccountExists.ExecuteReader();
-                //while (reader.Read())
-                //{
-                //    test++;
-                //}
 
-                //if (test >= 1)
-                //{
-                //    _connection.mySqlConnection.Close();
-                //    return true;
-                //}
-
-                if (int.Parse(checkIfAccountExists.ExecuteScalar().ToString()) == 1)
+                if (int.Parse(checkIfAccountExists.ExecuteScalar().ToString()) != 0)
                 {
                     return true;
                 }
@@ -109,7 +94,7 @@ namespace S25_rpg.DAL
             }
         }
 
-        public int getAccountId(IAccount account)
+        public int GetAccountId(IAccount account)
         {
             try
             {

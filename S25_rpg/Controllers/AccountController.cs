@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using S25_rpg.DAL;
+using S25_rpg.DAL.IContext;
 using S25_rpg.Logic;
+using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 
 namespace S25_rpg.Controllers
@@ -13,10 +15,12 @@ namespace S25_rpg.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountContext _accountContext;
+        private readonly IAccountCharacterContext _accountCharacterContext;
 
-        public AccountController(IAccountContext accountContext)
+        public AccountController(IAccountContext accountContext, IAccountCharacterContext accountCharacterContext)
         {
             _accountContext = accountContext;
+            _accountCharacterContext = accountCharacterContext;
         }
 
         public IActionResult Login()
@@ -25,15 +29,22 @@ namespace S25_rpg.Controllers
         }
 
         [HttpPost]
-        public IActionResult CheckLogin(AccountViewModel model)
+        public IActionResult CheckLogin(AccountViewModel accountModel, AccountCharacterViewModel accountCharacterModel)
         {
             var accountLogic = new AccountLogic(_accountContext);
-            if (accountLogic.Login(model.Username, model.Password))
+            var accountCharacterLogic = new AccountCharacterLogic(_accountCharacterContext);
+            if (accountLogic.Login(accountModel.Username, accountModel.Password))
             {
-                int accountId = accountLogic.GetUserId(model.Username, model.Password);
-                if (accountId != 0)
+                accountModel.idAccount = accountLogic.GetUserId(accountModel.Username, accountModel.Password);
+                if (accountModel.idAccount != 0)
                 {
-                    return RedirectToAction("Login", "Account", accountId);
+                    accountCharacterModel.Account_idAccount = accountModel.idAccount;
+                    if (!accountCharacterLogic.AccountHasCharacter(accountCharacterModel.Account_idAccount))
+                    {
+                        return RedirectToAction("CharacterCreation", "CharacterCreation");
+                    }
+                    //TODO change to main screen when logged in
+                    return RedirectToAction("Login", "Account");
                 }
             }
             return RedirectToAction("Register", "Account");
