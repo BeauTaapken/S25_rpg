@@ -1,40 +1,48 @@
-﻿using S25_rpg.DAL.IContext;
+﻿using S25_rpg.DAL.Context;
+using S25_rpg.DAL.IContext;
 using S25_rpg.DAL.Repository;
-using S25_rpg.Logic.Models;
+using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
 {
     public class AccountLogic
     {
-        private AccountRepository Repository { get; }
+        private IAccountRepo Repository = new AccountRepository(new AccountContextSql());
 
-        public AccountLogic(IAccountContext accountContext)
+        //public AccountLogic(IAccountContext accountContext)
+        //{
+        //    Repository = new AccountRepository(accountContext);
+        //}
+
+        public void Logout()
         {
-            Repository = new AccountRepository(accountContext);
+            Repository.Logout();
         }
 
-        public bool Login(string username, string password)
+        public ICharacter AccountHasCharacter(IAccount account)
         {
-            var account = new Account{Username = username, Password = password};
-            return Repository.Login(account);
+            return Repository.AccountHasCharacter(account);
         }
 
-        public int GetUserId(string username, string password)
-        {
-            var account = new Account{Username = username, Password = password};
-            return Repository.GetAccountId(account);
-        }
+        //public bool Login(IAccount account)
+        //{
+        //    return Repository.Login(account);
+        //}
 
-        public void InsertAccount(string username, string password, string email)
-        {
-            var account = new Account {Username = username, Password = password, Email = email};
-            Repository.AddAccount(account);
-        }
+        //public int GetUserId(IAccount account)
+        //{
+        //    return Repository.GetAccountId(account);
+        //}
 
-        public bool CheckIfAccountExist(string username, string email)
-        {
-            var account = new Account {Username = username, Email = email};
-            return Repository.CheckIfAccountExist(account);
-        }
+        //public void InsertAccount(IAccount account)
+        //{
+        //    Repository.AddAccount(account);
+        //}
+
+        //public bool CheckIfAccountExist(IAccount account)
+        //{
+        //    return Repository.CheckIfAccountExist(account);
+        //}
     }
 }

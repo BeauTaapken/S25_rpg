@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S25_rpg", "S25_rpg\S25_rpg.csproj", "{8DBBA838-AB28-45D9-A83E-4DC982432C93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S25_rpg", "S25_rpg\S25_rpg.csproj", "{8DBBA838-AB28-45D9-A83E-4DC982432C93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S25_rpg.DAL", "S25_rpg.DAL\S25_rpg.DAL.csproj", "{8085412A-D9E4-44FA-98F8-31C4CBD7FDD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S25_rpg.DAL", "S25_rpg.DAL\S25_rpg.DAL.csproj", "{8085412A-D9E4-44FA-98F8-31C4CBD7FDD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S25_rpg.Interfaces", "S25_rpg.Interfaces\S25_rpg.Interfaces.csproj", "{3FDFECEA-C09B-4EE8-828E-DC566AD0569E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S25_rpg.Models", "S25_rpg.Interfaces\S25_rpg.Models.csproj", "{3FDFECEA-C09B-4EE8-828E-DC566AD0569E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S25_rpg.Logic", "S25_rpg.Logic\S25_rpg.Logic.csproj", "{AE0034F7-25CE-480D-A231-AE98140DD353}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S25_rpg.Logic", "S25_rpg.Logic\S25_rpg.Logic.csproj", "{AE0034F7-25CE-480D-A231-AE98140DD353}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E416ED98-090C-40A7-920B-8FD6D9908360}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E416ED98-090C-40A7-920B-8FD6D9908360}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

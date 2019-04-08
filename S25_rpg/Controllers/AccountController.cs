@@ -4,24 +4,21 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using S25_rpg.DAL;
 using S25_rpg.DAL.IContext;
+using S25_rpg.DAL.Interface.Account;
 using S25_rpg.Logic;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
+using S25_rpg.Models.Interfaces;
 
 namespace S25_rpg.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountContext _accountContext;
-        private readonly IAccountCharacterContext _accountCharacterContext;
-
-        public AccountController(IAccountContext accountContext, IAccountCharacterContext accountCharacterContext)
-        {
-            _accountContext = accountContext;
-            _accountCharacterContext = accountCharacterContext;
-        }
+        AccountLogic accountLogic = new AccountLogic();
+        AccountCollectionLogic accountCollectionLogic = new AccountCollectionLogic();
 
         public IActionResult Login()
         {
@@ -29,21 +26,22 @@ namespace S25_rpg.Controllers
         }
 
         [HttpPost]
-        public IActionResult CheckLogin(AccountViewModel accountModel, AccountCharacterViewModel accountCharacterModel)
+        public IActionResult Login(AccountViewModel accountModel)
         {
-            var accountLogic = new AccountLogic(_accountContext);
-            var accountCharacterLogic = new AccountCharacterLogic(_accountCharacterContext);
-            if (accountLogic.Login(accountModel.Username, accountModel.Password))
+            IAccount account = accountCollectionLogic.Login(accountModel);
+
+            if (account != null)
             {
-                accountModel.idAccount = accountLogic.GetUserId(accountModel.Username, accountModel.Password);
-                if (accountModel.idAccount != 0)
+                if (account.idAccount != 0)
                 {
-                    accountCharacterModel.Account_idAccount = accountModel.idAccount;
-                    if (!accountCharacterLogic.AccountHasCharacter(accountCharacterModel.Account_idAccount))
+                    Response.Cookies.Append("account", JsonConvert.SerializeObject(account));
+                    ICharacter character = accountLogic.AccountHasCharacter(account);
+                    if (character == null)
                     {
                         return RedirectToAction("CharacterCreation", "CharacterCreation");
                     }
                     //TODO change to main screen when logged in
+                    Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
                     return RedirectToAction("Login", "Account");
                 }
             }
@@ -56,13 +54,11 @@ namespace S25_rpg.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAccount(AccountViewModel model, string repeatPassword)
+        public IActionResult Register(AccountViewModel model, string repeatPassword)
         {
-            var accountLogic = new AccountLogic(_accountContext);
-            if (model.Password == repeatPassword && !(accountLogic.CheckIfAccountExist(model.Username, model.Email)))
+            if (model.Password == repeatPassword && !(accountCollectionLogic.CheckIfAccountExist(model)))
             {
-                //TODO add insert of account
-                accountLogic.InsertAccount(model.Username, model.Password, model.Email);
+                accountCollectionLogic.InsertAccount(model);
             }
 
             return RedirectToAction("Register", "Account");

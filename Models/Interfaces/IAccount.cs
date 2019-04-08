@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace S25_rpg.Interfaces
+namespace S25_rpg.Models.Interfaces
 {
     public interface IAccount
     {

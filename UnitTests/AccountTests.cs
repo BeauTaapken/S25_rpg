@@ -2,7 +2,8 @@ using S25_rpg.Logic;
 using System;
 using S25_rpg.DAL;
 using S25_rpg.Logic.Logic;
-using UnitTests.MockContent;
+using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Models;
 using Xunit;
 
 namespace UnitTests
@@ -10,32 +11,32 @@ namespace UnitTests
     public class AccountTests
     {
         AccountLogic _accountLogic;
-
+        AccountCollectionLogic _accountCollectionLogic;
         public AccountTests()
         {
-            _accountLogic = new AccountLogic(new AccountContextMock());
+            _accountLogic = new AccountLogic();
         }
 
         [Fact]
         public void LoginCorrectly()
         {
-            var result = _accountLogic.Login("unitTest", "unitTest");
+            IAccount result = _accountCollectionLogic.Login(new Account(0, "unittest", "unittest", "email"));
             
-            Assert.True(result);
+            //TODO assert
         }
 
         [Fact]
         public void LoginIncorrectly()
         {
-            var result = _accountLogic.Login("wrongName", "wrongPassword");
+            IAccount result = _accountCollectionLogic.Login(new Account(0, "wrong", "wrong", "email"));
 
-            Assert.False(result);
+            //TODO assert
         }
 
         [Fact]
         public void AccountWithUsernameExists()
         {
-            var result = _accountLogic.CheckIfAccountExist("unitTest", "wrong@email.com");
+            var result = _accountCollectionLogic.CheckIfAccountExist(new Account(0, "unittest", "unittest", "email"));
 
             Assert.True(result);
         }
@@ -43,7 +44,7 @@ namespace UnitTests
         [Fact]
         public void AccountWithEmailExists()
         {
-            var result = _accountLogic.CheckIfAccountExist("wrongname", "unittest@test.com");
+            var result = _accountCollectionLogic.CheckIfAccountExist(new Account(0, "unittest", "unittest", "email"));
 
             Assert.True(result);
         }
@@ -51,7 +52,7 @@ namespace UnitTests
         [Fact]
         public void AccountNotExists()
         {
-            var result = _accountLogic.CheckIfAccountExist("wrongname", "wrong@email.com");
+            var result = _accountCollectionLogic.CheckIfAccountExist(new Account(0, "unittest", "unittest", "email"));
             
             Assert.False(result);
         }
@@ -59,7 +60,7 @@ namespace UnitTests
         [Fact]
         public void FirstAccountId()
         {
-            var result = _accountLogic.GetUserId("firstUsername", "firstPassword");
+            var result = _accountCollectionLogic.GetUserId(new Account(0, "unittest", "unittest", "email"));
 
             Assert.Equal(1, result);
         }
@@ -67,7 +68,7 @@ namespace UnitTests
         [Fact]
         public void SecondAccountId()
         {
-            var result = _accountLogic.GetUserId("secondUsername", "secondPassword");
+            var result = _accountCollectionLogic.GetUserId(new Account(0, "unittest", "unittest", "email"));
 
             Assert.Equal(2, result);
         }
@@ -75,14 +76,14 @@ namespace UnitTests
         [Fact]
         public void NoAccountId()
         {
-            var result = _accountLogic.GetUserId("fakeUsername", "fakePassword");
+            var result = _accountCollectionLogic.GetUserId(new Account(0, "unittest", "unittest", "email"));
             Assert.Equal(0, result);
         }
 
         [Fact]
         public void AddAccount()
         {
-            _accountLogic.InsertAccount("unittestUsername", "unittestPassword", "unittestEmail");
+            _accountCollectionLogic.InsertAccount(new Account(0, "unittest", "unittest", "email"));
         }
     }
 }

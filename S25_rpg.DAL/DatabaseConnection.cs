@@ -5,11 +5,11 @@ namespace S25_rpg.DAL
 {
     public class DatabaseConnection
     {
-        public DatabaseConnection(string connectionString)
+        public void setConnectionString(string connectionString)
         {
             mySqlConnection = new MySqlConnection(connectionString);
         }
 
-        internal MySqlConnection mySqlConnection { get; }
+        protected static MySqlConnection mySqlConnection { get; set; }
     }
 }

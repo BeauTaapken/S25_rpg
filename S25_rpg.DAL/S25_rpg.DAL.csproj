@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\S25_rpg.Interfaces\S25_rpg.Interfaces.csproj" />
+    <ProjectReference Include="..\S25_rpg.Interfaces\S25_rpg.Models.csproj" />
   </ItemGroup>
 
 </Project>

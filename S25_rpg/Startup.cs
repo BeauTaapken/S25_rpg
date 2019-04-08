@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using S25_rpg.DAL;
 using S25_rpg.DAL.Context;
 using S25_rpg.DAL.IContext;
+using S25_rpg.DAL.Interface.Account;
 
 namespace S25_rpg
 {
@@ -34,9 +35,11 @@ namespace S25_rpg
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            DatabaseConnection db = new DatabaseConnection();
+            db.setConnectionString(Configuration.GetConnectionString("DefaultConnection"));
+
             services.AddScoped<IAccountContext, AccountContext>();
-            services.AddScoped<IAccountCharacterContext, AccountCharacterContext>();
-            services.AddTransient(options => new DatabaseConnection(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient(options => db);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using S25_rpg.Models.Interfaces;
 
 namespace S25_rpg.Models
 {
-    public class AccountViewModel
+    public class AccountViewModel : IAccount
     {
         public int idAccount { get; set; }
         public string Username { get; set; }

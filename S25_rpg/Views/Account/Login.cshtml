@@ -13,8 +13,8 @@
     </div>
     <div class="text-center">
         <h1>@ViewData["Title"]</h1>
-        <div class="blocked-item shadow-lg p-3 mb-5 bg-white rounded">
-            @using (Html.BeginForm("CheckLogin", "Account", FormMethod.Post, new { @class = "item-center login-register-height" }))
+        <div class="blocked-item shadow-lg mb-5 bg-white rounded item-center login-register-height">
+            @using (Html.BeginForm())
             {
             @Html.AntiForgeryToken()
 

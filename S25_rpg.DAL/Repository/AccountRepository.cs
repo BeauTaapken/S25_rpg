@@ -1,9 +1,9 @@
-﻿using S25_rpg.DAL.IContext;
-using S25_rpg.Interfaces;
+﻿using S25_rpg.DAL.Interface.Account;
+using S25_rpg.Models.Interfaces;
 
 namespace S25_rpg.DAL.Repository
 {
-    public class AccountRepository
+    public class AccountRepository : IAccountContext
     {
         private readonly IAccountContext _accountContext;
 
@@ -12,7 +12,7 @@ namespace S25_rpg.DAL.Repository
             _accountContext = accountContext;
         }
 
-        public bool Login(IAccount account)
+        public IAccount Login(IAccount account)
         {
             return _accountContext.Login(account);
         }
@@ -27,9 +27,19 @@ namespace S25_rpg.DAL.Repository
             return _accountContext.CheckIfAccountExist(account);
         }
 
-        public void AddAccount(IAccount account)
+        public void CreateAccount(IAccount account)
         {
-            _accountContext.AddAccount(account);
+            _accountContext.CreateAccount(account);
+        }
+
+        public void Logout()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ICharacter AccountHasCharacter(IAccount account)
+        {
+            return _accountContext.AccountHasCharacter(account);
         }
     }
 }
