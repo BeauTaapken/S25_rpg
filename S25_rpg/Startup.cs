@@ -13,6 +13,8 @@ using S25_rpg.DAL;
 using S25_rpg.DAL.Context;
 using S25_rpg.DAL.IContext;
 using S25_rpg.DAL.Interface.Account;
+using S25_rpg.DAL.Interface.Character;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg
 {
@@ -38,7 +40,8 @@ namespace S25_rpg
             DatabaseConnection db = new DatabaseConnection();
             db.setConnectionString(Configuration.GetConnectionString("DefaultConnection"));
 
-            services.AddScoped<IAccountContext, AccountContext>();
+            services.AddScoped<IAccountContext, AccountContextSql>();
+            services.AddScoped<ICharacterContext, CharacterContextSql>();
             services.AddTransient(options => db);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

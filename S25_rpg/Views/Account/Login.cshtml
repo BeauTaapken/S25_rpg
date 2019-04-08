@@ -17,7 +17,6 @@
             @using (Html.BeginForm())
             {
             @Html.AntiForgeryToken()
-
             <div class="top-margin">
                 @Html.TextBoxFor(m => m.Username, new { @name = "username", @placeholder = "Username", @class = "form-control" })
             </div>

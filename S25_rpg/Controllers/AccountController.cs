@@ -28,24 +28,28 @@ namespace S25_rpg.Controllers
         [HttpPost]
         public IActionResult Login(AccountViewModel accountModel)
         {
-            IAccount account = accountCollectionLogic.Login(accountModel);
-
-            if (account != null)
+            if (ModelState.IsValid)
             {
-                if (account.idAccount != 0)
+                IAccount account = accountCollectionLogic.Login(accountModel);
+
+                if (account != null)
                 {
-                    Response.Cookies.Append("account", JsonConvert.SerializeObject(account));
-                    ICharacter character = accountLogic.AccountHasCharacter(account);
-                    if (character == null)
+                    if (account.idAccount != 0)
                     {
-                        return RedirectToAction("CharacterCreation", "CharacterCreation");
+                        Response.Cookies.Append("account", JsonConvert.SerializeObject(account));
+                        ICharacter character = accountLogic.AccountHasCharacter(account);
+                        if (character == null)
+                        {
+                            return RedirectToAction("CharacterCreation", "CharacterCreation");
+                        }
+                        //TODO change to main screen when logged in
+                        Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
+                        return RedirectToAction("Login", "Account");
                     }
-                    //TODO change to main screen when logged in
-                    Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
-                    return RedirectToAction("Login", "Account");
                 }
+                return RedirectToAction("Register", "Account");
             }
-            return RedirectToAction("Register", "Account");
+            return View();
         }
 
         public IActionResult Register()
@@ -54,14 +58,20 @@ namespace S25_rpg.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(AccountViewModel model, string repeatPassword)
+        public IActionResult Register(AccountAddViewModel model)
         {
-            if (model.Password == repeatPassword && !(accountCollectionLogic.CheckIfAccountExist(model)))
+            if (ModelState.IsValid)
             {
-                accountCollectionLogic.InsertAccount(model);
+                if (model.Password == model.RepeatPassword && !(accountCollectionLogic.CheckIfAccountExist(model)))
+                {
+                    accountCollectionLogic.InsertAccount(model);
+                    return RedirectToAction("Login", "Account");
+                }
+
+                return RedirectToAction("Register", "Account");
             }
 
-            return RedirectToAction("Register", "Account");
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

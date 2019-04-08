@@ -10,11 +10,6 @@ namespace S25_rpg.Logic.Logic
     {
         private IAccountRepo Repository = new AccountRepository(new AccountContextSql());
 
-        //public AccountLogic(IAccountContext accountContext)
-        //{
-        //    Repository = new AccountRepository(accountContext);
-        //}
-
         public void Logout()
         {
             Repository.Logout();
@@ -24,25 +19,5 @@ namespace S25_rpg.Logic.Logic
         {
             return Repository.AccountHasCharacter(account);
         }
-
-        //public bool Login(IAccount account)
-        //{
-        //    return Repository.Login(account);
-        //}
-
-        //public int GetUserId(IAccount account)
-        //{
-        //    return Repository.GetAccountId(account);
-        //}
-
-        //public void InsertAccount(IAccount account)
-        //{
-        //    Repository.AddAccount(account);
-        //}
-
-        //public bool CheckIfAccountExist(IAccount account)
-        //{
-        //    return Repository.CheckIfAccountExist(account);
-        //}
     }
 }

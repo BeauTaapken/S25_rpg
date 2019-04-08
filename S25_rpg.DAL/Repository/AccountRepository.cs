@@ -1,4 +1,5 @@
 ﻿using S25_rpg.DAL.Interface.Account;
+using S25_rpg.DAL.Memory;
 using S25_rpg.Models.Interfaces;
 
 namespace S25_rpg.DAL.Repository
@@ -7,9 +8,9 @@ namespace S25_rpg.DAL.Repository
     {
         private readonly IAccountContext _accountContext;
 
-        public AccountRepository(IAccountContext accountContext)
+        public AccountRepository(IAccountContext accountContext = null)
         {
-            _accountContext = accountContext;
+            _accountContext = accountContext ?? new AccountContextMemory();
         }
 
         public IAccount Login(IAccount account)

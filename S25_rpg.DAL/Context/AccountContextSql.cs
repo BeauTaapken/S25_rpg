@@ -104,7 +104,7 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
                 MySqlCommand accountHasCharacter =
-                    new MySqlCommand("SELECT Character_id FROM AccountCharacter WHERE Account_id = @accountid", mySqlConnection);
+                    new MySqlCommand("SELECT `Character_id` FROM `AccountCharacter` WHERE `Account_id` = @accountid", mySqlConnection);
                 accountHasCharacter.Parameters.AddWithValue("@accountid", account.idAccount);
 
                 MySqlDataReader reader = accountHasCharacter.ExecuteReader();
@@ -113,27 +113,28 @@ namespace S25_rpg.DAL.Context
                 {
                     characterId = (int)reader[0];
                 }
+                reader.Close();
 
                 if (characterId != 0)
                 {
-                    MySqlCommand getCharacter = new MySqlCommand("SELECT * FROM Character WHERE Id = @id", mySqlConnection);
+                    MySqlCommand getCharacter = new MySqlCommand("SELECT * FROM `Character` WHERE `Id` = @id", mySqlConnection);
                     getCharacter.Parameters.AddWithValue("@id", characterId);
 
                     MySqlDataReader characterReader = getCharacter.ExecuteReader();
                     while (characterReader.Read())
                     {
-                        c = new Character((int)reader[0], (int)reader[1], (int)reader[2], (int)reader[3], (int)reader[4], (Eyecolor)reader[5], (Haircolor)reader[6], (int)reader[7], (CharacterClass)reader[8], (string)reader[9]);
+                        c = new Character((int)characterReader[0], (int)characterReader[1], (int)characterReader[2], (int)characterReader[3], (int)characterReader[4], (Eyecolor)System.Enum.Parse(typeof(Eyecolor), characterReader[5].ToString()), (Haircolor)System.Enum.Parse(typeof(Haircolor), characterReader[6].ToString()), (int)characterReader[7], (CharacterClass)System.Enum.Parse(typeof(CharacterClass), characterReader[8].ToString()), (string)characterReader[9]);
                     }
+                    characterReader.Close();
                 }
-
-                return c;
             }
             catch
             {
-                return c;
+
             }
             finally
             {
+                return c;
                 mySqlConnection.Close();
             }
         }

@@ -2,7 +2,7 @@
     ViewData["Title"] = "Register";
 }
 
-@model AccountViewModel
+@model AccountAddViewModel
 
 <div class="horizontal-center-register font-size">
     <div class="text-right">
@@ -11,22 +11,22 @@
 
     <div class="text-center ">
         <h1>@ViewData["Title"]</h1>
-        <div class="blocked-item shadow-lg p-3 mb-5 bg-white rounded">
-            @using (Html.BeginForm("AddAccount", "Account", FormMethod.Post, new { @class = "item-center login-register-height" }))
+        <div class="blocked-item shadow-lg mb-5 bg-white rounded item-center login-register-height">
+            @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
 
                 <div class="top-margin">
-                    @Html.TextBoxFor(m => m.Username, new { @name = "username", @placeholder = "Username", @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Username, new { @placeholder = "Username", @class = "form-control" })
                 </div>
                 <div class="in-between-margin">
-                    @Html.PasswordFor(m => m.Password, new { @name = "password", @placeholder = "Password", @class = "form-control" })
+                    @Html.PasswordFor(m => m.Password, new { @placeholder = "Password", @class = "form-control" })
                 </div>
                 <div class="in-between-margin">
-                    <input type="password" name="repeatpassword" placeholder="Repeat password" class="form-control" />
+                    @Html.PasswordFor(m => m.RepeatPassword, new { @placeholder = "Repeat password", @class = "form-control" })
                 </div>
                 <div class="in-between-margin">
-                    @Html.TextBoxFor(m => m.Email, new { @name = "email", @placeholder = "Email", @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email", @class = "form-control" })
                 </div>
                 <input type="submit" value="Register" class="btn btn-primary float-right align-button-hovering-box" />
             }

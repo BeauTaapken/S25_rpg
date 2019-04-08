@@ -7,16 +7,16 @@
 
 <div class="horizontal-center-register font-size text-center">
     <h1>@ViewData["Title"]</h1>
-    <div class="text-center blocked-item shadow-lg p-3 mb-5 bg-white rounded item-center login-register-height">
+    <div class="text-center blocked-item shadow-lg mb-5 bg-white rounded item-center login-register-height">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
             <div class="top-margin">
-                @Html.DropDownListFor(m => m.Haircolor_id, new SelectList(@ViewBag.Haircolor), "-- Select haircolor--", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Haircolor, new SelectList(@ViewBag.Haircolor), "-- Select haircolor--", new { @class = "form-control" })
             </div>
             <div class="in-between-margin">
-                @Html.DropDownListFor(m => m.Eyecolor_id, new SelectList(@ViewBag.Eyecolor), "-- Select eyecolor--", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Eyecolor, new SelectList(@ViewBag.Eyecolor), "-- Select eyecolor--", new { @class = "form-control" })
             </div>
             <div class="in-between-margin">
                 @Html.TextBoxFor(m => m.Height, new { @name = "height", @placeholder = "Height in cm", @class = "form-control", @type = "number" })
@@ -25,7 +25,7 @@
                 @Html.TextBoxFor(m => m.Weight, new { @name = "weight", @placeholder = "Weight in kg", @class = "form-control", @type = "number" })
             </div>
             <div class="in-between-margin">
-                @Html.DropDownListFor(m => m.CharacterClass_id, new SelectList(@ViewBag.CharacterClass), "-- Select class--", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.CharacterClass, new SelectList(@ViewBag.CharacterClass), "-- Select class--", new { @class = "form-control" })
             </div>
             <div class="in-between-margin">
                 <input type="number" class="d-none" value="@ViewBag.userId" name="userId" />
