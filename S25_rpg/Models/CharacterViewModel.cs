@@ -18,11 +18,12 @@ namespace S25_rpg.Models
         public int CurrentExp { get; set; }
         [Required]
         public int CurrentLevel { get; set; }
+        public int Gold { get; set; }
         [Required]
         public Eyecolor Eyecolor { get; set; }
         [Required]
         public Haircolor Haircolor { get; set; }
-        public int Unlockpoint { get; set; }
+        public int QuestLevel { get; set; }
         [Required]
         public CharacterClass CharacterClass { get; set; }
         public string StartPage { get; set; }

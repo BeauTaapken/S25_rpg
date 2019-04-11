@@ -12,23 +12,25 @@ namespace S25_rpg.Models.Models
         public int Height { get; set; }
         public int CurrentExp { get; set; }
         public int CurrentLevel { get; set; }
+        public int Gold { get; set; }
         public Eyecolor Eyecolor { get; set; }
         public Haircolor Haircolor { get; set; }
-        public int Unlockpoint { get; set; }
+        public int QuestLevel { get; set; }
         public CharacterClass CharacterClass { get; set; }
         public string StartPage { get; set; }
 
-        public Character(int idcharacter, int weight, int height, int currentExp, int currentLevel, Eyecolor eyecolor,
-            Haircolor haircolor, int unlockpoint, CharacterClass characterClass, string startingPage)
+        public Character(int idcharacter, int weight, int height, int currentExp, int currentLevel, int gold, Eyecolor eyecolor,
+            Haircolor haircolor, int questLevel, CharacterClass characterClass, string startingPage)
         {
             idCharacter = idcharacter;
             Weight = weight;
             Height = height;
             CurrentExp = currentExp;
             CurrentLevel = currentLevel;
+            Gold = gold;
             Eyecolor = eyecolor;
             Haircolor = haircolor;
-            Unlockpoint = unlockpoint;
+            QuestLevel = questLevel;
             CharacterClass = characterClass;
             StartPage = startingPage;
         }

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "Tavern";
+}
+
+<div class="font-size text-center pt-10">
+    <div class="text-right">
+        <button class="btn btn-primary">@Html.ActionLink("Back to Town", "Index", "Town", null, new { @class = "white-link font-size" })</button>
+    </div>
+    <h1>Tavern</h1>
+    <button class="btn btn-primary">@Html.ActionLink("Sleep", "Tavern", "Town", null, new { @class = "white-link font-size" })</button>
+    <button class="btn btn-primary">@Html.ActionLink("Quests", "Quest", "Town", null, new { @class = "white-link font-size" })</button>
+</div>

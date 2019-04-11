@@ -17,6 +17,7 @@ namespace S25_rpg.Models
         [Required]
         public string RepeatPassword { get; set; }
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
     }
 }

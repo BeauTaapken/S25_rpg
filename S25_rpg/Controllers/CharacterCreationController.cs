@@ -13,7 +13,7 @@ namespace S25_rpg.Controllers
 {
     public class CharacterCreationController : Controller
     {
-        CharacterCollectionLogic characterCollectionLogic = new CharacterCollectionLogic();
+        CharacterContainerLogic _characterContainerLogic = new CharacterContainerLogic();
 
         public IActionResult CharacterCreation()
         {
@@ -28,8 +28,13 @@ namespace S25_rpg.Controllers
         {
             if (ModelState.IsValid)
             {
-                ICharacter c = characterCollectionLogic.AddCharacter(character, JsonConvert.DeserializeObject<Account>(Request.Cookies["account"]));
-                Response.Cookies.Append("character", JsonConvert.SerializeObject(c));
+                ICharacter c = _characterContainerLogic.AddCharacter(character, JsonConvert.DeserializeObject<Account>(Request.Cookies["account"]));
+                if (c != null)
+                {
+                    Response.Cookies.Append("character", JsonConvert.SerializeObject(c));
+                    return RedirectToAction("Index", "Town");
+                }
+                
             }
 
             ViewBag.Haircolor = Enum.GetValues(typeof(Haircolor));

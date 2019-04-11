@@ -1,7 +1,6 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 using S25_rpg.DAL.Dto;
-using S25_rpg.DAL.IContext;
 using S25_rpg.DAL.Interface.Account;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
@@ -123,18 +122,20 @@ namespace S25_rpg.DAL.Context
                     MySqlDataReader characterReader = getCharacter.ExecuteReader();
                     while (characterReader.Read())
                     {
-                        c = new Character((int)characterReader[0], (int)characterReader[1], (int)characterReader[2], (int)characterReader[3], (int)characterReader[4], (Eyecolor)System.Enum.Parse(typeof(Eyecolor), characterReader[5].ToString()), (Haircolor)System.Enum.Parse(typeof(Haircolor), characterReader[6].ToString()), (int)characterReader[7], (CharacterClass)System.Enum.Parse(typeof(CharacterClass), characterReader[8].ToString()), (string)characterReader[9]);
+
+                        c = new Character((int)characterReader[0], (int)characterReader[1], (int)characterReader[2], (int)characterReader[3], (int)characterReader[4], (int)characterReader[5], (Eyecolor)System.Enum.Parse(typeof(Eyecolor), characterReader[6].ToString()), (Haircolor)System.Enum.Parse(typeof(Haircolor), characterReader[7].ToString()), (int)characterReader[8], (CharacterClass)System.Enum.Parse(typeof(CharacterClass), characterReader[9].ToString()), (string)characterReader[10]);
                     }
                     characterReader.Close();
                 }
+
+                return c;
             }
             catch
             {
-
+                return c;
             }
             finally
             {
-                return c;
                 mySqlConnection.Close();
             }
         }

@@ -14,7 +14,7 @@ namespace S25_rpg.DAL.Memory
         public CharacterContextMemory()
         {
             characters = new List<ICharacter>();
-            characters.Add(new Character(1, 10, 10, 10, 10, Eyecolor.Blue, Haircolor.Black, 0, CharacterClass.Warrior, "http://"));
+            characters.Add(new Character(1, 10, 10, 10, 10, 10, Eyecolor.Blue, Haircolor.Black, 0, CharacterClass.Warrior, "http://"));
         }
 
         public ICharacter AccountHasCharacter(IAccount account)

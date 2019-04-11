@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using S25_rpg.DAL;
-using S25_rpg.DAL.IContext;
 using S25_rpg.DAL.Interface.Account;
 using S25_rpg.Logic;
 using S25_rpg.Logic.Logic;
@@ -18,7 +17,7 @@ namespace S25_rpg.Controllers
     public class AccountController : Controller
     {
         AccountLogic accountLogic = new AccountLogic();
-        AccountCollectionLogic accountCollectionLogic = new AccountCollectionLogic();
+        AccountContainerLogic _accountContainerLogic = new AccountContainerLogic();
 
         public IActionResult Login()
         {
@@ -30,7 +29,7 @@ namespace S25_rpg.Controllers
         {
             if (ModelState.IsValid)
             {
-                IAccount account = accountCollectionLogic.Login(accountModel);
+                IAccount account = _accountContainerLogic.Login(accountModel);
 
                 if (account != null)
                 {
@@ -42,9 +41,8 @@ namespace S25_rpg.Controllers
                         {
                             return RedirectToAction("CharacterCreation", "CharacterCreation");
                         }
-                        //TODO change to main screen when logged in
                         Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
-                        return RedirectToAction("Login", "Account");
+                        return RedirectToAction("Index", "Town");
                     }
                 }
                 return RedirectToAction("Register", "Account");
@@ -62,9 +60,9 @@ namespace S25_rpg.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.Password == model.RepeatPassword && !(accountCollectionLogic.CheckIfAccountExist(model)))
+                if (model.Password == model.RepeatPassword && !(_accountContainerLogic.CheckIfAccountExist(model)))
                 {
-                    accountCollectionLogic.InsertAccount(model);
+                    _accountContainerLogic.InsertAccount(model);
                     return RedirectToAction("Login", "Account");
                 }
 

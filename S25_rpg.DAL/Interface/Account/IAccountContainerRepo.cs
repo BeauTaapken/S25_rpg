@@ -5,7 +5,7 @@ using S25_rpg.Models.Interfaces;
 
 namespace S25_rpg.DAL.Interface.Account
 {
-    public interface IAccountCollectionRepo
+    public interface IAccountContainerRepo
     {
         IAccount Login(IAccount account);
 
