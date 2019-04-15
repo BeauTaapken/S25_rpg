@@ -16,7 +16,7 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
                 MySqlCommand createCharacter = new MySqlCommand(
-                    "INSERT INTO `Character` (`Weight`, `Height`, `CurrentExp`, `CurrentLevel`, `Eyecolor`, `Haircolor`, `QuestLevel`, `Class`, `PageUrl`) " +
+                    "INSERT INTO `character` (`Weight`, `Height`, `CurrentExp`, `CurrentLevel`, `Eyecolor`, `Haircolor`, `QuestLevel`, `Class`, `PageUrl`) " +
                     "VALUES (@weight, @height, @currentExp, @currentLevel, @eyecolor, @haircolor, @questlevel, @class, @pageurl)", mySqlConnection);
                 createCharacter.Parameters.AddWithValue("@weight", character.Weight);
                 createCharacter.Parameters.AddWithValue("@height", character.Height);
@@ -29,7 +29,7 @@ namespace S25_rpg.DAL.Context
                 createCharacter.Parameters.AddWithValue("@pageurl", "");
                 createCharacter.ExecuteNonQuery();
 
-                MySqlCommand getCharacter = new MySqlCommand("SELECT * FROM `Character` ORDER BY Id DESC LIMIT 1", mySqlConnection);
+                MySqlCommand getCharacter = new MySqlCommand("SELECT * FROM `character` ORDER BY Id DESC LIMIT 1", mySqlConnection);
                 MySqlDataReader reader = getCharacter.ExecuteReader();
                 while (reader.Read())
                 {
@@ -37,7 +37,7 @@ namespace S25_rpg.DAL.Context
                 }
                 reader.Close();
 
-                MySqlCommand coupleCharacterAccount = new MySqlCommand("INSERT INTO `AccountCharacter` (`Account_id`, `Character_id`) VALUES (@account, @character)", mySqlConnection);
+                MySqlCommand coupleCharacterAccount = new MySqlCommand("INSERT INTO `accountcharacter` (`Account_id`, `Character_id`) VALUES (@account, @character)", mySqlConnection);
                 coupleCharacterAccount.Parameters.AddWithValue("@account", id);
                 coupleCharacterAccount.Parameters.AddWithValue("@character", c.idCharacter);
                 coupleCharacterAccount.ExecuteNonQuery();

@@ -11,6 +11,26 @@ namespace S25_rpg.DAL.Context
 {
     public class QuestContextSql : DatabaseConnection, IQuestContext
     {
+        public void CompleteQuest(ICharacter character, IQuest quest)
+        {
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand updateCharacterQuest = new MySqlCommand("UPDATE characterquest SET Completed=1 WHERE Character_id = @charid AND Quest_id = @questid", mySqlConnection);
+                updateCharacterQuest.Parameters.AddWithValue("@charid", character.idCharacter);
+                updateCharacterQuest.Parameters.AddWithValue("@questid", quest.Id);
+                updateCharacterQuest.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+        }
+
         public IEnumerable<IQuest> GetAllAccapteableQuests(ICharacter character)
         {
             IEnumerable<IQuest> quests = new List<IQuest>();
@@ -18,7 +38,7 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
 
-                MySqlCommand getAllAcceptableQuests = new MySqlCommand("SELECT Quest.*, characterquest.Completed FROM Quest LEFT JOIN `characterquest` ON quest.Id = characterquest.Quest_id AND characterquest.Character_id = @id", mySqlConnection);
+                MySqlCommand getAllAcceptableQuests = new MySqlCommand("SELECT quest.*, characterquest.Completed FROM quest LEFT JOIN `characterquest` ON quest.Id = characterquest.Quest_id AND characterquest.Character_id = @id", mySqlConnection);
                 getAllAcceptableQuests.Parameters.AddWithValue("@id", character.idCharacter);
                 MySqlDataReader reader = getAllAcceptableQuests.ExecuteReader();
                 List<IQuest> quest = new List<IQuest>();
@@ -47,7 +67,7 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
 
-                MySqlCommand getAllAcceptedQuests = new MySqlCommand("SELECT * FROM `quest` INNER JOIN `characterquest` ON quest.Id = characterquest.Quest_id WHERE characterquest.Character_id = @characterid", mySqlConnection);
+                MySqlCommand getAllAcceptedQuests = new MySqlCommand("SELECT * FROM `quest` INNER JOIN `characterquest` ON quest.Id = characterquest.Quest_id WHERE characterquest.Character_id = @characterid AND characterquest.Completed = 0", mySqlConnection);
                 getAllAcceptedQuests.Parameters.AddWithValue("@characterid", character.idCharacter);
                 MySqlDataReader reader = getAllAcceptedQuests.ExecuteReader();
                 List<IQuest> quest = new List<IQuest>();
@@ -62,6 +82,26 @@ namespace S25_rpg.DAL.Context
             catch
             {
                 return quests;
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+        }
+
+        public void StartQuest(ICharacter character, IQuest quest)
+        {
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand insertCharacterQuest = new MySqlCommand("INSERT INTO characterquest (Character_id, Quest_id, Completed) VALUES (@charid, @questid, 0) ON DUPLICATE KEY UPDATE Completed = 0", mySqlConnection);
+                insertCharacterQuest.Parameters.AddWithValue("@charid", character.idCharacter);
+                insertCharacterQuest.Parameters.AddWithValue("@questid", quest.Id);
+                insertCharacterQuest.ExecuteNonQuery();
+            }
+            catch
+            {
+                
             }
             finally
             {

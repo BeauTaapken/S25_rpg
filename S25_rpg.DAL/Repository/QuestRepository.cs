@@ -26,5 +26,15 @@ namespace S25_rpg.DAL.Repository
         {
             return _questContext.GetAllAccapteableQuests(character);
         }
+
+        public void CompleteQuest(ICharacter character, IQuest quest)
+        {
+            _questContext.CompleteQuest(character, quest);
+        }
+
+        public void StartQuest(ICharacter character, IQuest quest)
+        {
+            _questContext.StartQuest(character, quest);
+        }
     }
 }

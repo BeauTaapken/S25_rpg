@@ -37,7 +37,7 @@ namespace S25_rpg
             });
 
             DatabaseConnection db = new DatabaseConnection();
-            db.setConnectionString(Configuration.GetConnectionString("DefaultConnection"));
+            db.setConnectionString(Configuration.GetConnectionString("LocalhostConnection"));
 
             services.AddScoped<IAccountContext, AccountContextSql>();
             services.AddScoped<ICharacterContext, CharacterContextSql>();

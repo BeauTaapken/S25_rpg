@@ -21,7 +21,8 @@
                     @quest.Name
                     <div class="float-right mr-2">
                         <i class="fas fa-info-circle pointer" onclick="openModalWithData('@quest.Name', '@quest.Description', '@quest.ClearRequirement', '@quest.Reward')"></i>
-                        <button>Complete</button>
+                        @* TODO Find a good way to check if the quest can be completed(also in the backend) *@
+                        <button class="btn btn-dark">@Html.ActionLink("Complete", "CompleteQuest", "Town", new {quest.Id}, new { @class = "white-link font-size"})</button>
                     </div><br />
                 </div>
             }

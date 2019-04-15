@@ -17,6 +17,7 @@ namespace S25_rpg.Controllers
     {
         private NewsContainerLogic _newsContainerLogic = new NewsContainerLogic();
         private QuestContainerLogic _questContainerLogic = new QuestContainerLogic();
+        private QuestLogic _questLogic = new QuestLogic();
 
         public IActionResult Index()
         {
@@ -48,7 +49,13 @@ namespace S25_rpg.Controllers
         
         public IActionResult AcceptQuest(QuestViewModel model)
         {
-            //TODO add accepted quest to character
+            _questLogic.StartQuest(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), model);
+            return RedirectToAction("Quest");
+        }
+
+        public IActionResult CompleteQuest(QuestViewModel model)
+        {
+            _questLogic.CompleteQuest(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), model);
             return RedirectToAction("Quest");
         }
     }

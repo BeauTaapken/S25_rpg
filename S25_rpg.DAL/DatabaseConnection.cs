@@ -11,10 +11,5 @@ namespace S25_rpg.DAL
         }
 
         protected static MySqlConnection mySqlConnection { get; set; }
-
-        public MySqlCommand mySqlCommand(string command)
-        {
-            return new MySqlCommand(command, mySqlConnection);
-        }
     }
 }

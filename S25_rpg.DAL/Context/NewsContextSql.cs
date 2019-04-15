@@ -16,7 +16,7 @@ namespace S25_rpg.DAL.Context
             try
             {
                 mySqlConnection.Open();
-                MySqlCommand getNews = mySqlCommand("SELECT * FROM News ORDER BY Id DESC");
+                MySqlCommand getNews = new MySqlCommand("SELECT * FROM news ORDER BY Id DESC", mySqlConnection);
                 MySqlDataReader reader = getNews.ExecuteReader();
                 while (reader.Read())
                 {
@@ -25,7 +25,7 @@ namespace S25_rpg.DAL.Context
                 reader.Close();
                 return news;
             }
-            catch
+            catch(Exception ex)
             {
                 return news;
             }

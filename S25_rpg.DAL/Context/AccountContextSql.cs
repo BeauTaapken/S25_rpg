@@ -18,7 +18,7 @@ namespace S25_rpg.DAL.Context
                 mySqlConnection.Open();
 
                 MySqlCommand login = new MySqlCommand(
-                    "SELECT * FROM Account WHERE Username = @username AND Password = @password",
+                    "SELECT * FROM account WHERE Username = @username AND Password = @password",
                     mySqlConnection);
                 login.Parameters.AddWithValue("@username", account.Username);
                 login.Parameters.AddWithValue("@password", account.Password);
@@ -33,7 +33,7 @@ namespace S25_rpg.DAL.Context
 
                 return a;
             }
-            catch
+            catch(MySqlException ex)
             {
                 return a;
             }
@@ -50,7 +50,7 @@ namespace S25_rpg.DAL.Context
                 mySqlConnection.Open();
 
                 MySqlCommand checkIfAccountExists =
-                    new MySqlCommand("SELECT * FROM Account WHERE Username = @username OR Email = @email",
+                    new MySqlCommand("SELECT * FROM account WHERE Username = @username OR Email = @email",
                         mySqlConnection);
                 checkIfAccountExists.Parameters.AddWithValue("@username", account.Username);
                 checkIfAccountExists.Parameters.AddWithValue("@email", account.Email);
@@ -78,7 +78,7 @@ namespace S25_rpg.DAL.Context
                 mySqlConnection.Open();
                 MySqlCommand addAccount =
                     new MySqlCommand(
-                        "INSERT INTO Account (Username, Password, Email) VALUES (@username, @password, @email)",
+                        "INSERT INTO account (Username, Password, Email) VALUES (@username, @password, @email)",
                         mySqlConnection);
                 addAccount.Parameters.AddWithValue("@username", account.Username);
                 addAccount.Parameters.AddWithValue("@password", account.Password);
@@ -103,7 +103,7 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
                 MySqlCommand accountHasCharacter =
-                    new MySqlCommand("SELECT `Character_id` FROM `AccountCharacter` WHERE `Account_id` = @accountid", mySqlConnection);
+                    new MySqlCommand("SELECT `Character_id` FROM `accountcharacter` WHERE `Account_id` = @accountid", mySqlConnection);
                 accountHasCharacter.Parameters.AddWithValue("@accountid", account.idAccount);
 
                 MySqlDataReader reader = accountHasCharacter.ExecuteReader();
@@ -116,7 +116,7 @@ namespace S25_rpg.DAL.Context
 
                 if (characterId != 0)
                 {
-                    MySqlCommand getCharacter = new MySqlCommand("SELECT * FROM `Character` WHERE `Id` = @id", mySqlConnection);
+                    MySqlCommand getCharacter = new MySqlCommand("SELECT * FROM `character` WHERE `Id` = @id", mySqlConnection);
                     getCharacter.Parameters.AddWithValue("@id", characterId);
 
                     MySqlDataReader characterReader = getCharacter.ExecuteReader();
@@ -149,7 +149,7 @@ namespace S25_rpg.DAL.Context
 
                 MySqlCommand getAccount =
                     new MySqlCommand(
-                        "SELECT idAccount FROM Account WHERE Username = @username AND Password = @password",
+                        "SELECT idAccount FROM account WHERE Username = @username AND Password = @password",
                         mySqlConnection);
 
                 getAccount.Parameters.AddWithValue("@username", account.Username);

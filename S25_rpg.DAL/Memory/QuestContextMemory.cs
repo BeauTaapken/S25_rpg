@@ -17,5 +17,15 @@ namespace S25_rpg.DAL.Memory
         {
             throw new NotImplementedException();
         }
+
+        public void CompleteQuest(ICharacter character, IQuest quest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartQuest(ICharacter character, IQuest quest)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
