@@ -13,6 +13,7 @@ namespace S25_rpg.Logic.Logic
     {
         private IQuestContainerRepo repo = new QuestRepository(new QuestContextSql());
 
+
         public IEnumerable<IQuest> GetAllAcceptableQuests(ICharacter character)
         {
             IEnumerable<IQuest> quests = repo.GetAllAccapteableQuests(character);

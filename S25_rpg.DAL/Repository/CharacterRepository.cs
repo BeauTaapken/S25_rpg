@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using S25_rpg.DAL.Interface;
 using S25_rpg.DAL.Interface.Character;
+using S25_rpg.DAL.Memory;
 using S25_rpg.Models.Interfaces;
 
 namespace S25_rpg.DAL.Repository
@@ -11,9 +12,9 @@ namespace S25_rpg.DAL.Repository
     {
         private ICharacterContext _characterContext;
 
-        public CharacterRepository(ICharacterContext characterContext)
+        public CharacterRepository(ICharacterContext characterContext = null)
         {
-            _characterContext = characterContext;
+            _characterContext = characterContext ?? new CharacterContextMemory();
         }
 
         public ICharacter AddCharacter(ICharacter character, int id)

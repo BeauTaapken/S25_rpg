@@ -4,6 +4,15 @@ using System.Text;
 
 namespace S25_rpg.Models
 {
+    public enum Equiplocation
+    {
+        Head,
+        Body,
+        Legs,
+        Left,
+        Right
+    }
+
     public enum Eyecolor
     {
         Blue,

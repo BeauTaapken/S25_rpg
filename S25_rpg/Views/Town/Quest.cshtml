@@ -20,7 +20,7 @@
                 <div class="h-50px pt-1">
                     @quest.Name
                     <div class="float-right mr-2">
-                        <i class="fas fa-info-circle pointer" onclick="openModalWithData('@quest.Name', '@quest.Description', '@quest.ClearRequirement', '@quest.Reward')"></i>
+                        <i class="fas fa-info-circle pointer" onclick="openModalWithData('@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
                         @* TODO Find a good way to check if the quest can be completed(also in the backend) *@
                         <button class="btn btn-dark">@Html.ActionLink("Complete", "CompleteQuest", "Town", new {quest.Id}, new { @class = "white-link font-size"})</button>
                     </div><br />
@@ -41,7 +41,7 @@
                     <div class="h-50px pt-1">
                         @quest.Name
                         <div class="float-right mr-2">
-                            <i class="fas fa-info-circle pointer" onclick="openModalWithData('@quest.Name', '@quest.Description', '@quest.ClearRequirement', '@quest.Reward')"></i>
+                            <i class="fas fa-info-circle pointer" onclick="openModalWithData('@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
                             <button class="btn btn-dark">@Html.ActionLink("Accept", "AcceptQuest", "Town", new {quest.Id}, new { @class = "white-link font-size" })</button>
                         </div><br />
                     </div>

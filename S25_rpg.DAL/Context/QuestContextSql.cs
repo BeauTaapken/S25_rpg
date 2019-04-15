@@ -38,13 +38,13 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
 
-                MySqlCommand getAllAcceptableQuests = new MySqlCommand("SELECT quest.*, characterquest.Completed FROM quest LEFT JOIN `characterquest` ON quest.Id = characterquest.Quest_id AND characterquest.Character_id = @id", mySqlConnection);
+                MySqlCommand getAllAcceptableQuests = new MySqlCommand("SELECT `quest`.*, `characterquest`.Completed, reward.Name, `clear`.Name FROM quest LEFT JOIN `characterquest` ON quest.Id = characterquest.Quest_id AND characterquest.Character_id = @id INNER JOIN `item` reward ON `quest`.RewardItem = reward.Id INNER JOIN `item` `clear` ON `quest`.ClearItem = `clear`.Id", mySqlConnection);
                 getAllAcceptableQuests.Parameters.AddWithValue("@id", character.idCharacter);
                 MySqlDataReader reader = getAllAcceptableQuests.ExecuteReader();
                 List<IQuest> quest = new List<IQuest>();
                 while (reader.Read())
                 {
-                    quest.Add(new Quest((int) reader[0], (string) reader[1], (string) reader[2], (string) reader[3], (string) reader[4], (bool) reader[5], (int) reader[6], reader[7] as bool? ?? false));
+                    quest.Add(new Quest((int) reader[0], (string) reader[1], (int) reader[2], (string) reader[10], (string) reader[4], (int) reader[5], (string) reader[11], (bool) reader[7], (int) reader[8], reader[9] as bool? ?? false));
                 }
 
                 IEnumerable<IQuest> q = quest;
@@ -67,13 +67,13 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
 
-                MySqlCommand getAllAcceptedQuests = new MySqlCommand("SELECT * FROM `quest` INNER JOIN `characterquest` ON quest.Id = characterquest.Quest_id WHERE characterquest.Character_id = @characterid AND characterquest.Completed = 0", mySqlConnection);
+                MySqlCommand getAllAcceptedQuests = new MySqlCommand("SELECT quest.*, reward.Name, `clear`.Name FROM `quest` INNER JOIN `item` reward ON `quest`.RewardItem = reward.Id INNER JOIN `item` `clear` ON `quest`.ClearItem = `clear`.Id INNER JOIN `characterquest` ON quest.Id = characterquest.Quest_id WHERE characterquest.Character_id = @characterid AND characterquest.Completed = 0", mySqlConnection);
                 getAllAcceptedQuests.Parameters.AddWithValue("@characterid", character.idCharacter);
                 MySqlDataReader reader = getAllAcceptedQuests.ExecuteReader();
                 List<IQuest> quest = new List<IQuest>();
                 while (reader.Read())
                 {
-                    quest.Add(new Quest((int)reader[0], (string)reader[1], (string)reader[2], (string)reader[3], (string)reader[4], (bool)reader[5], (int)reader[6]));
+                    quest.Add(new Quest((int)reader[0], (string)reader[1], (int)reader[2], (string)reader[9], (string)reader[4], (int)reader[5], (string)reader[10], (bool)reader[7], (int)reader[8]));
                 }
 
                 IEnumerable<IQuest> q = quest;
