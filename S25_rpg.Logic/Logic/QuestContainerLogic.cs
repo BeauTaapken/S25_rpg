@@ -6,6 +6,7 @@ using S25_rpg.DAL.Context;
 using S25_rpg.DAL.Interface.Quest;
 using S25_rpg.DAL.Repository;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
 {
@@ -29,9 +30,23 @@ namespace S25_rpg.Logic.Logic
             return quests;
         }
 
-        public IEnumerable<IQuest> GetAllAcceptedQuests(ICharacter character)
+        public IEnumerable<IQuest> GetAllAcceptedQuests(ICharacter character, List<Item> items)
         {
-            return repo.GetAllAcceptedQuests(character);
+            IEnumerable<IQuest> quests = repo.GetAllAcceptedQuests(character);
+            List<IQuest> copyQuests = quests.ToList();
+            foreach (IQuest quest in quests)
+            {
+                if (items.Any(x => (x.Name == quest.ClearItem) && (x.Ammount >= quest.ClearAmmount)))
+                {
+                    quest.Completable = true;
+                }
+                else
+                {
+                    quest.Completable = false;
+                }
+            }
+
+            return quests;
         }
 
         public IEnumerable<IQuest> RemoveAcceptedQuests(IEnumerable<IQuest> acceptableQuests, IEnumerable<IQuest> acceptedQuests)

@@ -1,4 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿
 using MySql.Data.MySqlClient;
 using S25_rpg.DAL.Interface.Character;
 using S25_rpg.Models;

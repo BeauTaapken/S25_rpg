@@ -11,6 +11,7 @@ using S25_rpg.Logic;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.Controllers
 {
@@ -18,6 +19,7 @@ namespace S25_rpg.Controllers
     {
         AccountLogic accountLogic = new AccountLogic();
         AccountContainerLogic _accountContainerLogic = new AccountContainerLogic();
+        ItemContainerLogic _itemContainerLogic = new ItemContainerLogic();
 
         public IActionResult Login()
         {
@@ -42,6 +44,8 @@ namespace S25_rpg.Controllers
                             return RedirectToAction("CharacterCreation", "CharacterCreation");
                         }
                         Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
+                        IEnumerable<IItem> item = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
+                        Response.Cookies.Append("items", JsonConvert.SerializeObject(item));
                         return RedirectToAction("Index", "Town");
                     }
                 }

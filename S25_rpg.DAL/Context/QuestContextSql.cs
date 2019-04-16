@@ -20,6 +20,19 @@ namespace S25_rpg.DAL.Context
                 updateCharacterQuest.Parameters.AddWithValue("@charid", character.idCharacter);
                 updateCharacterQuest.Parameters.AddWithValue("@questid", quest.Id);
                 updateCharacterQuest.ExecuteNonQuery();
+
+                MySqlCommand RemoveQuestItems = new MySqlCommand("UPDATE characteritem SET Ammount = Ammount - @gottenAmmount WHERE Item_id = @itemid && Character_id = @charid", mySqlConnection);
+                //TODO change ammount and itemid values in razor
+                RemoveQuestItems.Parameters.AddWithValue("@gottenammount", quest.ClearItemId);
+                RemoveQuestItems.Parameters.AddWithValue("@itemid", quest.ClearAmmount);
+                RemoveQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
+                RemoveQuestItems.ExecuteNonQuery();
+
+                MySqlCommand AddQuestItems = new MySqlCommand("INSERT INTO `characteritem` (Character_id, Item_id, Ammount) VALUES (@charid, @itemid, @gottenItems) ON DUPLICATE KEY UPDATE Ammount = Ammount + @gottenItems", mySqlConnection);
+                AddQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
+                AddQuestItems.Parameters.AddWithValue("@itemid", quest.RewardAmmount);
+                AddQuestItems.Parameters.AddWithValue("@gottenItems", quest.RewardItemId);
+                AddQuestItems.ExecuteNonQuery();
             }
             catch
             {
@@ -44,7 +57,7 @@ namespace S25_rpg.DAL.Context
                 List<IQuest> quest = new List<IQuest>();
                 while (reader.Read())
                 {
-                    quest.Add(new Quest((int) reader[0], (string) reader[1], (int) reader[2], (string) reader[10], (string) reader[4], (int) reader[5], (string) reader[11], (bool) reader[7], (int) reader[8], reader[9] as bool? ?? false));
+                    quest.Add(new Quest((int) reader[0], (string) reader[1], (int) reader[2], (int)reader[3], (string) reader[10], (string) reader[4], (int) reader[5], (int) reader[6], (string) reader[11], (bool) reader[7], (int) reader[8], reader[9] as bool? ?? false));
                 }
 
                 IEnumerable<IQuest> q = quest;
@@ -73,7 +86,7 @@ namespace S25_rpg.DAL.Context
                 List<IQuest> quest = new List<IQuest>();
                 while (reader.Read())
                 {
-                    quest.Add(new Quest((int)reader[0], (string)reader[1], (int)reader[2], (string)reader[9], (string)reader[4], (int)reader[5], (string)reader[10], (bool)reader[7], (int)reader[8]));
+                    quest.Add(new Quest((int)reader[0], (string)reader[1], (int)reader[2], (int)reader[3], (string)reader[9], (string)reader[4], (int)reader[5], (int)reader[6], (string)reader[10], (bool)reader[7], (int)reader[8]));
                 }
 
                 IEnumerable<IQuest> q = quest;

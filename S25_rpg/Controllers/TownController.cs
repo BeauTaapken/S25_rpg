@@ -18,6 +18,7 @@ namespace S25_rpg.Controllers
         private NewsContainerLogic _newsContainerLogic = new NewsContainerLogic();
         private QuestContainerLogic _questContainerLogic = new QuestContainerLogic();
         private QuestLogic _questLogic = new QuestLogic();
+        private ItemContainerLogic _itemContainerLogic = new ItemContainerLogic();
 
         public IActionResult Index()
         {
@@ -38,7 +39,7 @@ namespace S25_rpg.Controllers
 
         public IActionResult Quest()
         {
-            IEnumerable<IQuest> acceptedQuests = _questContainerLogic.GetAllAcceptedQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
+            IEnumerable<IQuest> acceptedQuests = _questContainerLogic.GetAllAcceptedQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), JsonConvert.DeserializeObject<List<Item>>(Request.Cookies["items"]));
             IEnumerable<IQuest> acceptableQuests = _questContainerLogic.GetAllAcceptableQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
             acceptableQuests = _questContainerLogic.RemoveAcceptedQuests(acceptableQuests, acceptedQuests);
 
@@ -47,15 +48,17 @@ namespace S25_rpg.Controllers
             return View();
         }
         
-        public IActionResult AcceptQuest(QuestViewModel model)
+        public IActionResult AcceptQuest(QuestStartViewModel model)
         {
             _questLogic.StartQuest(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), model);
             return RedirectToAction("Quest");
         }
 
-        public IActionResult CompleteQuest(QuestViewModel model)
+        public IActionResult CompleteQuest(QuestCompleteViewModel model)
         {
             _questLogic.CompleteQuest(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), model);
+            IEnumerable<IItem> item = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
+            Response.Cookies.Append("items", JsonConvert.SerializeObject(item));
             return RedirectToAction("Quest");
         }
     }
