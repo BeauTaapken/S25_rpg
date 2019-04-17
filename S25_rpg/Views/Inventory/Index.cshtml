@@ -1,0 +1,79 @@
+﻿@using S25_rpg.Models.Interfaces
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="font-size text-center pt-10">
+    <div class="text-right">
+        <button class="btn btn-primary">@Html.ActionLink("Go back to Town", "Index", "Town", null, new { @class = "white-link font-size" })</button>
+    </div>
+    <div class="font-size text-center">
+        <h1>Inventory</h1>
+        <div class="border-dark border rounded container">
+            <div class="row">
+                <div class="col border-right border-dark">
+                    Head: <br/>
+                    Body: <br/>
+                    Feet: <br/>
+                    Left hand: <br/>
+                    Right hand: <br/>
+                </div>
+                <div class="col-8">
+                    <div class="container">
+                        @{
+                            int itemsInDiv = 0;
+                            IItem i = (ViewBag.Items as IEnumerable<IItem>).Last();
+                            foreach (IItem item in ViewBag.Items)
+                            {
+                                if (itemsInDiv == 0)
+                                {
+                                    @Html.Raw("<div class='row margin-tb'>")
+                                }
+                                <div class="col">
+                                    @{
+                                        @item.Name
+                                        <i class="fas fa-info-circle pointer" onclick="openModalWithData('inventoryModal', '@item.Name', '@item.Description', '@item.Ammount', '')"></i>
+                                        if (item.Equipable)
+                                        {
+                                            <button class="btn btn-dark">Equip</button>
+                                        }
+                                    }
+                                </div>
+                                itemsInDiv = itemsInDiv + 1;
+                                if (itemsInDiv == 4 || item == i)
+                                {
+                                    @Html.Raw("</div>");
+                                    itemsInDiv = 0;
+                                }
+                            }
+                            <hr class="border-dark"/>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div id="inventoryModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="questName">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="questDescription">Modal body text goes here.</p>
+                <p id="questRequirement">Modal body text goes here.</p>
+                <p id="questReward">Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

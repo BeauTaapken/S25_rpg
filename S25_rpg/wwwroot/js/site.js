@@ -13,8 +13,8 @@ function setInfoEmpty() {
     textBar.textContent = "";
 }
 
-function openModalWithData(name, description, requirement, reward) {
-    $('#questModal').modal('toggle');
+function openModalWithData(modalname, name, description, requirement, reward) {
+    $('#' + modalname).modal('toggle');
     $(".modal-header #questName").text(name);
     $(".modal-body #questDescription").text(description);
     $(".modal-body #questRequirement").text(requirement);

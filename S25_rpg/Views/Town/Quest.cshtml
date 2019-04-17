@@ -23,7 +23,7 @@
                 <div class="h-50px pt-1">
                     @quest.Name
                     <div class="float-right mr-2">
-                        <i class="fas fa-info-circle pointer" onclick="openModalWithData('@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
+                        <i class="fas fa-info-circle pointer" onclick="openModalWithData('questModal', '@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
                         @if (quest.Completable)
                         {
                             <button class="btn btn-dark">@Html.ActionLink("Complete", "CompleteQuest", "Town", new { quest.Id, quest.Name, quest.RewardItemId, quest.RewardAmmount, quest.RewardItem, quest.ClearItemId, quest.ClearAmmount, quest.ClearItem }, new { @class = "white-link font-size" })</button>
@@ -46,7 +46,7 @@
                     <div class="h-50px pt-1">
                         @quest.Name
                         <div class="float-right mr-2">
-                            <i class="fas fa-info-circle pointer" onclick="openModalWithData('@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
+                            <i class="fas fa-info-circle pointer" onclick="openModalWithData('questModal', '@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
                             <button class="btn btn-dark">@Html.ActionLink("Accept", "AcceptQuest", "Town", new {quest.Id}, new { @class = "white-link font-size" })</button>
                         </div><br />
                     </div>
