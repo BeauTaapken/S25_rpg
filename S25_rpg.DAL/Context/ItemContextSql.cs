@@ -30,7 +30,7 @@ namespace S25_rpg.DAL.Context
 
                 return items;
             }
-            catch(Exception ex)
+            catch
             {
                 return null;
             }
@@ -40,14 +40,23 @@ namespace S25_rpg.DAL.Context
             }
         }
 
-        public void AddItem(IItem item)
+        public void AddItem(IItem item, ICharacter character)
         {
-            throw new NotImplementedException();
+            MySqlCommand AddQuestItems = new MySqlCommand("INSERT INTO `characteritem` (Character_id, Item_id, Ammount) VALUES (@charid, @itemid, @gottenItems) ON DUPLICATE KEY UPDATE Ammount = Ammount + @gottenItems", mySqlConnection);
+            AddQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
+            AddQuestItems.Parameters.AddWithValue("@itemid", item.Id);
+            AddQuestItems.Parameters.AddWithValue("@gottenItems", item.Ammount);
+            AddQuestItems.ExecuteNonQuery();
         }
 
-        public void RemoveItem(IItem item)
+        public void RemoveItem(IItem item, ICharacter character)
         {
-            throw new NotImplementedException();
+            MySqlCommand RemoveQuestItems = new MySqlCommand("UPDATE characteritem SET Ammount = Ammount - @gottenAmmount WHERE Item_id = @itemid && Character_id = @charid", mySqlConnection);
+            //TODO change ammount and itemid values in razor
+            RemoveQuestItems.Parameters.AddWithValue("@gottenammount", item.Ammount);
+            RemoveQuestItems.Parameters.AddWithValue("@itemid", item.Id);
+            RemoveQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
+            RemoveQuestItems.ExecuteNonQuery();
         }
 
         public IEnumerable<IItem> GetAllShopItems(string shopName)

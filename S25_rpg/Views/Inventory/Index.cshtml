@@ -1,4 +1,5 @@
 ﻿@using S25_rpg.Models.Interfaces
+@using S25_rpg.Models.Models
 
 @{
     ViewData["Title"] = "Index";
@@ -13,11 +14,86 @@
         <div class="border-dark border rounded container">
             <div class="row">
                 <div class="col border-right border-dark">
-                    Head: <br/>
-                    Body: <br/>
-                    Feet: <br/>
-                    Left hand: <br/>
-                    Right hand: <br/>
+                    @{
+                        //TODO Find way to get equipped item on specific spot
+                        IEquipped HeadEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Head) ?? new Equipped(0, "None", Equiplocation.Head);
+                        IEquipped BodyEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Body) ?? new Equipped(0,"None",Equiplocation.Head);
+                        IEquipped LegsEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Legs) ?? new Equipped(0, "None", Equiplocation.Head);
+                        IEquipped LeftEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Left) ?? new Equipped(0, "None", Equiplocation.Head);
+                        IEquipped RightEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Right) ?? new Equipped(0, "None", Equiplocation.Head);
+                    }
+                    <div class="container">
+                        <div class="row margin-tb">
+                            <div class="col">
+                                Head:
+                            </div>
+                            <div class="col">
+                                @HeadEquip.ItemName
+                            </div>
+                            <div class="col">
+                                @if (HeadEquip.ItemId != 0)
+                                {
+                                    <button class="btn btn-dark">Dequip</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="row margin-tb">
+                            <div class="col">
+                                Body:
+                            </div>
+                            <div class="col">
+                                @BodyEquip.ItemName
+                            </div>
+                            <div class="col">
+                                @if (BodyEquip.ItemId != 0)
+                                {
+                                    <button class="btn btn-dark">Dequip</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="row margin-tb">
+                            <div class="col">
+                                Legs:
+                            </div>
+                            <div class="col">
+                                @LegsEquip.ItemName
+                            </div>
+                            <div class="col">
+                                @if (LegsEquip.ItemId != 0)
+                                {
+                                    <button class="btn btn-dark">Dequip</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="row margin-tb">
+                            <div class="col">
+                                Left:
+                            </div>
+                            <div class="col">
+                                @LeftEquip.ItemName
+                            </div>
+                            <div class="col">
+                                @if (LeftEquip.ItemId != 0)
+                                {
+                                    <button class="btn btn-dark">Dequip</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="row margin-tb">
+                            <div class="col">
+                                Right:
+                            </div>
+                            <div class="col">
+                                @RightEquip.ItemName
+                            </div>
+                            <div class="col">
+                                @if (RightEquip.ItemId != 0)
+                                {
+                                    <button class="btn btn-dark">Dequip</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-8">
                     <div class="container">
@@ -36,7 +112,7 @@
                                         <i class="fas fa-info-circle pointer" onclick="openModalWithData('inventoryModal', '@item.Name', '@item.Description', '@item.Ammount', '')"></i>
                                         if (item.Equipable)
                                         {
-                                            <button class="btn btn-dark">Equip</button>
+                                            <button class="btn btn-dark">@Html.ActionLink("Equip", "EquipItem", "Inventory", new {item.Id, item.Location}, new { @class = "white-link font-size" })</button>
                                         }
                                     }
                                 </div>

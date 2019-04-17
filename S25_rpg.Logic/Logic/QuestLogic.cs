@@ -19,7 +19,6 @@ namespace S25_rpg.Logic.Logic
 
         public void CompleteQuest(ICharacter character, IQuest quest)
         {
-            //TODO Find a good way to check if quest can be completed(also in the frontend so there are only buttons on completable quests)
             repo.CompleteQuest(character, quest);
         }
     }

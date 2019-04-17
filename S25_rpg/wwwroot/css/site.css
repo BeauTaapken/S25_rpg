@@ -29,12 +29,6 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .margin-tb {
     margin-top: 5px;
-    margin-bottom: -10px;
-}
-
-.vr {
-    width: 1px;
-    size: 50px;
 }
 
 .px-10 {

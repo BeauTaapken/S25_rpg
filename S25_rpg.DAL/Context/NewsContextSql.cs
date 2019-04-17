@@ -25,7 +25,7 @@ namespace S25_rpg.DAL.Context
                 reader.Close();
                 return news;
             }
-            catch(Exception ex)
+            catch
             {
                 return news;
             }

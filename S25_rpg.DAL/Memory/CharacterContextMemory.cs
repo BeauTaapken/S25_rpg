@@ -26,5 +26,20 @@ namespace S25_rpg.DAL.Memory
         {
             throw new NotImplementedException();
         }
+
+        public void EditUnlockPoint(string link, ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EquipItem(IItem item, ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

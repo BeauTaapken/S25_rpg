@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using S25_rpg.DAL.Interface.Character;
 using S25_rpg.Models;
@@ -47,6 +48,60 @@ namespace S25_rpg.DAL.Context
             catch
             {
                 return null;
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+        }
+
+        public void EditUnlockPoint(string link, ICharacter character)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EquipItem(IItem item, ICharacter character)
+        {
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand equipItem = new MySqlCommand("INSERT INTO `equipped` (EquipLocation, Item_id, Character_id) VALUES (@location, @itemid, @charid) ON DUPLICATE KEY UPDATE Item_id = @itemid", mySqlConnection);
+                equipItem.Parameters.AddWithValue("@location", item.Location.ToString());
+                equipItem.Parameters.AddWithValue("@itemid", item.Id);
+                equipItem.Parameters.AddWithValue("@charid", character.idCharacter);
+                equipItem.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+        }
+
+        public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
+        {
+            IEnumerable<IEquipped> items = null;
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand getEquippedItems = new MySqlCommand("SELECT equipped.Item_id, equipped.EquipLocation, item.Name FROM `equipped` INNER JOIN `item` ON equipped.Item_id = item.Id WHERE Character_id = @charid", mySqlConnection);
+                getEquippedItems.Parameters.AddWithValue("@charid", character.idCharacter);
+                MySqlDataReader reader = getEquippedItems.ExecuteReader();
+                List<IEquipped> item = new List<IEquipped>();
+                while (reader.Read())
+                {
+                    item.Add(new Equipped((int)reader[0], (string)reader[2], (Equiplocation)System.Enum.Parse(typeof(Equiplocation), reader[1].ToString())));
+                }
+
+                items = item;
+                return items;
+            }
+            catch
+            {
+                return items;
             }
             finally
             {

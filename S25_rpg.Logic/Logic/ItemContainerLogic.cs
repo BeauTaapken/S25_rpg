@@ -15,14 +15,14 @@ namespace S25_rpg.Logic.Logic
             return repo.GetAllCharacterItems(character);
         }
 
-        public void AddItem(IItem item)
+        public void AddItem(IItem item, ICharacter character)
         {
-            repo.AddItem(item);
+            repo.AddItem(item, character);
         }
 
-        public void RemoveItem(IItem item)
+        public void RemoveItem(IItem item, ICharacter character)
         {
-            repo.RemoveItem(item);
+            repo.RemoveItem(item, character);
         }
 
         public IEnumerable<IItem> GetAllShopItems(string shopName)

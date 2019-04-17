@@ -21,14 +21,14 @@ namespace S25_rpg.DAL.Repository
             return _itemContext.GetAllCharacterItems(character);
         }
 
-        public void AddItem(IItem item)
+        public void AddItem(IItem item, ICharacter character)
         {
-            _itemContext.AddItem(item);
+            _itemContext.AddItem(item, character);
         }
 
-        public void RemoveItem(IItem item)
+        public void RemoveItem(IItem item, ICharacter character)
         {
-            _itemContext.RemoveItem(item);
+            _itemContext.RemoveItem(item, character);
         }
 
         public IEnumerable<IItem> GetAllShopItems(string shopName)

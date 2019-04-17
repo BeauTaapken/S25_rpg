@@ -51,6 +51,7 @@ namespace S25_rpg.Logic.Logic
 
         public IEnumerable<IQuest> RemoveAcceptedQuests(IEnumerable<IQuest> acceptableQuests, IEnumerable<IQuest> acceptedQuests)
         {
+            //Gets all the IQuests from acceptableQuests that aren't in the acceptedQuests list
             acceptableQuests = acceptableQuests.ToList().Where(x => acceptedQuests.ToList().All(y => x.Id != y.Id));
             return acceptableQuests;
         }

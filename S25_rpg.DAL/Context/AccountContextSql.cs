@@ -33,7 +33,7 @@ namespace S25_rpg.DAL.Context
 
                 return a;
             }
-            catch(MySqlException ex)
+            catch
             {
                 return a;
             }

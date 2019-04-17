@@ -14,6 +14,7 @@ namespace S25_rpg.Controllers
     public class CharacterCreationController : Controller
     {
         CharacterContainerLogic _characterContainerLogic = new CharacterContainerLogic();
+        CharacterLogic characterLogic = new CharacterLogic();
 
         public IActionResult CharacterCreation()
         {
@@ -32,6 +33,8 @@ namespace S25_rpg.Controllers
                 if (c != null)
                 {
                     Response.Cookies.Append("character", JsonConvert.SerializeObject(c));
+                    IEnumerable<IEquipped> equipped = characterLogic.GetEquippedItems(character);
+                    Response.Cookies.Append("equipped", JsonConvert.SerializeObject(equipped));
                     return RedirectToAction("Index", "Town");
                 }
                 

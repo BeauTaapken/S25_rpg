@@ -4,7 +4,7 @@ using System.Text;
 
 namespace S25_rpg.DAL.Interface.Character
 {
-    public interface ICharacterContext : ICharacterContainerRepo
+    public interface ICharacterContext : ICharacterRepo, ICharacterContainerRepo
     {
     }
 }

@@ -21,5 +21,20 @@ namespace S25_rpg.DAL.Repository
         {
             return _characterContext.AddCharacter(character, id);
         }
+
+        public void EditUnlockPoint(string link, ICharacter character)
+        {
+            _characterContext.EditUnlockPoint(link, character);
+        }
+
+        public void EquipItem(IItem item, ICharacter character)
+        {
+            _characterContext.EquipItem(item, character);
+        }
+
+        public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
+        {
+            return _characterContext.GetEquippedItems(character);
+        }
     }
 }

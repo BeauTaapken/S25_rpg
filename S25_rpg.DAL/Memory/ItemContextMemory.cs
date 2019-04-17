@@ -13,12 +13,12 @@ namespace S25_rpg.DAL.Memory
             throw new NotImplementedException();
         }
 
-        public void AddItem(IItem item)
+        public void AddItem(IItem item, ICharacter character)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveItem(IItem item)
+        public void RemoveItem(IItem item, ICharacter character)
         {
             throw new NotImplementedException();
         }
