@@ -23,15 +23,15 @@ namespace S25_rpg.DAL.Context
 
                 MySqlCommand RemoveQuestItems = new MySqlCommand("UPDATE characteritem SET Ammount = Ammount - @gottenAmmount WHERE Item_id = @itemid && Character_id = @charid", mySqlConnection);
                 //TODO change ammount and itemid values in razor
-                RemoveQuestItems.Parameters.AddWithValue("@gottenammount", quest.ClearItemId);
-                RemoveQuestItems.Parameters.AddWithValue("@itemid", quest.ClearAmmount);
+                RemoveQuestItems.Parameters.AddWithValue("@gottenammount", quest.ClearAmmount);
+                RemoveQuestItems.Parameters.AddWithValue("@itemid", quest.ClearItemId);
                 RemoveQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
                 RemoveQuestItems.ExecuteNonQuery();
 
                 MySqlCommand AddQuestItems = new MySqlCommand("INSERT INTO `characteritem` (Character_id, Item_id, Ammount) VALUES (@charid, @itemid, @gottenItems) ON DUPLICATE KEY UPDATE Ammount = Ammount + @gottenItems", mySqlConnection);
                 AddQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
-                AddQuestItems.Parameters.AddWithValue("@itemid", quest.RewardAmmount);
-                AddQuestItems.Parameters.AddWithValue("@gottenItems", quest.RewardItemId);
+                AddQuestItems.Parameters.AddWithValue("@itemid", quest.RewardItemId);
+                AddQuestItems.Parameters.AddWithValue("@gottenItems", quest.RewardAmmount);
                 AddQuestItems.ExecuteNonQuery();
             }
             catch

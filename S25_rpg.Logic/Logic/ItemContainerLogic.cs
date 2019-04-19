@@ -12,6 +12,7 @@ namespace S25_rpg.Logic.Logic
 
         public IEnumerable<IItem> GetAllCharacterItems(ICharacter character)
         {
+            //TODO Remove all items that have ammount of 0
             return repo.GetAllCharacterItems(character);
         }
 

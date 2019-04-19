@@ -15,12 +15,11 @@
             <div class="row">
                 <div class="col border-right border-dark">
                     @{
-                        //TODO Find way to get equipped item on specific spot
                         IEquipped HeadEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Head) ?? new Equipped(0, "None", Equiplocation.Head);
-                        IEquipped BodyEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Body) ?? new Equipped(0,"None",Equiplocation.Head);
-                        IEquipped LegsEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Legs) ?? new Equipped(0, "None", Equiplocation.Head);
-                        IEquipped LeftEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Left) ?? new Equipped(0, "None", Equiplocation.Head);
-                        IEquipped RightEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Right) ?? new Equipped(0, "None", Equiplocation.Head);
+                        IEquipped BodyEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Body) ?? new Equipped(0,"None",Equiplocation.Body);
+                        IEquipped LegsEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Legs) ?? new Equipped(0, "None", Equiplocation.Legs);
+                        IEquipped LeftEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Left) ?? new Equipped(0, "None", Equiplocation.Left);
+                        IEquipped RightEquip = (ViewBag.Equipped as IEnumerable<IEquipped>).FirstOrDefault(x => x.ItemLocation == Equiplocation.Right) ?? new Equipped(0, "None", Equiplocation.Right);
                     }
                     <div class="container">
                         <div class="row margin-tb">

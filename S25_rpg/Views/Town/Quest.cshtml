@@ -16,43 +16,73 @@
         <h2 class="text-center">
             Accepted quests
         </h2>
-        @{
-            foreach (IQuest quest in ViewBag.AcceptedQuests)
-            {
-                <hr />
-                <div class="h-50px pt-1">
-                    @quest.Name
-                    <div class="float-right mr-2">
-                        <i class="fas fa-info-circle pointer" onclick="openModalWithData('questModal', '@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
-                        @if (quest.Completable)
-                        {
-                            <button class="btn btn-dark">@Html.ActionLink("Complete", "CompleteQuest", "Town", new { quest.Id, quest.Name, quest.RewardItemId, quest.RewardAmmount, quest.RewardItem, quest.ClearItemId, quest.ClearAmmount, quest.ClearItem }, new { @class = "white-link font-size" })</button>
-                        }
-                    </div><br />
-                </div>
+        <div class="container">
+            @{
+                foreach (IQuest quest in ViewBag.AcceptedQuests)
+                {
+                    <hr />
+                    <div class="pt-1 row">
+                        <div class="col-7">
+                            @quest.Name
+                        </div>
+                        <div class="col mr-2">
+                            @using (Html.BeginForm("CompleteQuest", "Town"))
+                            {
+                                <i class="fas fa-info-circle pointer" onclick="openModalWithData('questModal', '@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
+                                if (quest.Completable)
+                                {
+                                    @Html.Hidden("Id", quest.Id)
+                                    ;
+                                    @Html.Hidden("Name", quest.Name)
+                                    ;
+                                    @Html.Hidden("RewardItemId", quest.RewardItemId)
+                                    ;
+                                    @Html.Hidden("RewardAmmount", quest.RewardAmmount)
+                                    ;
+                                    @Html.Hidden("RewardItem", quest.RewardItem)
+                                    ;
+                                    @Html.Hidden("ClearItemId", quest.ClearItemId)
+                                    ;
+                                    @Html.Hidden("ClearAmmount", quest.ClearAmmount)
+                                    ;
+                                    @Html.Hidden("ClearItem", quest.ClearItem)
+                                    ;
+                                    <input type="submit" class="btn btn-dark font-size" value="Complete" />
+                                }
+                            }
+                        </div><br/>
+                    </div>
+                }
             }
-        }
+        </div>
     </div>
     <div class="float-right w-45 border-dark border rounded">
         <h2 class="text-center">
             Unaccepted quests
         </h2>
-        @{
-            foreach (IQuest quest in ViewBag.Quests)
-            {
-                if (quest.Repeatable && quest.Completed || quest.Completed == false)
+        <div class="container">
+            @{
+                foreach (IQuest quest in ViewBag.Quests)
                 {
-                    <hr />
-                    <div class="h-50px pt-1">
-                        @quest.Name
-                        <div class="float-right mr-2">
-                            <i class="fas fa-info-circle pointer" onclick="openModalWithData('questModal', '@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
-                            <button class="btn btn-dark">@Html.ActionLink("Accept", "AcceptQuest", "Town", new {quest.Id}, new { @class = "white-link font-size" })</button>
-                        </div><br />
-                    </div>
+                    if (quest.Repeatable && quest.Completed || quest.Completed == false)
+                    {
+                        <hr />
+                        <div class="pt-1 row">
+                            <div class="col-7">
+                                @quest.Name
+                            </div>
+                            <div class="col mr-2">
+                                @using (Html.BeginForm("AcceptQuest", "Town"))
+                                {<i class="fas fa-info-circle pointer" onclick="openModalWithData('questModal', '@quest.Name', '@quest.Description', '@quest.ClearAmmount @quest.ClearItem', '@quest.RewardAmmount @quest.RewardItem')"></i>
+                                    @Html.Hidden("Id", quest.Id);
+                                    <input type="submit" value="Accept" class="btn btn-dark font-size"/>
+                                }
+                            </div><br />
+                        </div>
+                    }
                 }
             }
-        }
+        </div>
     </div>
 </div>
 

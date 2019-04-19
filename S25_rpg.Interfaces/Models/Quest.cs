@@ -21,7 +21,7 @@ namespace S25_rpg.Models.Models
         public bool Completed { get; set; }
         public bool Completable { get; set; }
 
-        public Quest(int id, string name, int rewardItemId, int rewardAmmount, string rewardItem, string description, int clearItemId, int clearAmmount, string clearItem, bool repeatable,
+        public Quest(int id, string name, int rewardAmmount, int rewardItemId, string rewardItem, string description, int clearAmmount, int clearItemId, string clearItem, bool repeatable,
             int questLevel)
         {
             Id = id;
@@ -37,7 +37,7 @@ namespace S25_rpg.Models.Models
             QuestLevel = questLevel;
         }
 
-        public Quest(int id, string name, int rewardItemId, int rewardAmmount, string rewardItem, string description, int clearItemId, int clearAmmount, string clearItem, bool repeatable,
+        public Quest(int id, string name, int rewardAmmount, int rewardItemId, string rewardItem, string description, int clearAmmount, int clearItemId, string clearItem, bool repeatable,
             int questLevel, bool completed)
         {
             Id = id;
