@@ -30,13 +30,13 @@ namespace S25_rpg.Logic.Logic
             return quests;
         }
 
-        public IEnumerable<IQuest> GetAllAcceptedQuests(ICharacter character, List<Item> items)
+        public IEnumerable<IQuest> GetAllAcceptedQuests(ICharacter character, IEnumerable<IItem> items)
         {
             IEnumerable<IQuest> quests = repo.GetAllAcceptedQuests(character);
             List<IQuest> copyQuests = quests.ToList();
             foreach (IQuest quest in quests)
             {
-                if (items.Any(x => (x.Name == quest.ClearItem) && (x.Ammount >= quest.ClearAmmount)))
+                if (items.ToList().Any(x => (x.Name == quest.ClearItem) && (x.Ammount >= quest.ClearAmmount)))
                 {
                     quest.Completable = true;
                 }
@@ -51,7 +51,6 @@ namespace S25_rpg.Logic.Logic
 
         public IEnumerable<IQuest> RemoveAcceptedQuests(IEnumerable<IQuest> acceptableQuests, IEnumerable<IQuest> acceptedQuests)
         {
-            //Gets all the IQuests from acceptableQuests that aren't in the acceptedQuests list
             acceptableQuests = acceptableQuests.ToList().Where(x => acceptedQuests.ToList().All(y => x.Id != y.Id));
             return acceptableQuests;
         }

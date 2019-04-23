@@ -45,8 +45,8 @@ namespace S25_rpg.Controllers
                             return RedirectToAction("CharacterCreation", "CharacterCreation");
                         }
                         Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
-                        IEnumerable<IItem> item = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
-                        Response.Cookies.Append("items", JsonConvert.SerializeObject(item));
+                        //IEnumerable<IItem> item = _itemContainerLogic.GetAllCharacterItems(character);
+                        //Response.Cookies.Append("items", JsonConvert.SerializeObject(item));
                         IEnumerable<IEquipped> equipped = characterLogic.GetEquippedItems(character);
                         Response.Cookies.Append("equipped", JsonConvert.SerializeObject(equipped));
                         return RedirectToAction("Index", "Town");

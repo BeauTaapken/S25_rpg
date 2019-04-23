@@ -39,7 +39,8 @@ namespace S25_rpg.Controllers
 
         public IActionResult Quest()
         {
-            IEnumerable<IQuest> acceptedQuests = _questContainerLogic.GetAllAcceptedQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), JsonConvert.DeserializeObject<List<Item>>(Request.Cookies["items"]));
+            IEnumerable<IItem> items = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
+            IEnumerable<IQuest> acceptedQuests = _questContainerLogic.GetAllAcceptedQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), items);
             IEnumerable<IQuest> acceptableQuests = _questContainerLogic.GetAllAcceptableQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
             acceptableQuests = _questContainerLogic.RemoveAcceptedQuests(acceptableQuests, acceptedQuests);
 

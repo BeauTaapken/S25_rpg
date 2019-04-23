@@ -14,10 +14,11 @@ namespace S25_rpg.Controllers
     public class InventoryController : Controller
     {
         private CharacterLogic characterLogic = new CharacterLogic();
+        private ItemContainerLogic _itemContainerLogic = new ItemContainerLogic();
 
         public IActionResult Index()
         {
-            ViewBag.Items = JsonConvert.DeserializeObject<IEnumerable<Item>>(Request.Cookies["items"]);
+            ViewBag.Items = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
             ViewBag.Equipped = JsonConvert.DeserializeObject<IEnumerable<Equipped>>(Request.Cookies["equipped"]);
             return View();
         }
