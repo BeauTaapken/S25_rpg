@@ -27,6 +27,11 @@ namespace S25_rpg.DAL.Repository
             _characterContext.EditUnlockPoint(link, character);
         }
 
+        public void EditStartLink(string link, ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
+
         public void EquipItem(IItem item, ICharacter character)
         {
             _characterContext.EquipItem(item, character);
@@ -35,6 +40,21 @@ namespace S25_rpg.DAL.Repository
         public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
         {
             return _characterContext.GetEquippedItems(character);
+        }
+
+        public void EditGold(int gold, ICharacter character)
+        {
+            _characterContext.EditGold(gold, character);
+        }
+
+        public void EditLevel(ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditExp(ICharacter character)
+        {
+            throw new NotImplementedException();
         }
     }
 }

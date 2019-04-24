@@ -55,7 +55,42 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        public void EditGold(int gold, ICharacter character)
+        {
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand editGold = new MySqlCommand("UPDATE `character` SET Gold = Gold + @gold WHERE Id = @charid", mySqlConnection);
+                editGold.Parameters.AddWithValue("@gold", gold);
+                editGold.Parameters.AddWithValue("@charid", character.idCharacter);
+                editGold.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                mySqlConnection.Close();;
+            }
+        }
+
+        public void EditLevel(ICharacter character)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EditExp(ICharacter character)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void EditUnlockPoint(string link, ICharacter character)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EditStartLink(string link, ICharacter character)
         {
             throw new System.NotImplementedException();
         }

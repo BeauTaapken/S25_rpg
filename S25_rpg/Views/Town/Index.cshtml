@@ -12,7 +12,7 @@
         <button name="btTavern" class="btn btn-primary" onmouseover="setInfoText('This is the tavern. You can accept and complete quests and have a nice nap.')" onmouseleave="setInfoEmpty()">@Html.ActionLink("Tavern", "Tavern", "Town", null, new { @class = "white-link font-size" })</button>
         <button name="btMarket" class="btn btn-primary" onmouseover="setInfoText('This is the market. You can sell and buy items here.')" onmouseleave="setInfoEmpty()">@Html.ActionLink("Market", "Market", "Town", null, new { @class = "white-link font-size" })</button><br />
         <button name="btBillboard" class="btn btn-primary" onmouseover="setInfoText('This is the billboard. You can see news about the game here.')" onmouseleave="setInfoEmpty()">@Html.ActionLink("Billboard", "News", "Town", null, new { @class = "white-link font-size" })</button>
-        <button name="btOutside" class="btn btn-primary" onmouseover="setInfoText('This is the outside world. Here you can explore and get gold or fight monsters.')" onmouseleave="setInfoEmpty()">@Html.ActionLink("Go outside", "Outside", "Town", null, new { @class = "white-link font-size" })</button><br/>
+        <button name="btOutside" class="btn btn-primary" onmouseover="setInfoText('This is the outside world. Here you can explore and get gold or fight monsters.')" onmouseleave="setInfoEmpty()">@Html.ActionLink("Go outside", "Index", "Outside", null, new { @class = "white-link font-size" })</button><br/>
         
         <text class="w-100" id="informationText"/>
     </div>

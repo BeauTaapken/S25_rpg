@@ -32,12 +32,32 @@ namespace S25_rpg.DAL.Memory
             throw new NotImplementedException();
         }
 
+        public void EditStartLink(string link, ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
+
         public void EquipItem(IItem item, ICharacter character)
         {
             throw new NotImplementedException();
         }
 
         public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditGold(int gold, ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditLevel(ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditExp(ICharacter character)
         {
             throw new NotImplementedException();
         }

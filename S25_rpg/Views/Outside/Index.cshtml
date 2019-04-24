@@ -1,0 +1,77 @@
+﻿@using Newtonsoft.Json
+@using S25_rpg.Models.Interfaces
+
+@{
+    ViewData["Title"] = "Outside";
+}
+
+@model AttackMonsterViewModel
+
+<div class="font-size text-center pt-10">
+    <div class="text-right">
+        <button class="btn btn-primary">@Html.ActionLink("Go back to Town", "Index", "Town", null, new { @class = "white-link font-size" })</button>
+        <button class="btn btn-primary">@Html.ActionLink("Logout", "Tavern", "Town", null, new { @class = "white-link font-size" })</button>
+    </div>
+    <div class="font-size text-center">
+        <h1>Outside</h1>
+        @if (ViewBag.ExploreType == "Gold")
+        {
+            @Html.Raw("<text>Gold found: ")
+            @ViewBag.GoldAmmount
+            @Html.Raw("</text>")
+            <button class="btn btn-primary">@Html.ActionLink("Next", "Index", "Outside", null, new { @class = "white-link font-size" })</button>
+        }
+        else if (ViewBag.ExploreType == "Monster")
+        {
+            <div class="container">
+                <div class="row">
+                    @{
+                        int monsterLocation = 0;
+                        int health = ViewBag.health;
+                        string monsters = JsonConvert.SerializeObject(ViewBag.monsters);
+                        foreach (IMonster monster in ViewBag.monsters)
+                        {
+                            <div class="col">
+                                @monster.Name<br/>
+                                Hp: @monster.Hp<br/>
+                                
+                                @{
+                                    if (monster.Hp > 0)
+                                    {
+                                        using (Html.BeginForm("Index", "Outside"))
+                                        {
+                                            @Html.Hidden("monsterLocation", monsterLocation)
+                                            @Html.Hidden("monsters", monsters)
+                                            @Html.Hidden("characterHp", health)
+                                            <input type="submit" class="btn btn-dark" value="Attack"/>
+                                        }
+                                        monsterLocation++;
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Your health: @ViewBag.health
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        @{
+                            using (Html.BeginForm("Index", "Outside"))
+                            {
+                                @Html.Hidden("monsters", monsters)
+                                @Html.Hidden("characterHp", health)
+                                @Html.Hidden("flee", true)
+                                <input type="submit" class="btn btn-dark" value="Flee" />
+                            }
+                        }
+                        <p class="text-danger">@ViewBag.Message</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

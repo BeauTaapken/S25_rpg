@@ -39,4 +39,11 @@ namespace S25_rpg.Models
         Monster,
         Gold
     }
+
+    public enum MonsterChoice
+    {
+        Goblin,
+        Imp,
+        Slime
+    }
 }

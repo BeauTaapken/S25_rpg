@@ -2,12 +2,13 @@
 @using S25_rpg.Models.Models
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Inventory";
 }
 
 <div class="font-size text-center pt-10">
     <div class="text-right">
         <button class="btn btn-primary">@Html.ActionLink("Go back to Town", "Index", "Town", null, new { @class = "white-link font-size" })</button>
+        <button class="btn btn-primary">@Html.ActionLink("Logout", "Tavern", "Town", null, new { @class = "white-link font-size" })</button>
     </div>
     <div class="font-size text-center">
         <h1>Inventory</h1>
@@ -103,11 +104,11 @@
                             {
                                 if (itemsInDiv == 0)
                                 {
-                                    @Html.Raw("<div class='row margin-tb'>")
+                                    @Html.Raw("<div class='row margin-tb'>");
                                 }
                                 <div class="col">
                                     @{
-                                        @item.Name
+                                        @item.Name @Html.Raw(": ") @item.Ammount @Html.Raw("X")
                                         <i class="fas fa-info-circle pointer" onclick="openModalWithData('inventoryModal', '@item.Name', '@item.Description', '@item.Ammount', '')"></i>
                                         if (item.Equipable)
                                         {
@@ -116,7 +117,7 @@
                                     }
                                 </div>
                                 itemsInDiv = itemsInDiv + 1;
-                                if (itemsInDiv == 4 || item == i)
+                                if (itemsInDiv == 3 || item == i)
                                 {
                                     @Html.Raw("</div>");
                                     itemsInDiv = 0;
