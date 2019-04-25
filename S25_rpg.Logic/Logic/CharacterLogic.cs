@@ -76,6 +76,7 @@ namespace S25_rpg.Logic.Logic
 
         public int CalculateDamage(ICharacter character)
         {
+            //TODO add equipment to equation
             int damage = 4;
             if (character.CharacterClass == CharacterClass.Wizard)
             {
@@ -99,6 +100,7 @@ namespace S25_rpg.Logic.Logic
 
         public int CalculateDefence(ICharacter character)
         {
+            //TODO add equipment to equation
             int defence = 1;
             if (character.CharacterClass == CharacterClass.Warrior)
             {
@@ -145,7 +147,12 @@ namespace S25_rpg.Logic.Logic
 
         public void EarnExp(ICharacter character, IEnumerable<IMonster> monsters)
         {
-            throw new NotImplementedException();
+            int totalExp = 0;
+            foreach (IMonster monster in monsters)
+            {
+                totalExp += monster.Exp;
+            }
+            repo.EditExp(character, totalExp);
         }
 
         public void LevelUp(ICharacter character)

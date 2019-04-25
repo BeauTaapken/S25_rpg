@@ -52,9 +52,9 @@ namespace S25_rpg.DAL.Repository
             throw new NotImplementedException();
         }
 
-        public void EditExp(ICharacter character)
+        public void EditExp(ICharacter character, int gottenExp)
         {
-            throw new NotImplementedException();
+            _characterContext.EditExp(character, gottenExp);
         }
     }
 }

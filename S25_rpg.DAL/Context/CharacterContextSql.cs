@@ -77,12 +77,49 @@ namespace S25_rpg.DAL.Context
 
         public void EditLevel(ICharacter character)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void EditExp(ICharacter character)
+        public void EditExp(ICharacter character, int gottenExp)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                mySqlConnection.Open();
+                int exp = 0;
+                int lvl = 0;
+                MySqlCommand getExpAndLevel = new MySqlCommand("SELECT CurrentExp, CurrentLevel FROM `character` WHERE Id = @id", mySqlConnection);
+                getExpAndLevel.Parameters.AddWithValue("@id", character.idCharacter);
+                MySqlDataReader reader = getExpAndLevel.ExecuteReader();
+                while (reader.Read())
+                {
+                    exp = (int) reader[0];
+                    lvl = (int) reader[1];
+                }
+                reader.Close();
+                int neededExp = lvl * 100;
+                if (exp + gottenExp >= neededExp)
+                {
+                    MySqlCommand editLvl = new MySqlCommand("UPDATE `character` SET CurrentLevel = CurrentLevel + 1 WHERE Id = @id", mySqlConnection);
+                    editLvl.Parameters.AddWithValue("@id", character.idCharacter);
+                    editLvl.ExecuteNonQuery();
+                    exp = (exp + gottenExp) - neededExp;
+                }
+                else
+                {
+                    exp += gottenExp;
+                }
+                MySqlCommand editExp = new MySqlCommand("UPDATE `character` SET CurrentExp = @exp WHERE Id = @id", mySqlConnection);
+                editExp.Parameters.AddWithValue("@exp", exp);
+                editExp.Parameters.AddWithValue("@id", character.idCharacter);
+                editExp.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
         }
 
         public void EditUnlockPoint(string link, ICharacter character)
