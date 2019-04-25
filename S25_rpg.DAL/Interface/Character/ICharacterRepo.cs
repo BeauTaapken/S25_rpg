@@ -12,7 +12,6 @@ namespace S25_rpg.DAL.Interface.Character
         void EquipItem(IItem item, ICharacter character);
         IEnumerable<IEquipped> GetEquippedItems(ICharacter character);
         void EditGold(int gold, ICharacter character);
-        void EditLevel(ICharacter character);
-        void EditExp(ICharacter character, int gottenExp);
+        void EditExpAndLevel(ICharacter character, int gottenExp);
     }
 }

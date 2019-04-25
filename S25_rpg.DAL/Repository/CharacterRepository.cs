@@ -47,14 +47,9 @@ namespace S25_rpg.DAL.Repository
             _characterContext.EditGold(gold, character);
         }
 
-        public void EditLevel(ICharacter character)
+        public void EditExpAndLevel(ICharacter character, int gottenExp)
         {
-            throw new NotImplementedException();
-        }
-
-        public void EditExp(ICharacter character, int gottenExp)
-        {
-            _characterContext.EditExp(character, gottenExp);
+            _characterContext.EditExpAndLevel(character, gottenExp);
         }
     }
 }

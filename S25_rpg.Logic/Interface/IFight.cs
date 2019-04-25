@@ -13,7 +13,6 @@ namespace S25_rpg.Logic.Interface
         int CalculateHealth(ICharacter character);
         int TakeDamage(IEnumerable<IMonster>monsters, int monsterLocation, int health, int defense);
         bool Flee();
-        void EarnExp(ICharacter character, IEnumerable<IMonster> monsters);
-        void LevelUp(ICharacter character);
+        void EarnExpAndLevelUp(ICharacter character, IEnumerable<IMonster> monsters);
     }
 }

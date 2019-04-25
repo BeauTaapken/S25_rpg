@@ -23,7 +23,7 @@ namespace S25_rpg.Controllers
             {
                 int goldAmmount = _characterLogic.Gold();
                 ViewBag.GoldAmmount = goldAmmount;
-                _characterLogic.editGold(goldAmmount, JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
+                _characterLogic.EditGold(goldAmmount, JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
             }
             else if (content == AreaContent.Monster)
             {
@@ -62,7 +62,7 @@ namespace S25_rpg.Controllers
 
                     if (monsters.All(x => x.Hp < 1))
                     {
-                        _characterLogic.EarnExp(character, monsters);
+                        _characterLogic.EarnExpAndLevelUp(character, monsters);
                         return RedirectToAction("Index", "Outside");
                     }
 

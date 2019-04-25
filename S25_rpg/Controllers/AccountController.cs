@@ -84,5 +84,17 @@ namespace S25_rpg.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Logout()
+        {
+            foreach (string cookieKey in Request.Cookies.Keys)
+            {
+                if (cookieKey != ".AspNet.Consent")
+                {
+                    Response.Cookies.Delete(cookieKey);
+                }
+            }
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

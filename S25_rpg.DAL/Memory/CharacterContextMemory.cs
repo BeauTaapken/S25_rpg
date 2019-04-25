@@ -52,12 +52,7 @@ namespace S25_rpg.DAL.Memory
             throw new NotImplementedException();
         }
 
-        public void EditLevel(ICharacter character)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EditExp(ICharacter character, int gottenExp)
+        public void EditExpAndLevel(ICharacter character, int gottenExp)
         {
             throw new NotImplementedException();
         }

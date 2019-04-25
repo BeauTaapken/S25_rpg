@@ -37,7 +37,7 @@ namespace S25_rpg.Logic.Logic
         {
             List<IMonster> monsterList = new List<IMonster>();
             Random random = new Random();
-            int monsterAmmount = random.Next(1, 3);
+            int monsterAmmount = random.Next(1, 6);
             for (int i = 0; i < monsterAmmount; i++)
             {
                 Array monsters = Enum.GetValues(typeof(MonsterChoice));
@@ -69,7 +69,7 @@ namespace S25_rpg.Logic.Logic
             return random.Next(10, 100);
         }
 
-        public void editGold(int gold, ICharacter character)
+        public void EditGold(int gold, ICharacter character)
         {
             repo.EditGold(gold, character);
         }
@@ -141,23 +141,18 @@ namespace S25_rpg.Logic.Logic
         public bool Flee()
         {
             Random random = new Random();
-            int chance = random.Next(0, 100);
+            int chance = random.Next(0, 101);
             return chance >= 60;
         }
 
-        public void EarnExp(ICharacter character, IEnumerable<IMonster> monsters)
+        public void EarnExpAndLevelUp(ICharacter character, IEnumerable<IMonster> monsters)
         {
             int totalExp = 0;
             foreach (IMonster monster in monsters)
             {
                 totalExp += monster.Exp;
             }
-            repo.EditExp(character, totalExp);
-        }
-
-        public void LevelUp(ICharacter character)
-        {
-            throw new NotImplementedException();
+            repo.EditExpAndLevel(character, totalExp);
         }
     }
 }

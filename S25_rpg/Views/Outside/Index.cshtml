@@ -10,7 +10,7 @@
 <div class="font-size text-center pt-10">
     <div class="text-right">
         <button class="btn btn-primary">@Html.ActionLink("Go back to Town", "Index", "Town", null, new { @class = "white-link font-size" })</button>
-        <button class="btn btn-primary">@Html.ActionLink("Logout", "Tavern", "Town", null, new { @class = "white-link font-size" })</button>
+        <button class="btn btn-primary">@Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "white-link font-size" })</button>
     </div>
     <div class="font-size text-center">
         <h1>Outside</h1>
@@ -45,11 +45,11 @@
                                             @Html.Hidden("characterHp", health)
                                             <input type="submit" class="btn btn-dark" value="Attack"/>
                                         }
-                                        monsterLocation++;
                                     }
+                                    monsterLocation++;
                                 }
                             </div>
-                        }
+                                    }
                     }
                 </div>
                 <div class="row">

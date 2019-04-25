@@ -75,11 +75,7 @@ namespace S25_rpg.DAL.Context
             }
         }
 
-        public void EditLevel(ICharacter character)
-        {
-        }
-
-        public void EditExp(ICharacter character, int gottenExp)
+        public void EditExpAndLevel(ICharacter character, int gottenExp)
         {
             try
             {
