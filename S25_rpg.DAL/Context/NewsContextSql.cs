@@ -10,6 +10,10 @@ namespace S25_rpg.DAL.Context
 {
     public class NewsContextSql : DatabaseConnection, INewsContext
     {
+        /// <summary>
+        /// Function for getting all the news from the database
+        /// </summary>
+        /// <returns><see cref="List{INews}"/></returns>
         public List<INews> GetAllNews()
         {
             List<INews> news = new List<INews>();

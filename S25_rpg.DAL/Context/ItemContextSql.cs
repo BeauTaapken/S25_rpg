@@ -11,6 +11,11 @@ namespace S25_rpg.DAL.Context
 {
     public class ItemContextSql : DatabaseConnection, IItemContext
     {
+        /// <summary>
+        /// Function for getting all a characters items.
+        /// </summary>
+        /// <param name="character"><see cref="ICharacter"/></param>
+        /// <returns><see cref="IEnumerable{IItem}"/></returns>
         public IEnumerable<IItem> GetAllCharacterItems(ICharacter character)
         {
             try
@@ -40,28 +45,62 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        /// <summary>
+        /// Function for adding an item to a characters inventory
+        /// </summary>
+        /// <param name="item"><see cref="IItem"/></param>
+        /// <param name="character"><see cref="ICharacter"/></param>
         public void AddItem(IItem item, ICharacter character)
         {
-            MySqlCommand AddQuestItems = new MySqlCommand("INSERT INTO `characteritem` (Character_id, Item_id, Ammount) VALUES (@charid, @itemid, @gottenItems) ON DUPLICATE KEY UPDATE Ammount = Ammount + @gottenItems", mySqlConnection);
-            AddQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
-            AddQuestItems.Parameters.AddWithValue("@itemid", item.Id);
-            AddQuestItems.Parameters.AddWithValue("@gottenItems", item.Ammount);
-            AddQuestItems.ExecuteNonQuery();
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand AddQuestItems =
+                    new MySqlCommand(
+                        "INSERT INTO `characteritem` (Character_id, Item_id, Ammount) VALUES (@charid, @itemid, @gottenItems) ON DUPLICATE KEY UPDATE Ammount = Ammount + @gottenItems",
+                        mySqlConnection);
+                AddQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
+                AddQuestItems.Parameters.AddWithValue("@itemid", item.Id);
+                AddQuestItems.Parameters.AddWithValue("@gottenItems", item.Ammount);
+                AddQuestItems.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
         }
 
+        /// <summary>
+        /// Function for removing an item from a characters inventory
+        /// </summary>
+        /// <param name="item"><see cref="IItem"/></param>
+        /// <param name="character"><see cref="ICharacter"/></param>
         public void RemoveItem(IItem item, ICharacter character)
         {
-            MySqlCommand RemoveQuestItems = new MySqlCommand("UPDATE characteritem SET Ammount = Ammount - @gottenAmmount WHERE Item_id = @itemid && Character_id = @charid", mySqlConnection);
-            //TODO change ammount and itemid values in razor
-            RemoveQuestItems.Parameters.AddWithValue("@gottenammount", item.Ammount);
-            RemoveQuestItems.Parameters.AddWithValue("@itemid", item.Id);
-            RemoveQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
-            RemoveQuestItems.ExecuteNonQuery();
-        }
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand RemoveQuestItems =
+                    new MySqlCommand(
+                        "UPDATE characteritem SET Ammount = Ammount - @gottenAmmount WHERE Item_id = @itemid && Character_id = @charid",
+                        mySqlConnection);
+                RemoveQuestItems.Parameters.AddWithValue("@gottenammount", item.Ammount);
+                RemoveQuestItems.Parameters.AddWithValue("@itemid", item.Id);
+                RemoveQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
+                RemoveQuestItems.ExecuteNonQuery();
+            }
+            catch
+            {
 
-        public IEnumerable<IItem> GetAllShopItems(string shopName)
-        {
-            throw new NotImplementedException();
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
         }
     }
 }

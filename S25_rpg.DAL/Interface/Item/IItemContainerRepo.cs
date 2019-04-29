@@ -10,6 +10,5 @@ namespace S25_rpg.DAL.Interface.Item
         IEnumerable<IItem> GetAllCharacterItems(ICharacter character);
         void AddItem(IItem item, ICharacter character);
         void RemoveItem(IItem item, ICharacter character);
-        IEnumerable<IItem> GetAllShopItems(string shopName);
     }
 }

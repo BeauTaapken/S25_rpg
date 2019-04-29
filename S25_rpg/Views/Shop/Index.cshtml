@@ -1,0 +1,27 @@
+﻿@using S25_rpg.Models.Interfaces
+
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<div class="font-size text-center pt-10">
+    <div class="text-right">
+        <button class="btn btn-primary">@Html.ActionLink("Back to town", "Index", "Town", null, new { @class = "white-link font-size" })</button>
+        <button class="btn btn-primary">@Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "white-link font-size" })</button>
+    </div>
+    <div>
+        <h1>@ViewBag.ShopName</h1><br/>
+        <div class="container">
+            @{
+                foreach (IItem item in ViewBag.ShopItems)
+                {
+                    @item.Name
+                    @item.SellPrice
+                }
+            }
+        </div>
+        
+        @ViewBag.CharacterGold
+    </div>
+    
+</div>

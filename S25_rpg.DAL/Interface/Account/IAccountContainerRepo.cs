@@ -9,8 +9,6 @@ namespace S25_rpg.DAL.Interface.Account
     {
         IAccount Login(IAccount account);
 
-        int GetAccountId(IAccount account);
-
         void CreateAccount(IAccount account);
 
         bool CheckIfAccountExist(IAccount account);

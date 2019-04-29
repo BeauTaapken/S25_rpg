@@ -11,6 +11,11 @@ namespace S25_rpg.DAL.Context
 {
     public class QuestContextSql : DatabaseConnection, IQuestContext
     {
+        /// <summary>
+        /// Function for editing information in the database based on a quest that is completed. This means it edits the completion of a quest for the character, removes items that have been used to complete the quest and adds items that have been given for completing the quest.
+        /// </summary>
+        /// <param name="character"><see cref="ICharacter"/></param>
+        /// <param name="quest"><see cref="IQuest"/></param>
         public void CompleteQuest(ICharacter character, IQuest quest)
         {
             try
@@ -22,7 +27,6 @@ namespace S25_rpg.DAL.Context
                 updateCharacterQuest.ExecuteNonQuery();
 
                 MySqlCommand RemoveQuestItems = new MySqlCommand("UPDATE characteritem SET Ammount = Ammount - @gottenAmmount WHERE Item_id = @itemid && Character_id = @charid", mySqlConnection);
-                //TODO change ammount and itemid values in razor
                 RemoveQuestItems.Parameters.AddWithValue("@gottenammount", quest.ClearAmmount);
                 RemoveQuestItems.Parameters.AddWithValue("@itemid", quest.ClearItemId);
                 RemoveQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
@@ -44,6 +48,11 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        /// <summary>
+        /// Function for getting all quests
+        /// </summary>
+        /// <param name="character"><see cref="ICharacter"/></param>
+        /// <returns><see cref="IEnumerable{IQuest}"/></returns>
         public IEnumerable<IQuest> GetAllAccapteableQuests(ICharacter character)
         {
             IEnumerable<IQuest> quests = new List<IQuest>();
@@ -73,6 +82,11 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        /// <summary>
+        /// Function for getting all quests that have been accepted by a character.
+        /// </summary>
+        /// <param name="character"><see cref="ICharacter"/></param>
+        /// <returns><see cref="IEnumerable{IQuest}"/></returns>
         public IEnumerable<IQuest> GetAllAcceptedQuests(ICharacter character)
         {
             IEnumerable<IQuest> quests = new List<IQuest>();
@@ -102,6 +116,11 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        /// <summary>
+        /// Function for adding a quest to a character or updating the quest to uncompleted.
+        /// </summary>
+        /// <param name="character"><see cref="ICharacter"/></param>
+        /// <param name="quest"><see cref="IQuest"/></param>
         public void StartQuest(ICharacter character, IQuest quest)
         {
             try

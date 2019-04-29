@@ -30,10 +30,5 @@ namespace S25_rpg.DAL.Repository
         {
             _itemContext.RemoveItem(item, character);
         }
-
-        public IEnumerable<IItem> GetAllShopItems(string shopName)
-        {
-            return _itemContext.GetAllShopItems(shopName);
-        }
     }
 }

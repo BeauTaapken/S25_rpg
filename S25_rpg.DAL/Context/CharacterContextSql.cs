@@ -10,6 +10,12 @@ namespace S25_rpg.DAL.Context
 {
     public class CharacterContextSql : DatabaseConnection, ICharacterContext
     {
+        /// <summary>
+        /// Function for adding a character to the loged in account
+        /// </summary>
+        /// <param name="character"> <see cref="ICharacter"/></param>
+        /// <param name="id"> <see cref="int"/></param>
+        /// <returns><see cref="ICharacter"/></returns>
         public ICharacter AddCharacter(ICharacter character, int id)
         {
             ICharacter c = null;
@@ -47,7 +53,7 @@ namespace S25_rpg.DAL.Context
             }
             catch
             {
-                return null;
+                return c;
             }
             finally
             {
@@ -55,6 +61,11 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        /// <summary>
+        /// Function to edit the ammount of gold a character is holding
+        /// </summary>
+        /// <param name="gold"><see cref="int"/></param>
+        /// <param name="character"><see cref="ICharacter"/></param>
         public void EditGold(int gold, ICharacter character)
         {
             try
@@ -75,6 +86,12 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+
+        /// <summary>
+        /// Function for editing the exp and level of a character
+        /// </summary>
+        /// <param name="character"><see cref="ICharacter"/></param>
+        /// <param name="gottenExp"><see cref="int"/></param>
         public void EditExpAndLevel(ICharacter character, int gottenExp)
         {
             try
@@ -128,6 +145,11 @@ namespace S25_rpg.DAL.Context
             throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        /// Function for equiping an item to a character
+        /// </summary>
+        /// <param name="item"><see cref="IItem"/></param>
+        /// <param name="character"><see cref="ICharacter"/></param>
         public void EquipItem(IItem item, ICharacter character)
         {
             try
@@ -149,6 +171,11 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        /// <summary>
+        /// Function for getting all the equipped items of a character
+        /// </summary>
+        /// <param name="character"><see cref="ICharacter"/></param>
+        /// <returns><see cref="ICharacter"/></returns>
         public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
         {
             IEnumerable<IEquipped> items = null;

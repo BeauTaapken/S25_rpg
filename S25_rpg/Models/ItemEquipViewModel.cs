@@ -14,6 +14,7 @@ namespace S25_rpg.Models
         public int Ammount { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int buyPrice { get; set; }
         public int SellPrice { get; set; }
         public bool Equipable { get; set; }
         public int Damage { get; set; }

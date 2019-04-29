@@ -20,11 +20,6 @@ namespace S25_rpg.Logic.Logic
             return repo.Login(account);
         }
 
-        public int GetUserId(IAccount account)
-        {
-            return repo.GetAccountId(account);
-        }
-
         public void InsertAccount(IAccount account)
         {
             repo.CreateAccount(account);

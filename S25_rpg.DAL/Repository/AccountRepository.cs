@@ -18,11 +18,6 @@ namespace S25_rpg.DAL.Repository
             return _accountContext.Login(account);
         }
 
-        public int GetAccountId(IAccount account)
-        {
-            return _accountContext.GetAccountId(account);
-        }
-
         public bool CheckIfAccountExist(IAccount account)
         {
             return _accountContext.CheckIfAccountExist(account);

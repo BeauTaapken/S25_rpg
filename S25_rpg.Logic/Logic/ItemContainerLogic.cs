@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using S25_rpg.DAL.Context;
 using S25_rpg.DAL.Interface.Item;
 using S25_rpg.DAL.Repository;
@@ -12,8 +14,7 @@ namespace S25_rpg.Logic.Logic
 
         public IEnumerable<IItem> GetAllCharacterItems(ICharacter character)
         {
-            //TODO Remove all items that have ammount of 0
-            return repo.GetAllCharacterItems(character);
+            return repo.GetAllCharacterItems(character).ToList().Where(x => x.Ammount > 0);
         }
 
         public void AddItem(IItem item, ICharacter character)
@@ -24,11 +25,6 @@ namespace S25_rpg.Logic.Logic
         public void RemoveItem(IItem item, ICharacter character)
         {
             repo.RemoveItem(item, character);
-        }
-
-        public IEnumerable<IItem> GetAllShopItems(string shopName)
-        {
-            return repo.GetAllShopItems(shopName);
         }
     }
 }

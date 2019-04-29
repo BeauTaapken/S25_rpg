@@ -10,6 +10,11 @@ namespace S25_rpg.DAL.Context
 {
     public class AccountContextSql : DatabaseConnection, IAccountContext
     {
+        /// <summary>
+        /// Function to login to an account if the user has filled in correct username and password.
+        /// </summary>
+        /// <param name="account"> <see cref="IAccount"></see> </param>
+        /// <returns>IAccount containing account or null</returns>
         public IAccount Login(IAccount account)
         {
             IAccount a = null;
@@ -71,6 +76,10 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        /// <summary>
+        /// Function for creating an account.
+        /// </summary>
+        /// <param name="account"> <see cref="IAccount"></see> </param>
         public void CreateAccount(IAccount account)
         {
             try
@@ -95,6 +104,11 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        /// <summary>
+        /// Function to get character from account.
+        /// </summary>
+        /// <param name="account"> <see cref="IAccount"></see> </param>
+        /// <returns>ICharacter containing character or null</returns>
         public ICharacter AccountHasCharacter(IAccount account)
         {
             ICharacter c = null;
@@ -133,38 +147,6 @@ namespace S25_rpg.DAL.Context
             catch
             {
                 return c;
-            }
-            finally
-            {
-                mySqlConnection.Close();
-            }
-        }
-
-        public int GetAccountId(IAccount account)
-        {
-            IAccount a = null;
-            try
-            {
-                mySqlConnection.Open();
-
-                MySqlCommand getAccount =
-                    new MySqlCommand(
-                        "SELECT idAccount FROM account WHERE Username = @username AND Password = @password",
-                        mySqlConnection);
-
-                getAccount.Parameters.AddWithValue("@username", account.Username);
-                getAccount.Parameters.AddWithValue("@password", account.Password);
-                var reader = getAccount.ExecuteReader();
-                while (reader.Read())
-                {
-                    a = new Account((int)reader[0], "", "", "");
-                }
-
-                return a.idAccount;
-            }
-            catch
-            {
-                return 0;
             }
             finally
             {

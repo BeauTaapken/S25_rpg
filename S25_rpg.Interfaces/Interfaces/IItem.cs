@@ -10,6 +10,7 @@ namespace S25_rpg.Models.Interfaces
         int Ammount { get; set; }
         string Name { get; set; }
         string Description { get; set; }
+        int buyPrice { get; set; }
         int SellPrice { get; set; }
         bool Equipable { get; set; }
         int Damage { get; set; }
