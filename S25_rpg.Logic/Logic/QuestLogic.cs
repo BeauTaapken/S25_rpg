@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using System.Text;
 using S25_rpg.DAL.Context;
+using S25_rpg.DAL.Factory;
 using S25_rpg.DAL.Interface.Quest;
 using S25_rpg.DAL.Repository;
 using S25_rpg.Models.Interfaces;
 
 namespace S25_rpg.Logic.Logic
 {
-    public class QuestLogic
+    public class QuestLogic : QuestFactory
     {
-        private IQuestRepo repo = new QuestRepository(new QuestContextSql());
-
         public void StartQuest(ICharacter character, IQuest quest)
         {
-            repo.StartQuest(character, quest);
+            QuestRepo.StartQuest(character, quest);
         }
 
         public void CompleteQuest(ICharacter character, IQuest quest)
         {
-            repo.CompleteQuest(character, quest);
+            QuestRepo.CompleteQuest(character, quest);
         }
     }
 }

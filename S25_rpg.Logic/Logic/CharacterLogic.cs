@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using S25_rpg.DAL.Context;
+using S25_rpg.DAL.Factory;
 using S25_rpg.DAL.Interface.Character;
 using S25_rpg.DAL.Repository;
 using S25_rpg.Logic.Interface;
@@ -11,18 +12,16 @@ using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
 {
-    public class CharacterLogic : IExplore, IFight
+    public class CharacterLogic : CharacterFactory, IExplore, IFight
     {
-        private ICharacterRepo repo = new CharacterRepository(new CharacterContextSql());
-
         public void EquipItem(IItem item, ICharacter character)
         {
-            repo.EquipItem(item, character);
+            CharacterRepo.EquipItem(item, character);
         }
 
         public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
         {
-            return repo.GetEquippedItems(character);
+            return CharacterRepo.GetEquippedItems(character);
         }
 
         public AreaContent NextArea()
@@ -71,7 +70,7 @@ namespace S25_rpg.Logic.Logic
 
         public void EditGold(int gold, ICharacter character)
         {
-            repo.EditGold(gold, character);
+            CharacterRepo.EditGold(gold, character);
         }
 
         public int CalculateDamage(ICharacter character)
@@ -152,7 +151,7 @@ namespace S25_rpg.Logic.Logic
             {
                 totalExp += monster.Exp;
             }
-            repo.EditExpAndLevel(character, totalExp);
+            CharacterRepo.EditExpAndLevel(character, totalExp);
         }
     }
 }

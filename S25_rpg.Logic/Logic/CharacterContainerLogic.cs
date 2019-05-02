@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using S25_rpg.DAL.Context;
+using S25_rpg.DAL.Factory;
 using S25_rpg.DAL.Interface;
 using S25_rpg.DAL.Interface.Character;
 using S25_rpg.DAL.Memory;
@@ -12,13 +13,11 @@ using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
 {
-    public class CharacterContainerLogic
+    public class CharacterContainerLogic : CharacterContainerFactory
     {
-        private ICharacterContainerRepo repo = new CharacterRepository(new CharacterContextSql());
-
         public ICharacter AddCharacter(ICharacter iCharacter, IAccount iAccount)
         {
-            return repo.AddCharacter(iCharacter, iAccount.idAccount);
+            return CharacterContainerRepo.AddCharacter(iCharacter, iAccount.idAccount);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using S25_rpg.DAL.Context;
+using S25_rpg.DAL.Factory;
 using S25_rpg.DAL.Interface.Quest;
 using S25_rpg.DAL.Repository;
 using S25_rpg.Models.Interfaces;
@@ -10,14 +11,11 @@ using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
 {
-    public class QuestContainerLogic
+    public class QuestContainerLogic : QuestContainerFactory
     {
-        private IQuestContainerRepo repo = new QuestRepository(new QuestContextSql());
-
-
         public IEnumerable<IQuest> GetAllAcceptableQuests(ICharacter character)
         {
-            IEnumerable<IQuest> quests = repo.GetAllAccapteableQuests(character);
+            IEnumerable<IQuest> quests = QuestContainerRepo.GetAllAccapteableQuests(character);
             List<IQuest> copyQuests = quests.ToList();
             foreach (IQuest quest in quests)
             {
@@ -32,7 +30,7 @@ namespace S25_rpg.Logic.Logic
 
         public IEnumerable<IQuest> GetAllAcceptedQuests(ICharacter character, IEnumerable<IItem> items)
         {
-            IEnumerable<IQuest> quests = repo.GetAllAcceptedQuests(character);
+            IEnumerable<IQuest> quests = QuestContainerRepo.GetAllAcceptedQuests(character);
             List<IQuest> copyQuests = quests.ToList();
             foreach (IQuest quest in quests)
             {
