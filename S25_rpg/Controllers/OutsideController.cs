@@ -35,7 +35,6 @@ namespace S25_rpg.Controllers
         }
 
         [HttpPost]
-        //TODO change string monsters to Ienumerable<IMonster> if possible
         public IActionResult Index(AttackMonsterViewModel model)
         {
             if (ModelState.IsValid)

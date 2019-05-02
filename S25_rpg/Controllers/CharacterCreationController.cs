@@ -37,12 +37,14 @@ namespace S25_rpg.Controllers
                     Response.Cookies.Append("equipped", JsonConvert.SerializeObject(equipped));
                     return RedirectToAction("Index", "Town");
                 }
-                
+                ViewBag.Message = "Something went wrong while adding your character";
+                return View();
             }
 
             ViewBag.Haircolor = Enum.GetValues(typeof(Haircolor));
             ViewBag.Eyecolor = Enum.GetValues(typeof(Eyecolor));
             ViewBag.CharacterClass = Enum.GetValues(typeof(CharacterClass));
+            ViewBag.Message = "Not everything has been entered";
             return View();
         }
     }

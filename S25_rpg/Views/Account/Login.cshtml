@@ -23,7 +23,9 @@
             <div class="in-between-margin">
                 @Html.PasswordFor(m => m.Password, new { @name = "password", @placeholder = "Password", @class = "form-control" })
             </div>
-
+            <div>
+                <text class="text-danger">@ViewBag.Message</text>
+            </div>
             <input type="submit" value="Log in" class="btn btn-primary float-right align-button-hovering-box" />
             }
         </div>

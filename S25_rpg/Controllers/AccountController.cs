@@ -45,15 +45,17 @@ namespace S25_rpg.Controllers
                             return RedirectToAction("CharacterCreation", "CharacterCreation");
                         }
                         Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
-                        //IEnumerable<IItem> item = _itemContainerLogic.GetAllCharacterItems(character);
-                        //Response.Cookies.Append("items", JsonConvert.SerializeObject(item));
                         IEnumerable<IEquipped> equipped = characterLogic.GetEquippedItems(character);
                         Response.Cookies.Append("equipped", JsonConvert.SerializeObject(equipped));
                         return RedirectToAction("Index", "Town");
                     }
                 }
-                return RedirectToAction("Register", "Account");
+
+                ViewBag.Message = "Username and/or password are not correct";
+                return View();
             }
+
+            ViewBag.Message = "Username and/or password have not been entered";
             return View();
         }
 
@@ -67,15 +69,20 @@ namespace S25_rpg.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.Password == model.RepeatPassword && !(_accountContainerLogic.CheckIfAccountExist(model)))
+                if (model.Password == model.RepeatPassword)
                 {
-                    _accountContainerLogic.InsertAccount(model);
-                    return RedirectToAction("Login", "Account");
+                    if (!(_accountContainerLogic.CheckIfAccountExist(model)))
+                    {
+                        _accountContainerLogic.InsertAccount(model);
+                        return RedirectToAction("Login", "Account");
+                    }
+                    ViewBag.Message = "An account with the username and/or email address already exists";
+                    return View();
                 }
-
-                return RedirectToAction("Register", "Account");
+                ViewBag.Message = "Passwords are not the same";
+                return View();
             }
-
+            ViewBag.Message = "Not all information is entered";
             return View();
         }
 

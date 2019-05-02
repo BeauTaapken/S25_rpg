@@ -4,6 +4,8 @@
     ViewData["Title"] = "Shop";
 }
 
+@model ItemBuyModel
+
 <div class="font-size text-center pt-10">
     <div class="text-right">
         <button class="btn btn-primary">@Html.ActionLink("Back to town", "Index", "Town", null, new { @class = "white-link font-size" })</button>
@@ -11,15 +13,43 @@
     </div>
     <div>
         <h1>@ViewBag.ShopName</h1><br/>
-        <div class="container">
+        <div class="border-dark border rounded container h-500px">
             @{
                 foreach (IItem item in ViewBag.ShopItems)
                 {
-                    @item.Name
-                    @item.SellPrice
+                    <div class="row text-center pt-1 pb-1 border-bottom">
+                        <div class="col-2">
+                            @item.Name
+                        </div>
+                        <div class="col-4">
+                            costs:
+                            @item.SellPrice
+                        </div>
+                        <div class="col-6">
+                            @{
+                                using (Html.BeginForm())
+                                {
+                                    @Html.Hidden("Id", item.Id)
+                                    @Html.Hidden("SellPrice", item.SellPrice)
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                @Html.TextBoxFor(m => m.Ammount, new { @type = "number", @class = "form-control", @placeholder="Enter ammount to buy" })
+                                            </div>
+                                            <div class="col">
+                                                <input type="submit" value="Buy @item.Name" class="btn btn-primary"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
                 }
             }
         </div>
+        <text class="text-danger">@ViewBag.Message</text><br/>
+        Your gold:
         @ViewBag.CharacterGold
     </div>
 </div>

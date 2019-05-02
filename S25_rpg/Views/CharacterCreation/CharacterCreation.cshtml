@@ -27,10 +27,9 @@
             <div class="in-between-margin">
                 @Html.DropDownListFor(m => m.CharacterClass, new SelectList(@ViewBag.CharacterClass), "-- Select class--", new { @class = "form-control" })
             </div>
-            <div class="in-between-margin">
-                <input type="number" class="d-none" value="@ViewBag.userId" name="userId" />
+            <div>
+                <text class="text-danger">@ViewBag.Message</text>
             </div>
-
             <input type="submit" value="Create character" class="btn btn-primary float-right align-button-hovering-box" />
         }
     </div>

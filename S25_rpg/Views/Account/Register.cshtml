@@ -28,6 +28,9 @@
                 <div class="in-between-margin">
                     @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email", @class = "form-control" })
                 </div>
+                <div>
+                    <text class="text-danger">@ViewBag.Message</text>
+                </div>
                 <input type="submit" value="Register" class="btn btn-primary float-right align-button-hovering-box" />
             }
         </div>
