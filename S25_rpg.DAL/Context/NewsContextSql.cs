@@ -20,7 +20,8 @@ namespace S25_rpg.DAL.Context
             try
             {
                 mySqlConnection.Open();
-                MySqlCommand getNews = new MySqlCommand("SELECT * FROM news ORDER BY Id DESC", mySqlConnection);
+                //MySqlCommand getNews = new MySqlCommand("SELECT * FROM news ORDER BY Id DESC", mySqlConnection);
+                MySqlCommand getNews = new MySqlCommand("GetNews", mySqlConnection);
                 MySqlDataReader reader = getNews.ExecuteReader();
                 while (reader.Read())
                 {

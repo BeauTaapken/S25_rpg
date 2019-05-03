@@ -23,8 +23,7 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
                 MySqlCommand createCharacter = new MySqlCommand(
-                    "INSERT INTO `character` (`Weight`, `Height`, `CurrentExp`, `CurrentLevel`, `Eyecolor`, `Haircolor`, `QuestLevel`, `Class`, `PageUrl`) " +
-                    "VALUES (@weight, @height, @currentExp, @currentLevel, @eyecolor, @haircolor, @questlevel, @class, @pageurl)", mySqlConnection);
+                    "INSERT INTO `character` (`Weight`, `Height`, `CurrentExp`, `CurrentLevel`, `Eyecolor`, `Haircolor`, `QuestLevel`, `Class`, `PageUrl`) VALUES (@weight, @height, @currentExp, @currentLevel, @eyecolor, @haircolor, @questlevel, @class, @pageurl)", mySqlConnection);
                 createCharacter.Parameters.AddWithValue("@weight", character.Weight);
                 createCharacter.Parameters.AddWithValue("@height", character.Height);
                 createCharacter.Parameters.AddWithValue("@currentExp", character.CurrentExp);

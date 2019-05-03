@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
@@ -62,8 +63,12 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
 
-                MySqlCommand getAllAcceptableQuests = new MySqlCommand("SELECT `quest`.*, `characterquest`.Completed, reward.Name, `clear`.Name FROM quest LEFT JOIN `characterquest` ON quest.Id = characterquest.Quest_id AND characterquest.Character_id = @id INNER JOIN `item` reward ON `quest`.RewardItem = reward.Id INNER JOIN `item` `clear` ON `quest`.ClearItem = `clear`.Id", mySqlConnection);
-                getAllAcceptableQuests.Parameters.AddWithValue("@id", character.idCharacter);
+                //MySqlCommand getAllAcceptableQuests = new MySqlCommand("SELECT `quest`.*, `characterquest`.Completed, reward.Name, `clear`.Name FROM quest LEFT JOIN `characterquest` ON quest.Id = characterquest.Quest_id AND characterquest.Character_id = @id INNER JOIN `item` reward ON `quest`.RewardItem = reward.Id INNER JOIN `item` `clear` ON `quest`.ClearItem = `clear`.Id", mySqlConnection);
+                MySqlCommand getAllAcceptableQuests = new MySqlCommand("GetAllAcceptableQuests", mySqlConnection);
+
+                getAllAcceptableQuests.CommandType = CommandType.StoredProcedure;
+                getAllAcceptableQuests.Parameters.AddWithValue("cID", character.idCharacter);
+
                 MySqlDataReader reader = getAllAcceptableQuests.ExecuteReader();
                 List<IQuest> quest = new List<IQuest>();
                 while (reader.Read())
@@ -96,8 +101,12 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
 
-                MySqlCommand getAllAcceptedQuests = new MySqlCommand("SELECT quest.*, reward.Name, `clear`.Name FROM `quest` INNER JOIN `item` reward ON `quest`.RewardItem = reward.Id INNER JOIN `item` `clear` ON `quest`.ClearItem = `clear`.Id INNER JOIN `characterquest` ON quest.Id = characterquest.Quest_id WHERE characterquest.Character_id = @characterid AND characterquest.Completed = 0", mySqlConnection);
-                getAllAcceptedQuests.Parameters.AddWithValue("@characterid", character.idCharacter);
+                //MySqlCommand getAllAcceptedQuests = new MySqlCommand("SELECT quest.*, reward.Name, `clear`.Name FROM `quest` INNER JOIN `item` reward ON `quest`.RewardItem = reward.Id INNER JOIN `item` `clear` ON `quest`.ClearItem = `clear`.Id INNER JOIN `characterquest` ON quest.Id = characterquest.Quest_id WHERE characterquest.Character_id = @id AND characterquest.Completed = 0", mySqlConnection);
+                MySqlCommand getAllAcceptedQuests = new MySqlCommand("GetAllAcceptedQuests", mySqlConnection);
+
+                getAllAcceptedQuests.CommandType = CommandType.StoredProcedure;
+                getAllAcceptedQuests.Parameters.AddWithValue("cID", character.idCharacter);
+
                 MySqlDataReader reader = getAllAcceptedQuests.ExecuteReader();
                 List<IQuest> quest = new List<IQuest>();
                 while (reader.Read())
@@ -128,9 +137,13 @@ namespace S25_rpg.DAL.Context
             try
             {
                 mySqlConnection.Open();
-                MySqlCommand insertCharacterQuest = new MySqlCommand("INSERT INTO characterquest (Character_id, Quest_id, Completed) VALUES (@charid, @questid, 0) ON DUPLICATE KEY UPDATE Completed = 0", mySqlConnection);
-                insertCharacterQuest.Parameters.AddWithValue("@charid", character.idCharacter);
-                insertCharacterQuest.Parameters.AddWithValue("@questid", quest.Id);
+                //MySqlCommand insertCharacterQuest = new MySqlCommand("INSERT INTO characterquest (Character_id, Quest_id, Completed) VALUES (@charid, @questid, 0) ON DUPLICATE KEY UPDATE Completed = 0", mySqlConnection);
+                MySqlCommand insertCharacterQuest = new MySqlCommand("StartQuest", mySqlConnection);
+
+                insertCharacterQuest.CommandType = CommandType.StoredProcedure;
+                insertCharacterQuest.Parameters.AddWithValue("cID", character.idCharacter);
+                insertCharacterQuest.Parameters.AddWithValue("qID", quest.Id);
+
                 insertCharacterQuest.ExecuteNonQuery();
             }
             catch
