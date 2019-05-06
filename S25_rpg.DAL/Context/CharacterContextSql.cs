@@ -1,5 +1,7 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Data;
 using MySql.Data.MySqlClient;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
@@ -23,20 +25,27 @@ namespace S25_rpg.DAL.Context
             try
             {
                 mySqlConnection.Open();
-                MySqlCommand createCharacter = new MySqlCommand(
-                    "INSERT INTO `character` (`Weight`, `Height`, `CurrentExp`, `CurrentLevel`, `Eyecolor`, `Haircolor`, `QuestLevel`, `Class`, `PageUrl`) VALUES (@weight, @height, @currentExp, @currentLevel, @eyecolor, @haircolor, @questlevel, @class, @pageurl)", mySqlConnection);
-                createCharacter.Parameters.AddWithValue("@weight", character.Weight);
-                createCharacter.Parameters.AddWithValue("@height", character.Height);
-                createCharacter.Parameters.AddWithValue("@currentExp", character.CurrentExp);
-                createCharacter.Parameters.AddWithValue("@currentLevel", character.CurrentLevel);
-                createCharacter.Parameters.AddWithValue("@eyecolor", character.Eyecolor.ToString());
-                createCharacter.Parameters.AddWithValue("@haircolor", character.Haircolor.ToString());
-                createCharacter.Parameters.AddWithValue("@questlevel", 1);
-                createCharacter.Parameters.AddWithValue("@class", character.CharacterClass.ToString());
-                createCharacter.Parameters.AddWithValue("@pageurl", "");
+                //MySqlCommand createCharacter = new MySqlCommand(
+                //    "INSERT INTO `character` (`Weight`, `Height`, `CurrentExp`, `CurrentLevel`, `Eyecolor`, `Haircolor`, `QuestLevel`, `Class`, `PageUrl`) VALUES (@weight, @height, @currentExp, @currentLevel, @eyecolor, @haircolor, @questlevel, @class, @pageurl)", mySqlConnection);
+                MySqlCommand createCharacter = new MySqlCommand("AddCharacter", mySqlConnection);
+                createCharacter.CommandType = CommandType.StoredProcedure;
+                createCharacter.Parameters.AddWithValue("iWeight", character.Weight);
+                createCharacter.Parameters.AddWithValue("iHeight", character.Height);
+                createCharacter.Parameters.AddWithValue("iCurrentExp", character.CurrentExp);
+                createCharacter.Parameters.AddWithValue("iCurrentLvl", character.CurrentLevel);
+                createCharacter.Parameters.AddWithValue("eEyecolor", character.Eyecolor.ToString());
+                createCharacter.Parameters.AddWithValue("eHaircolor", character.Haircolor.ToString());
+                createCharacter.Parameters.AddWithValue("iQuestLvl", 1);
+                createCharacter.Parameters.AddWithValue("eClass", character.CharacterClass.ToString());
+                createCharacter.Parameters.AddWithValue("sPageurl", "");
+                createCharacter.Parameters.Add("iCharId", MySqlDbType.Int32);
+                createCharacter.Parameters["iCharId"].Direction = ParameterDirection.Output;
                 createCharacter.ExecuteNonQuery();
 
-                MySqlCommand getCharacter = new MySqlCommand("SELECT * FROM `character` ORDER BY Id DESC LIMIT 1", mySqlConnection);
+                int charId = Convert.ToInt32(createCharacter.Parameters["iCharId"].Value);
+
+                MySqlCommand getCharacter = new MySqlCommand("SELECT * FROM `character` WHERE Id = @charid", mySqlConnection);
+                getCharacter.Parameters.AddWithValue("@charid", charId);
                 MySqlDataReader reader = getCharacter.ExecuteReader();
                 while (reader.Read())
                 {
