@@ -11,8 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using S25_rpg.DAL;
 using S25_rpg.DAL.Context;
-using S25_rpg.DAL.Interface.Account;
-using S25_rpg.DAL.Interface.Character;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg

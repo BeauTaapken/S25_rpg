@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using S25_rpg.DAL;
-using S25_rpg.DAL.Interface.Account;
 using S25_rpg.Logic;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Controllers

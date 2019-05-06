@@ -1,6 +1,7 @@
-﻿using S25_rpg.DAL.Interface.Account;
-using S25_rpg.DAL.Memory;
+﻿using S25_rpg.DAL.Memory;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Account;
+using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.DAL.Repository
 {

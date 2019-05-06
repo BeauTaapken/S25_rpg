@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using MySql.Data.MySqlClient;
-using S25_rpg.DAL.Interface.Item;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Item;
+using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Context
@@ -22,7 +23,7 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Open();
 
-                MySqlCommand cmd = new MySqlCommand("SELECT `characteritem`.Ammount, `item`.* FROM `characteritem` INNER JOIN `item` ON `characteritem`.Item_id = `item`.Id WHERE `characteritem`.Character_id = 32", mySqlConnection);
+                MySqlCommand cmd = new MySqlCommand("SELECT `characteritem`.Ammount, `item`.* FROM `characteritem` INNER JOIN `item` ON `characteritem`.Item_id = `item`.Id WHERE `characteritem`.Character_id = @charid", mySqlConnection);
                 cmd.Parameters.AddWithValue("@charid", character.idCharacter);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 List<IItem> item = new List<IItem>();

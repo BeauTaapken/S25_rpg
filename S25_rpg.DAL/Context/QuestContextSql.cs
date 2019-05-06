@@ -4,8 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
-using S25_rpg.DAL.Interface.Quest;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Model;
+using S25_rpg.Models.Interfaces.Quest;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Context

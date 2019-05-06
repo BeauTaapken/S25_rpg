@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using S25_rpg.DAL.Interface;
-using S25_rpg.DAL.Interface.Character;
 using S25_rpg.DAL.Memory;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Character;
+using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.DAL.Repository
 {

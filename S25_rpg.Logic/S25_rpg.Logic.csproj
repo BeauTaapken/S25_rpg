@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\S25_rpg.DAL\S25_rpg.DAL.csproj" />
+    <ProjectReference Include="..\S25_rpg.Factory\S25_rpg.Factory.csproj" />
     <ProjectReference Include="..\S25_rpg.Interfaces\S25_rpg.Models.csproj" />
   </ItemGroup>
 

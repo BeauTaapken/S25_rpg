@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using S25_rpg.DAL.Interface.Character;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Character;
+using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Memory

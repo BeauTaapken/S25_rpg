@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using MySql.Data.MySqlClient;
-using S25_rpg.DAL.Interface.Shop;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Model;
+using S25_rpg.Models.Interfaces.Shop;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Context

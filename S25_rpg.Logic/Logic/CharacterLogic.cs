@@ -2,26 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using S25_rpg.DAL.Context;
-using S25_rpg.DAL.Factory;
-using S25_rpg.DAL.Interface.Character;
 using S25_rpg.DAL.Repository;
+using S25_rpg.Factory;
 using S25_rpg.Logic.Interface;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Character;
+using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
 {
-    public class CharacterLogic : CharacterFactory, IExplore, IFight
+    public class CharacterLogic : IExplore, IFight
     {
+        private ICharacterRepo repo = CharacterFactory.CharacterRepo();
+
         public void EquipItem(IItem item, ICharacter character)
         {
-            CharacterRepo.EquipItem(item, character);
+            repo.EquipItem(item, character);
         }
 
         public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
         {
-            return CharacterRepo.GetEquippedItems(character);
+            return repo.GetEquippedItems(character);
         }
 
         public AreaContent NextArea()
@@ -70,7 +73,7 @@ namespace S25_rpg.Logic.Logic
 
         public void EditGold(int gold, ICharacter character)
         {
-            CharacterRepo.EditGold(gold, character);
+            repo.EditGold(gold, character);
         }
 
         public int CalculateDamage(ICharacter character)
@@ -151,7 +154,7 @@ namespace S25_rpg.Logic.Logic
             {
                 totalExp += monster.Exp;
             }
-            CharacterRepo.EditExpAndLevel(character, totalExp);
+            repo.EditExpAndLevel(character, totalExp);
         }
     }
 }

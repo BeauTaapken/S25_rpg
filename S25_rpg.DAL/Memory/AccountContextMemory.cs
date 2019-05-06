@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using S25_rpg.DAL.Interface.Account;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Account;
+using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Memory

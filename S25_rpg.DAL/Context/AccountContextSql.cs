@@ -1,9 +1,9 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
-using S25_rpg.DAL.Dto;
-using S25_rpg.DAL.Interface.Account;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
+using S25_rpg.Models.Interfaces.Account;
+using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Context
