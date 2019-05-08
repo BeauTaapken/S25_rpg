@@ -12,7 +12,12 @@ namespace S25_rpg.Logic.Logic
 {
     public class NewsContainerLogic
     {
-        private INewsContainerRepo repo = NewsContainerFactory.NewsContainerRepo();
+        private INewsContainerRepo repo;
+
+        public NewsContainerLogic(INewsContainerRepo r = null)
+        {
+            repo = r ?? NewsContainerFactory.MySqlNewsContainerRepo();
+        }
 
         public List<INews> getAllNews()
         {

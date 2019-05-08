@@ -9,9 +9,14 @@ namespace S25_rpg.Factory
 {
     public static class CharacterFactory
     {
-        public static ICharacterRepo CharacterRepo()
+        public static ICharacterRepo MySqlCharacterRepo()
         {
             return new CharacterRepository(new CharacterContextSql());
+        }
+
+        public static ICharacterRepo MemoryCharacterRepo()
+        {
+            return new CharacterRepository();
         }
     }
 }

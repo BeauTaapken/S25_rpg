@@ -9,9 +9,14 @@ namespace S25_rpg.Factory
 {
     public class NewsContainerFactory
     {
-        public static INewsContainerRepo NewsContainerRepo()
+        public static INewsContainerRepo MySqlNewsContainerRepo()
         {
             return new NewsRepository(new NewsContextSql());
-        } 
+        }
+
+        public static INewsContainerRepo MemoryNewsContainerRepo()
+        {
+            return new NewsRepository();
+        }
     }
 }

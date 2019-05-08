@@ -17,14 +17,9 @@ namespace S25_rpg.DAL.Repository
             _characterContext = characterContext ?? new CharacterContextMemory();
         }
 
-        public ICharacter AddCharacter(ICharacter character, int id)
+        public ICharacter AddCharacter(ICharacter character, IAccount account)
         {
-            return _characterContext.AddCharacter(character, id);
-        }
-
-        public void EditUnlockPoint(string link, ICharacter character)
-        {
-            _characterContext.EditUnlockPoint(link, character);
+            return _characterContext.AddCharacter(character, account);
         }
 
         public void EditStartLink(string link, ICharacter character)

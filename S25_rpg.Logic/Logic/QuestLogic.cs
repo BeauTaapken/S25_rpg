@@ -12,7 +12,13 @@ namespace S25_rpg.Logic.Logic
 {
     public class QuestLogic
     {
-        private IQuestRepo repo = QuestFactory.QuestRepo();
+        private IQuestRepo repo;
+
+        public QuestLogic(IQuestRepo r = null)
+        {
+            repo = r ?? QuestFactory.MySqlQuestRepo();
+        }
+
         public void StartQuest(ICharacter character, IQuest quest)
         {
             repo.StartQuest(character, quest);

@@ -9,9 +9,14 @@ namespace S25_rpg.Factory
 {
     public static class AccountFactory
     {
-        public static IAccountRepo AccountRepo()
+        public static IAccountRepo MySqlAccountRepo()
         {
             return new AccountRepository(new AccountContextSql());
-        } 
+        }
+
+        public static IAccountRepo MemoryAccountRepo()
+        {
+            return new AccountRepository();
+        }
     }
 }

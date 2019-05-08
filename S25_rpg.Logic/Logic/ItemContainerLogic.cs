@@ -12,7 +12,12 @@ namespace S25_rpg.Logic.Logic
 {
     public class ItemContainerLogic
     {
-        private IItemContainerRepo repo = ItemContainerFactory.ItemContainerRepo();
+        private IItemContainerRepo repo;
+
+        public ItemContainerLogic(IItemContainerRepo r = null)
+        {
+            repo = r ?? ItemContainerFactory.MySqlItemContainerRepo();
+        }
 
         public IEnumerable<IItem> GetAllCharacterItems(ICharacter character)
         {

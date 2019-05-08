@@ -19,7 +19,7 @@ namespace S25_rpg.DAL.Context
         /// <param name="character"> <see cref="ICharacter"/></param>
         /// <param name="id"> <see cref="int"/></param>
         /// <returns><see cref="ICharacter"/></returns>
-        public ICharacter AddCharacter(ICharacter character, int id)
+        public ICharacter AddCharacter(ICharacter character, IAccount account)
         {
             ICharacter c = null;
             try
@@ -54,7 +54,7 @@ namespace S25_rpg.DAL.Context
                 reader.Close();
 
                 MySqlCommand coupleCharacterAccount = new MySqlCommand("INSERT INTO `accountcharacter` (`Account_id`, `Character_id`) VALUES (@account, @character)", mySqlConnection);
-                coupleCharacterAccount.Parameters.AddWithValue("@account", id);
+                coupleCharacterAccount.Parameters.AddWithValue("@account", account.idAccount);
                 coupleCharacterAccount.Parameters.AddWithValue("@character", c.idCharacter);
                 coupleCharacterAccount.ExecuteNonQuery();
 
@@ -144,16 +144,6 @@ namespace S25_rpg.DAL.Context
             }
         }
 
-        public void EditUnlockPoint(string link, ICharacter character)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void EditStartLink(string link, ICharacter character)
-        {
-            throw new System.NotImplementedException();
-        }
-
         /// <summary>
         /// Function for equiping an item to a character
         /// </summary>
@@ -211,6 +201,11 @@ namespace S25_rpg.DAL.Context
             {
                 mySqlConnection.Close();
             }
+        }
+
+        public void EditStartLink(string link, ICharacter character)
+        {
+
         }
     }
 }

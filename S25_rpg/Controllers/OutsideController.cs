@@ -62,12 +62,13 @@ namespace S25_rpg.Controllers
 
                     if (monsters.All(x => x.Hp < 1))
                     {
+                        //TODO add items to inventory
                         _characterLogic.EarnExpAndLevelUp(character, monsters);
                         return RedirectToAction("Index", "Outside");
                     }
 
                     int defence = _characterLogic.CalculateDefence(character);
-                    model.characterHp = _characterLogic.TakeDamage(monsters, model.monsterLocation, model.characterHp, defence);
+                    model.characterHp = _characterLogic.TakeDamage(monsters, model.characterHp, defence);
                 }
                 
 

@@ -17,13 +17,15 @@ namespace S25_rpg.Controllers
         private ShopLogic shopLogic = new ShopLogic();
         private ItemContainerLogic itemContainerLogic = new ItemContainerLogic();
         private CharacterLogic characterLogic = new CharacterLogic();
+        private AccountLogic accountLogic = new AccountLogic();
 
         public IActionResult Index()
         {
             IShop shop = shopLogic.GetAllShopItems();
             ViewBag.ShopName = shop.shopName;
             ViewBag.ShopItems = shop.items;
-            ICharacter character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
+            ICharacter character = accountLogic.AccountHasCharacter(JsonConvert.DeserializeObject<Account>(Request.Cookies["account"]));
+            Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
             ViewBag.CharacterGold = character.Gold;
             ViewBag.CharacterItems = itemContainerLogic.GetAllCharacterItems(character);
             return View();

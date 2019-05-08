@@ -12,7 +12,13 @@ namespace S25_rpg.Logic.Logic
 {
     public class ShopLogic
     {
-        private IShopRepo repo = ShopFactory.ShopRepo();
+        private IShopRepo repo;
+
+        public ShopLogic(IShopRepo r = null)
+        {
+            repo = r ?? ShopFactory.MySqlShopRepo();
+        }
+
         public IShop GetAllShopItems()
         {
             return repo.GetAllShopItems();

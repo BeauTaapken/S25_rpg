@@ -15,7 +15,12 @@ namespace S25_rpg.Logic.Logic
 {
     public class CharacterLogic : IExplore, IFight
     {
-        private ICharacterRepo repo = CharacterFactory.CharacterRepo();
+        private ICharacterRepo repo;
+
+        public CharacterLogic(ICharacterRepo r = null)
+        {
+            repo = r ?? CharacterFactory.MySqlCharacterRepo();
+        }
 
         public void EquipItem(IItem item, ICharacter character)
         {
@@ -124,7 +129,7 @@ namespace S25_rpg.Logic.Logic
             return health;
         }
 
-        public int TakeDamage(IEnumerable<IMonster> monsters, int monsterLocation, int health, int defense)
+        public int TakeDamage(IEnumerable<IMonster> monsters, int health, int defense)
         {
             int damage = 0;
             foreach (IMonster monster in monsters.Where(x => x.Hp > 0))

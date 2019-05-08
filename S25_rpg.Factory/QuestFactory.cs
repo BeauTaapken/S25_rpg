@@ -9,9 +9,14 @@ namespace S25_rpg.Factory
 {
     public static class QuestFactory
     {
-        public static IQuestRepo QuestRepo()
+        public static IQuestRepo MySqlQuestRepo()
         {
             return new QuestRepository(new QuestContextSql());
-        } 
+        }
+
+        public static IQuestRepo MemoryQuestRepo()
+        {
+            return new QuestRepository();
+        }
     }
 }

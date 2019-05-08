@@ -9,9 +9,14 @@ namespace S25_rpg.Factory
 {
     public static class ItemContainerFactory
     {
-        public static IItemContainerRepo ItemContainerRepo()
+        public static IItemContainerRepo MySqlItemContainerRepo()
         {
             return new ItemRepository(new ItemContextSql());
-        } 
+        }
+
+        public static IItemContainerRepo MemoryItemContainerRepo()
+        {
+            return new ItemRepository();
+        }
     }
 }

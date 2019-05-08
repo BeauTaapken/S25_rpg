@@ -9,9 +9,14 @@ namespace S25_rpg.Factory
 {
     public static class ShopFactory
     {
-        public static IShopRepo ShopRepo()
+        public static IShopRepo MySqlShopRepo()
         {
             return new ShopRepository(new ShopContextSql());
+        }
+
+        public static IShopRepo MemoryShopRepo()
+        {
+            return new ShopRepository();
         }
     }
 }

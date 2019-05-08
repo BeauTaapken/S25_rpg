@@ -8,7 +8,6 @@ namespace S25_rpg.Models.Interfaces.Character
 {
     public interface ICharacterRepo
     {
-        void EditUnlockPoint(string link, ICharacter character);
         void EditStartLink(string link, ICharacter character);
         void EquipItem(IItem item, ICharacter character);
         IEnumerable<IEquipped> GetEquippedItems(ICharacter character);

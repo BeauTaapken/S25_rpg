@@ -10,9 +10,16 @@ namespace S25_rpg.Logic.Logic
 {
     public class AccountLogic
     {
-        private IAccountRepo repo = AccountFactory.AccountRepo();
+        private IAccountRepo repo;
+
+        public AccountLogic(IAccountRepo r = null)
+        {
+            repo = r ?? AccountFactory.MySqlAccountRepo();
+        }
+
         public void Logout()
         {
+            //Not used yet, may be used in future versions to save the current webpath of the user
             repo.Logout();
         }
 

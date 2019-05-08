@@ -14,7 +14,12 @@ namespace S25_rpg.Logic.Logic
 {
     public class QuestContainerLogic
     {
-        private IQuestContainerRepo repo = QuestContainerFactory.QuestContainerRepo();
+        private IQuestContainerRepo repo;
+
+        public QuestContainerLogic(IQuestContainerRepo r = null)
+        {
+            repo = r ?? QuestContainerFactory.MySqlQuestContainerRepo();
+        }
 
         public IEnumerable<IQuest> GetAllAcceptableQuests(ICharacter character)
         {

@@ -15,10 +15,16 @@ namespace S25_rpg.Logic.Logic
 {
     public class CharacterContainerLogic
     {
-        private ICharacterContainerRepo repo = CharacterContainerFactory.CharacterContainerRepo();
+        private ICharacterContainerRepo repo;
+
+        public CharacterContainerLogic(ICharacterContainerRepo r = null)
+        {
+            repo = r ?? CharacterContainerFactory.MySqlCharacterContainerRepo();
+        }
+
         public ICharacter AddCharacter(ICharacter iCharacter, IAccount iAccount)
         {
-            return repo.AddCharacter(iCharacter, iAccount.idAccount);
+            return repo.AddCharacter(iCharacter, iAccount);
         }
     }
 }

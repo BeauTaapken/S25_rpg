@@ -19,7 +19,6 @@ namespace S25_rpg.Controllers
     {
         AccountLogic accountLogic = new AccountLogic();
         AccountContainerLogic _accountContainerLogic = new AccountContainerLogic();
-        ItemContainerLogic _itemContainerLogic = new ItemContainerLogic();
         CharacterLogic characterLogic = new CharacterLogic();
 
         public IActionResult Login()

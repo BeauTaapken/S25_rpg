@@ -8,6 +8,6 @@ namespace S25_rpg.Models.Interfaces.Character
 {
     public interface ICharacterContainerRepo
     {
-        ICharacter AddCharacter(ICharacter character, int id);
+        ICharacter AddCharacter(ICharacter character, IAccount account);
     }
 }
