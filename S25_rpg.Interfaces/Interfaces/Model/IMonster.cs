@@ -10,5 +10,6 @@ namespace S25_rpg.Models.Interfaces.Model
         int Hp { get; set; }
         int Damage { get; set; }
         int Exp { get; set; }
+        int ItemDropId { get; set; }
     }
 }

@@ -58,7 +58,10 @@ namespace S25_rpg.Controllers
 
         public IActionResult CompleteQuest(QuestCompleteViewModel model)
         {
-            _questLogic.CompleteQuest(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), model);
+            ICharacter character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
+            _questLogic.CompleteQuest(character, model);
+            _itemContainerLogic.RemoveItem(new Item(model.ClearItemId, model.ClearAmmount), character);
+            _itemContainerLogic.AddItem(new Item(model.RewardItemId, model.RewardAmmount), character);
             IEnumerable<IItem> item = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
             Response.Cookies.Append("items", JsonConvert.SerializeObject(item));
             return RedirectToAction("Quest");

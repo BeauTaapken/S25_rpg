@@ -15,6 +15,7 @@ namespace S25_rpg.Controllers
     public class OutsideController : Controller
     {
         private CharacterLogic _characterLogic = new CharacterLogic();
+        private ItemContainerLogic _itemContainerLogic = new ItemContainerLogic();
 
         public IActionResult Index()
         {
@@ -53,22 +54,34 @@ namespace S25_rpg.Controllers
 
                     ViewBag.Message = "Fleeing failed";
                 }
-
-                else
+                
+                if (!(model.flee))
                 {
-                    
                     int damage = _characterLogic.CalculateDamage(character);
                     monsters = _characterLogic.GiveDamage(damage, model.monsterLocation, monsters);
 
                     if (monsters.All(x => x.Hp < 1))
                     {
-                        //TODO add items to inventory
+                        foreach (IMonster monster in monsters)
+                        {
+                            if (monster.ItemDropId != 0)
+                            {
+                                _itemContainerLogic.AddItem(new Item(monster.ItemDropId, 1), character);
+                            }
+                        }
+
                         _characterLogic.EarnExpAndLevelUp(character, monsters);
                         return RedirectToAction("Index", "Outside");
                     }
+                }
+                
 
-                    int defence = _characterLogic.CalculateDefence(character);
-                    model.characterHp = _characterLogic.TakeDamage(monsters, model.characterHp, defence);
+                int defence = _characterLogic.CalculateDefence(character);
+                model.characterHp = _characterLogic.TakeDamage(monsters, model.characterHp, defence);
+                if (model.characterHp <= 0)
+                {
+                    model.characterHp = 0;
+                    ViewBag.Message = "You died";
                 }
                 
 

@@ -28,19 +28,19 @@ namespace S25_rpg.DAL.Context
                 updateCharacterQuest.Parameters.AddWithValue("@questid", quest.Id);
                 updateCharacterQuest.ExecuteNonQuery();
 
-                //TODO check if changable to RemoveItem function in ItemContextSql
-                MySqlCommand RemoveQuestItems = new MySqlCommand("UPDATE characteritem SET Ammount = Ammount - @gottenAmmount WHERE Item_id = @itemid && Character_id = @charid", mySqlConnection);
-                RemoveQuestItems.Parameters.AddWithValue("@gottenammount", quest.ClearAmmount);
-                RemoveQuestItems.Parameters.AddWithValue("@itemid", quest.ClearItemId);
-                RemoveQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
-                RemoveQuestItems.ExecuteNonQuery();
+                ////TODO check if changable to RemoveItem function in ItemContextSql
+                //MySqlCommand RemoveQuestItems = new MySqlCommand("UPDATE characteritem SET Ammount = Ammount - @gottenAmmount WHERE Item_id = @itemid && Character_id = @charid", mySqlConnection);
+                //RemoveQuestItems.Parameters.AddWithValue("@gottenammount", quest.ClearAmmount);
+                //RemoveQuestItems.Parameters.AddWithValue("@itemid", quest.ClearItemId);
+                //RemoveQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
+                //RemoveQuestItems.ExecuteNonQuery();
 
-                //TODO check if changable to AddItem function in ItemContextSql
-                MySqlCommand AddQuestItems = new MySqlCommand("INSERT INTO `characteritem` (Character_id, Item_id, Ammount) VALUES (@charid, @itemid, @gottenItems) ON DUPLICATE KEY UPDATE Ammount = Ammount + @gottenItems", mySqlConnection);
-                AddQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
-                AddQuestItems.Parameters.AddWithValue("@itemid", quest.RewardItemId);
-                AddQuestItems.Parameters.AddWithValue("@gottenItems", quest.RewardAmmount);
-                AddQuestItems.ExecuteNonQuery();
+                ////TODO check if changable to AddItem function in ItemContextSql
+                //MySqlCommand AddQuestItems = new MySqlCommand("INSERT INTO `characteritem` (Character_id, Item_id, Ammount) VALUES (@charid, @itemid, @gottenItems) ON DUPLICATE KEY UPDATE Ammount = Ammount + @gottenItems", mySqlConnection);
+                //AddQuestItems.Parameters.AddWithValue("@charid", character.idCharacter);
+                //AddQuestItems.Parameters.AddWithValue("@itemid", quest.RewardItemId);
+                //AddQuestItems.Parameters.AddWithValue("@gottenItems", quest.RewardAmmount);
+                //AddQuestItems.ExecuteNonQuery();
             }
             catch
             {

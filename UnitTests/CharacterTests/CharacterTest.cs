@@ -27,8 +27,8 @@ namespace UnitTests.CharacterTests
         public CharacterTest()
         {
             _characterLogic = new CharacterLogic(CharacterFactory.MemoryCharacterRepo());
-            m.Add(new Monster("Orc", 10, 4, 10));
-            m.Add(new Monster("slime", 10,10,10));
+            m.Add(new Monster("Orc", 10, 4, 10, 2));
+            m.Add(new Monster("slime", 10,10,10, 3));
             monsters = m;
         }
 
@@ -141,7 +141,7 @@ namespace UnitTests.CharacterTests
         {
             int result = _characterLogic.TakeDamage(monsters, 50, 3);
 
-            Assert.Equal(39, result);
+            Assert.Equal(44, result);
         }
     }
 }

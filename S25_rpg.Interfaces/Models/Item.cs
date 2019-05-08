@@ -41,5 +41,11 @@ namespace S25_rpg.Models.Models
             buyPrice = buyPrice;
             SellPrice = sellprice;
         }
+
+        public Item(int id, int ammount)
+        {
+            Id = id;
+            Ammount = ammount;
+        }
     }
 }

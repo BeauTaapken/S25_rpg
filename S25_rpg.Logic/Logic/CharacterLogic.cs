@@ -52,15 +52,16 @@ namespace S25_rpg.Logic.Logic
                 switch (monster)
                 {
                     case (MonsterChoice)0:
-                        monsterList.Add(new Monster(monster.ToString(), 10, 1, 10));
+                        monsterList.Add(new Monster(monster.ToString(), 5, 10, 10, 2));
                         break;
                     case (MonsterChoice)1:
-                        monsterList.Add(new Monster(monster.ToString(), 10, 1, 10));
+                        monsterList.Add(new Monster(monster.ToString(), 10, 10, 15, 3));
                         break;
                     case (MonsterChoice)2:
-                        monsterList.Add(new Monster(monster.ToString(), 10, 1, 10));
+                        monsterList.Add(new Monster(monster.ToString(), 15, 15, 20, 4));
                         break;
                     default:
+                        monsterList.Add(new Monster("monster not found", 0 ,0, 0, 0));
                         break;
                 }
             }
@@ -131,15 +132,13 @@ namespace S25_rpg.Logic.Logic
 
         public int TakeDamage(IEnumerable<IMonster> monsters, int health, int defense)
         {
-            int damage = 0;
             foreach (IMonster monster in monsters.Where(x => x.Hp > 0))
             {
-                damage += monster.Damage;
-            }
-            damage -= defense;
-            if (damage > 0)
-            {
-                health = health - damage;
+                int damage = monster.Damage = defense;
+                if (damage > 0)
+                {
+                    health -= damage;
+                }
             }
 
             return health;
