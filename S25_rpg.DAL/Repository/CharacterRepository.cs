@@ -32,6 +32,11 @@ namespace S25_rpg.DAL.Repository
             _characterContext.EquipItem(item, character);
         }
 
+        public void DequipItem(IItem item, ICharacter character)
+        {
+            _characterContext.DequipItem(item, character);
+        }
+
         public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
         {
             return _characterContext.GetEquippedItems(character);

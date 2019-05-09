@@ -171,6 +171,31 @@ namespace S25_rpg.DAL.Context
         }
 
         /// <summary>
+        /// Function for dequiping an item from a character
+        /// </summary>
+        /// <param name="item"><see cref="IItem"/></param>
+        /// <param name="character"><see cref="ICharacter"/></param>
+        public void DequipItem(IItem item, ICharacter character)
+        {
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand dequipItem = new MySqlCommand("DELETE FROM `equipped` WHERE Item_id = @itemid AND Character_id = @charid", mySqlConnection);
+                dequipItem.Parameters.AddWithValue("@itemid", item.Id);
+                dequipItem.Parameters.AddWithValue("@charid", character.idCharacter);
+                dequipItem.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+        }
+
+        /// <summary>
         /// Function for getting all the equipped items of a character
         /// </summary>
         /// <param name="character"><see cref="ICharacter"/></param>

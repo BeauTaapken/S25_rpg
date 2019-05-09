@@ -32,6 +32,11 @@ namespace S25_rpg.Logic.Logic
             return repo.GetEquippedItems(character);
         }
 
+        public void DequipItem(IItem item, ICharacter character)
+        {
+            repo.DequipItem(item, character);
+        }
+
         public AreaContent NextArea()
         {
             Array areaContents = Enum.GetValues(typeof(AreaContent));

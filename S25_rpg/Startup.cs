@@ -35,7 +35,8 @@ namespace S25_rpg
             });
 
             DatabaseConnection db = new DatabaseConnection();
-            db.setConnectionString(Configuration.GetConnectionString("LocalhostConnection"));
+            //db.setConnectionString(Configuration.GetConnectionString("LocalhostConnection"));
+            db.setConnectionString(Configuration.GetConnectionString("OnlineConnection"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

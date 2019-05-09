@@ -49,6 +49,11 @@ namespace S25_rpg.DAL.Memory
             }
         }
 
+        public void DequipItem(IItem item, ICharacter character)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
         {
 

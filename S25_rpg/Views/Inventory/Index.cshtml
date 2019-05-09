@@ -5,6 +5,8 @@
     ViewData["Title"] = "Inventory";
 }
 
+@model ItemDequipViewModel
+
 <div class="font-size text-center pt-10">
     <div class="text-right">
         <button class="btn btn-primary">@Html.ActionLink("Go back to Town", "Index", "Town", null, new { @class = "white-link font-size" })</button>
@@ -33,7 +35,11 @@
                             <div class="col">
                                 @if (HeadEquip.ItemId != 0)
                                 {
-                                    <button class="btn btn-dark">Dequip</button>
+                                    using (Html.BeginForm("DequipItem", "Inventory"))
+                                    {
+                                        @Html.Hidden("Id", HeadEquip.ItemId)
+                                        <input type="submit" class="btn btn-dark" value="Dequip">
+                                    }
                                 }
                             </div>
                         </div>
@@ -47,7 +53,11 @@
                             <div class="col">
                                 @if (BodyEquip.ItemId != 0)
                                 {
-                                    <button class="btn btn-dark">Dequip</button>
+                                    using (Html.BeginForm("DequipItem", "Inventory"))
+                                    {
+                                        @Html.Hidden("Id", BodyEquip.ItemId)
+                                        <input type="submit" class="btn btn-dark" value="Dequip">
+                                    }
                                 }
                             </div>
                         </div>
@@ -61,7 +71,11 @@
                             <div class="col">
                                 @if (LegsEquip.ItemId != 0)
                                 {
-                                    <button class="btn btn-dark">Dequip</button>
+                                    using (Html.BeginForm("DequipItem", "Inventory"))
+                                    {
+                                        @Html.Hidden("Id", LegsEquip.ItemId)
+                                        <input type="submit" class="btn btn-dark" value="Dequip">
+                                    }
                                 }
                             </div>
                         </div>
@@ -75,7 +89,11 @@
                             <div class="col">
                                 @if (LeftEquip.ItemId != 0)
                                 {
-                                    <button class="btn btn-dark">Dequip</button>
+                                    using (Html.BeginForm("DequipItem", "Inventory"))
+                                    {
+                                        @Html.Hidden("Id", LeftEquip.ItemId)
+                                        <input type="submit" class="btn btn-dark" value="Dequip">
+                                    }
                                 }
                             </div>
                         </div>
@@ -89,7 +107,11 @@
                             <div class="col">
                                 @if (RightEquip.ItemId != 0)
                                 {
-                                    <button class="btn btn-dark">Dequip</button>
+                                    using (Html.BeginForm("DequipItem", "Inventory"))
+                                    {
+                                        @Html.Hidden("Id", RightEquip.ItemId)
+                                        <input type="submit" class="btn btn-dark" value="Dequip">
+                                    }
                                 }
                             </div>
                         </div>
