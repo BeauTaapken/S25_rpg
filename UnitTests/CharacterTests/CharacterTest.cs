@@ -14,15 +14,15 @@ namespace UnitTests.CharacterTests
 {
     public class CharacterTest
     {
-        CharacterLogic _characterLogic;
-        ICharacter equippedCharacter = new Character(1, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
-        ICharacter noEquippedCharacter = new Character(2, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private CharacterLogic _characterLogic;
+        private ICharacter equippedCharacter = new Character(1, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private ICharacter noEquippedCharacter = new Character(2, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
 
-        ICharacter warriorCharacter = new Character(3, 10,10,10,5,10,Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Warrior,"");
-        ICharacter WizardCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Wizard, "");
-        ICharacter ArcherCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Archer, "");
-        List<IMonster> m = new List<IMonster>();
-        IEnumerable<IMonster> monsters;
+        private ICharacter warriorCharacter = new Character(3, 10,10,10,5,10,Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Warrior,"");
+        private ICharacter WizardCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private ICharacter ArcherCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Archer, "");
+        private List<IMonster> m = new List<IMonster>();
+        private IEnumerable<IMonster> monsters;
 
         public CharacterTest()
         {

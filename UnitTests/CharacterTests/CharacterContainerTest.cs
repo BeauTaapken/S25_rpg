@@ -12,9 +12,9 @@ namespace UnitTests.CharacterTests
 {
     public class CharacterContainerTest
     {
-        CharacterContainerLogic _characterContainerLogic;
-        IAccount Account = new Account(10, "beau", "test", "beau@lioncode.nl");
-        ICharacter character = new Character(0, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private CharacterContainerLogic _characterContainerLogic;
+        private IAccount Account = new Account(10, "beau", "test", "beau@lioncode.nl");
+        private ICharacter character = new Character(0, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
 
         public CharacterContainerTest()
         {

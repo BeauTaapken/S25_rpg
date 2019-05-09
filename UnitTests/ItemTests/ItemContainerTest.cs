@@ -13,9 +13,9 @@ namespace UnitTests.ItemTests
 {
     public class ItemContainerTest
     {
-        ItemContainerLogic _itemContainerLogic;
-        ICharacter existingItemCharacter = new Character(1, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
-        ICharacter nonExistingItemCharacter = new Character(2, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private ItemContainerLogic _itemContainerLogic;
+        private ICharacter existingItemCharacter = new Character(1, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private ICharacter nonExistingItemCharacter = new Character(2, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
 
         public ItemContainerTest()
         {

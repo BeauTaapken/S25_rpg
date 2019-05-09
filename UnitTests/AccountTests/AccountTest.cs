@@ -13,9 +13,9 @@ namespace UnitTests.AccountTests
 {
     public class AccountTest
     {
-        AccountLogic _accountLogic;
-        IAccount existingAccount = new Account(1, "beau", "test", "beau@lioncode.nl");
-        IAccount nonExistengAccount = new Account(0, "FakeAccount", "fakePassword", "fake@fake.com");
+        private AccountLogic _accountLogic;
+        private IAccount existingAccount = new Account(1, "beau", "test", "beau@lioncode.nl");
+        private IAccount nonExistengAccount = new Account(0, "FakeAccount", "fakePassword", "fake@fake.com");
 
         public AccountTest()
         {
