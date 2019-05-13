@@ -10,7 +10,6 @@ using S25_rpg.Logic;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Controllers
@@ -31,20 +30,21 @@ namespace S25_rpg.Controllers
         {
             if (ModelState.IsValid)
             {
-                IAccount account = _accountContainerLogic.Login(accountModel);
+                Account a = new Account(accountModel.idAccount, accountModel.Username, accountModel.Password, accountModel.Email);
+                Account account = _accountContainerLogic.Login(a);
 
                 if (account != null)
                 {
                     if (account.idAccount != 0)
                     {
                         Response.Cookies.Append("account", JsonConvert.SerializeObject(account));
-                        ICharacter character = accountLogic.AccountHasCharacter(account);
+                        Character character = accountLogic.AccountHasCharacter(account);
                         if (character == null)
                         {
                             return RedirectToAction("CharacterCreation", "CharacterCreation");
                         }
                         Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
-                        IEnumerable<IEquipped> equipped = characterLogic.GetEquippedItems(character);
+                        IEnumerable<Equipped> equipped = characterLogic.GetEquippedItems(character);
                         Response.Cookies.Append("equipped", JsonConvert.SerializeObject(equipped));
                         return RedirectToAction("Index", "Town");
                     }
@@ -70,9 +70,10 @@ namespace S25_rpg.Controllers
             {
                 if (model.Password == model.RepeatPassword)
                 {
-                    if (!(_accountContainerLogic.CheckIfAccountExist(model)))
+                    Account a = new Account(model.idAccount, model.Username, model.Password, model.Email);
+                    if (!(_accountContainerLogic.CheckIfAccountExist(a)))
                     {
-                        _accountContainerLogic.InsertAccount(model);
+                        _accountContainerLogic.InsertAccount(a);
                         return RedirectToAction("Login", "Account");
                     }
                     ViewBag.Message = "An account with the username and/or email address already exists";

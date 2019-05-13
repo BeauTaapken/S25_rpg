@@ -5,11 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.Models
 {
-    public class QuestCompleteViewModel : IQuest
+    public class QuestCompleteViewModel
     {
         [Required]
         public int Id { get; set; }

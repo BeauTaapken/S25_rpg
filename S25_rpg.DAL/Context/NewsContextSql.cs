@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using MySql.Data.MySqlClient;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Interfaces.News;
 using S25_rpg.Models.Models;
 
@@ -15,9 +14,9 @@ namespace S25_rpg.DAL.Context
         /// Function for getting all the news from the database
         /// </summary>
         /// <returns><see cref="List{INews}"/></returns>
-        public List<INews> GetAllNews()
+        public List<News> GetAllNews()
         {
-            List<INews> news = new List<INews>();
+            List<News> news = new List<News>();
             try
             {
                 mySqlConnection.Open();

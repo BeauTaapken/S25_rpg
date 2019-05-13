@@ -8,7 +8,6 @@ using S25_rpg.Logic.Interface;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Interfaces.Character;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
@@ -22,17 +21,17 @@ namespace S25_rpg.Logic.Logic
             repo = r ?? CharacterFactory.MySqlCharacterRepo();
         }
 
-        public void EquipItem(IItem item, ICharacter character)
+        public void EquipItem(Item item, Character character)
         {
             repo.EquipItem(item, character);
         }
 
-        public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
+        public IEnumerable<Equipped> GetEquippedItems(Character character)
         {
             return repo.GetEquippedItems(character);
         }
 
-        public void DequipItem(IItem item, ICharacter character)
+        public void DequipItem(Item item, Character character)
         {
             repo.DequipItem(item, character);
         }
@@ -45,9 +44,9 @@ namespace S25_rpg.Logic.Logic
             return areaContent;
         }
 
-        public IEnumerable<IMonster> Monsters()
+        public IEnumerable<Monster> Monsters()
         {
-            List<IMonster> monsterList = new List<IMonster>();
+            List<Monster> monsterList = new List<Monster>();
             Random random = new Random();
             int monsterAmmount = random.Next(1, 6);
             for (int i = 0; i < monsterAmmount; i++)
@@ -71,7 +70,7 @@ namespace S25_rpg.Logic.Logic
                 }
             }
 
-            IEnumerable<IMonster> allMonsters = monsterList;
+            IEnumerable<Monster> allMonsters = monsterList;
 
             return allMonsters;
         }
@@ -82,12 +81,12 @@ namespace S25_rpg.Logic.Logic
             return random.Next(10, 100);
         }
 
-        public void EditGold(int gold, ICharacter character)
+        public void EditGold(int gold, Character character)
         {
             repo.EditGold(gold, character);
         }
 
-        public int CalculateDamage(ICharacter character)
+        public int CalculateDamage(Character character)
         {
             //TODO add equipment to equation
             int damage = 4;
@@ -99,9 +98,9 @@ namespace S25_rpg.Logic.Logic
             return damage;
         }
 
-        public IEnumerable<IMonster> GiveDamage(int damage, int monsterLocation, IEnumerable<IMonster> monsters)
+        public IEnumerable<Monster> GiveDamage(int damage, int monsterLocation, IEnumerable<Monster> monsters)
         {
-            List<IMonster> monsterList = monsters.ToList();
+            List<Monster> monsterList = monsters.ToList();
             monsterList[monsterLocation].Hp -= damage;
             if (monsterList[monsterLocation].Hp < 0)
             {
@@ -111,7 +110,7 @@ namespace S25_rpg.Logic.Logic
             return monsters;
         }
 
-        public int CalculateDefence(ICharacter character)
+        public int CalculateDefence(Character character)
         {
             //TODO add equipment to equation
             int defence = 1;
@@ -124,7 +123,7 @@ namespace S25_rpg.Logic.Logic
             return defence;
         }
 
-        public int CalculateHealth(ICharacter character)
+        public int CalculateHealth(Character character)
         {
             int health = 10;
             if (character.CharacterClass == CharacterClass.Archer)
@@ -135,9 +134,9 @@ namespace S25_rpg.Logic.Logic
             return health;
         }
 
-        public int TakeDamage(IEnumerable<IMonster> monsters, int health, int defense)
+        public int TakeDamage(IEnumerable<Monster> monsters, int health, int defense)
         {
-            foreach (IMonster monster in monsters.Where(x => x.Hp > 0))
+            foreach (Monster monster in monsters.Where(x => x.Hp > 0))
             {
                 int damage = monster.Damage = defense;
                 if (damage > 0)
@@ -156,10 +155,10 @@ namespace S25_rpg.Logic.Logic
             return chance >= 60;
         }
 
-        public void EarnExpAndLevelUp(ICharacter character, IEnumerable<IMonster> monsters)
+        public void EarnExpAndLevelUp(Character character, IEnumerable<Monster> monsters)
         {
             int totalExp = 0;
-            foreach (IMonster monster in monsters)
+            foreach (Monster monster in monsters)
             {
                 totalExp += monster.Exp;
             }

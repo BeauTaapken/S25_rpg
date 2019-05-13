@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Controllers
@@ -30,11 +29,12 @@ namespace S25_rpg.Controllers
         {
             if (ModelState.IsValid)
             {
-                ICharacter c = _characterContainerLogic.AddCharacter(character, JsonConvert.DeserializeObject<Account>(Request.Cookies["account"]));
+                Character ch = new Character(character.idCharacter, character.Weight, character.Height, character.CurrentExp, character.CurrentLevel, character.Gold, character.Eyecolor, character.Haircolor, character.QuestLevel, character.CharacterClass, character.StartPage);
+                Character c = _characterContainerLogic.AddCharacter(ch, JsonConvert.DeserializeObject<Account>(Request.Cookies["account"]));
                 if (c != null)
                 {
                     Response.Cookies.Append("character", JsonConvert.SerializeObject(c));
-                    IEnumerable<IEquipped> equipped = characterLogic.GetEquippedItems(character);
+                    IEnumerable<Equipped> equipped = characterLogic.GetEquippedItems(c);
                     Response.Cookies.Append("equipped", JsonConvert.SerializeObject(equipped));
                     return RedirectToAction("Index", "Town");
                 }

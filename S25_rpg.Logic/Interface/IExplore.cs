@@ -4,14 +4,14 @@ using System.Text;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Interface
 {
     public interface IExplore
     {
         AreaContent NextArea();
-        IEnumerable<IMonster> Monsters();
+        IEnumerable<Monster> Monsters();
         int Gold();
     }
 }

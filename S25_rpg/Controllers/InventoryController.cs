@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Controllers
@@ -26,18 +25,20 @@ namespace S25_rpg.Controllers
 
         public IActionResult EquipItem(ItemEquipViewModel itemModel)
         {
-            ICharacter character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
-            characterLogic.EquipItem(itemModel, character);
-            IEnumerable<IEquipped> equippedItems = characterLogic.GetEquippedItems(character);
+            Character character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
+            Item i = new Item(itemModel.Id, itemModel.Ammount, itemModel.Name, itemModel.Description, itemModel.SellPrice, itemModel.Equipable, itemModel.Damage, itemModel.Defence, itemModel.Location);
+            characterLogic.EquipItem(i, character);
+            IEnumerable<Equipped> equippedItems = characterLogic.GetEquippedItems(character);
             Response.Cookies.Append("equipped", JsonConvert.SerializeObject(equippedItems));
             return RedirectToAction("Index", "Inventory");
         }
 
         public IActionResult DequipItem(ItemDequipViewModel model)
         {
-            ICharacter character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
-            characterLogic.DequipItem(model, character);
-            IEnumerable<IEquipped> equippedItems = characterLogic.GetEquippedItems(character);
+            Character character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
+            Item i = new Item(model.Id, model.Ammount, model.Name, model.Description, model.SellPrice, model.Equipable, model.Damage, model.Defence, model.Location);
+            characterLogic.DequipItem(i, character);
+            IEnumerable<Equipped> equippedItems = characterLogic.GetEquippedItems(character);
             Response.Cookies.Append("equipped", JsonConvert.SerializeObject(equippedItems));
             return RedirectToAction("Index", "Inventory");
         }

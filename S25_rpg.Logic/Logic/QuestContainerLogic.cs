@@ -6,7 +6,6 @@ using S25_rpg.DAL.Context;
 using S25_rpg.DAL.Repository;
 using S25_rpg.Factory;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Interfaces.Quest;
 using S25_rpg.Models.Models;
 
@@ -21,11 +20,11 @@ namespace S25_rpg.Logic.Logic
             repo = r ?? QuestContainerFactory.MySqlQuestContainerRepo();
         }
 
-        public IEnumerable<IQuest> GetAllAcceptableQuests(ICharacter character)
+        public IEnumerable<Quest> GetAllAcceptableQuests(Character character)
         {
-            IEnumerable<IQuest> quests = repo.GetAllAccapteableQuests(character);
-            List<IQuest> copyQuests = quests.ToList();
-            foreach (IQuest quest in quests)
+            IEnumerable<Quest> quests = repo.GetAllAccapteableQuests(character);
+            List<Quest> copyQuests = quests.ToList();
+            foreach (Quest quest in quests)
             {
                 if (quest.QuestLevel > character.QuestLevel)
                 {
@@ -36,11 +35,11 @@ namespace S25_rpg.Logic.Logic
             return quests;
         }
 
-        public IEnumerable<IQuest> GetAllAcceptedQuests(ICharacter character, IEnumerable<IItem> items)
+        public IEnumerable<Quest> GetAllAcceptedQuests(Character character, IEnumerable<Item> items)
         {
-            IEnumerable<IQuest> quests = repo.GetAllAcceptedQuests(character);
-            List<IQuest> copyQuests = quests.ToList();
-            foreach (IQuest quest in quests)
+            IEnumerable<Quest> quests = repo.GetAllAcceptedQuests(character);
+            List<Quest> copyQuests = quests.ToList();
+            foreach (Quest quest in quests)
             {
                 if (items.ToList().Any(x => (x.Name == quest.ClearItem) && (x.Ammount >= quest.ClearAmmount)))
                 {
@@ -55,7 +54,7 @@ namespace S25_rpg.Logic.Logic
             return quests;
         }
 
-        public IEnumerable<IQuest> RemoveAcceptedQuests(IEnumerable<IQuest> acceptableQuests, IEnumerable<IQuest> acceptedQuests)
+        public IEnumerable<Quest> RemoveAcceptedQuests(IEnumerable<Quest> acceptableQuests, IEnumerable<Quest> acceptedQuests)
         {
             acceptableQuests = acceptableQuests.ToList().Where(x => acceptedQuests.ToList().All(y => x.Id != y.Id));
             return acceptableQuests;

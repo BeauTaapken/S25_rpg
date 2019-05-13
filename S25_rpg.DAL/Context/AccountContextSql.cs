@@ -3,7 +3,6 @@ using MySql.Data.MySqlClient;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Interfaces.Account;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Context
@@ -15,9 +14,9 @@ namespace S25_rpg.DAL.Context
         /// </summary>
         /// <param name="account"> <see cref="IAccount"></see> </param>
         /// <returns>IAccount containing account or null</returns>
-        public IAccount Login(IAccount account)
+        public Account Login(Account account)
         {
-            IAccount a = null;
+            Account a = null;
             try
             {
                 mySqlConnection.Open();
@@ -48,7 +47,7 @@ namespace S25_rpg.DAL.Context
             }
         }
 
-        public bool CheckIfAccountExist(IAccount account)
+        public bool CheckIfAccountExist(Account account)
         {
             try
             {
@@ -80,7 +79,7 @@ namespace S25_rpg.DAL.Context
         /// Function for creating an account.
         /// </summary>
         /// <param name="account"> <see cref="IAccount"></see> </param>
-        public void CreateAccount(IAccount account)
+        public void CreateAccount(Account account)
         {
             try
             {
@@ -109,9 +108,9 @@ namespace S25_rpg.DAL.Context
         /// </summary>
         /// <param name="account"> <see cref="IAccount"></see> </param>
         /// <returns>ICharacter containing character or null</returns>
-        public ICharacter AccountHasCharacter(IAccount account)
+        public Character AccountHasCharacter(Account account)
         {
-            ICharacter c = null;
+            Character c = null;
             int characterId = 0;
             try
             {

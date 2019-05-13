@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.Models.Interfaces.Quest
 {
     public interface IQuestContainerRepo
     {
-        IEnumerable<IQuest> GetAllAcceptedQuests(ICharacter character);
+        IEnumerable<Models.Quest> GetAllAcceptedQuests(Models.Character character);
 
-        IEnumerable<IQuest> GetAllAccapteableQuests(ICharacter character);
+        IEnumerable<Models.Quest> GetAllAccapteableQuests(Models.Character character);
     }
 }

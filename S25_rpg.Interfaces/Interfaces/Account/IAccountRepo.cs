@@ -1,6 +1,4 @@
-﻿
-using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
+﻿using S25_rpg.Models.Interfaces;
 
 namespace S25_rpg.Models.Interfaces.Account
 {
@@ -8,6 +6,6 @@ namespace S25_rpg.Models.Interfaces.Account
     {
         void Logout();
 
-        ICharacter AccountHasCharacter(IAccount account);
+        Models.Character AccountHasCharacter(Models.Account account);
     }
 }

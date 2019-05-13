@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.Models.Models
 {
-    public class Shop : IShop
+    public class Shop
     {
         public string shopName { get; set; }
-        public IEnumerable<IItem> items { get; set; }
+        public IEnumerable<Item> items { get; set; }
 
-        public Shop(string shopname, IEnumerable<IItem> item)
+        public Shop(string shopname, IEnumerable<Item> item)
         {
             shopName = shopname;
             items = item;

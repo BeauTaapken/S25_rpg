@@ -4,7 +4,6 @@ using System.IO;
 using System.Text;
 using MySql.Data.MySqlClient;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Interfaces.Shop;
 using S25_rpg.Models.Models;
 
@@ -16,7 +15,7 @@ namespace S25_rpg.DAL.Context
         /// Function to get all items from the shop out of the database
         /// </summary>
         /// <returns><see cref="IShop"/></returns>
-        public IShop GetAllShopItems()
+        public Shop GetAllShopItems()
         {
             Shop shop = null;
             try
@@ -27,7 +26,7 @@ namespace S25_rpg.DAL.Context
                         "SELECT `itemshop`.`BuyPrice`, `shop`.Name, `item`.* FROM `itemshop` INNER JOIN `shop` ON `itemshop`.Shop_id = `shop`.`Id` INNER JOIN `item` ON `item`.Id = `itemshop`.`Item_id` WHERE `shop`.Id = 1",
                         mySqlConnection);
                 MySqlDataReader reader = getShopItems.ExecuteReader();
-                List<IItem> items = new List<IItem>();
+                List<Item> items = new List<Item>();
                 string shopName = "";
                 if (reader.HasRows)
                 {

@@ -6,7 +6,6 @@ using System.Text;
 using S25_rpg.Factory;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 using Xunit;
 
@@ -15,14 +14,14 @@ namespace UnitTests.CharacterTests
     public class CharacterTest
     {
         private CharacterLogic _characterLogic;
-        private ICharacter equippedCharacter = new Character(1, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
-        private ICharacter noEquippedCharacter = new Character(2, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private Character equippedCharacter = new Character(1, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private Character noEquippedCharacter = new Character(2, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
 
-        private ICharacter warriorCharacter = new Character(3, 10,10,10,5,10,Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Warrior,"");
-        private ICharacter WizardCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Wizard, "");
-        private ICharacter ArcherCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Archer, "");
-        private List<IMonster> m = new List<IMonster>();
-        private IEnumerable<IMonster> monsters;
+        private Character warriorCharacter = new Character(3, 10,10,10,5,10,Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Warrior,"");
+        private Character WizardCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private Character ArcherCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Archer, "");
+        private List<Monster> m = new List<Monster>();
+        private IEnumerable<Monster> monsters;
 
         public CharacterTest()
         {
@@ -35,7 +34,7 @@ namespace UnitTests.CharacterTests
         [Fact]
         public void GetEquippedItemsEquippedAccount()
         {
-            IEnumerable<IEquipped> result = _characterLogic.GetEquippedItems(equippedCharacter);
+            IEnumerable<Equipped> result = _characterLogic.GetEquippedItems(equippedCharacter);
             
             Assert.All(result, item => Assert.Contains(equippedCharacter.idCharacter.ToString(),  item.ItemId.ToString()));
         }
@@ -43,7 +42,7 @@ namespace UnitTests.CharacterTests
         [Fact]
         public void GetEquippedItemsNoEquippedAccount()
         {
-            IEnumerable<IEquipped> result = _characterLogic.GetEquippedItems(noEquippedCharacter);
+            IEnumerable<Equipped> result = _characterLogic.GetEquippedItems(noEquippedCharacter);
 
             Assert.All(result, item => Assert.Contains(equippedCharacter.idCharacter.ToString(), item.ItemId.ToString()));
         }
@@ -75,7 +74,7 @@ namespace UnitTests.CharacterTests
         [Fact]
         public void GiveDamageToMonster1()
         {
-            IEnumerable<IMonster> result = _characterLogic.GiveDamage(10, 0, monsters);
+            IEnumerable<Monster> result = _characterLogic.GiveDamage(10, 0, monsters);
 
             //TODO check if ienumerable are the same
         }
@@ -83,7 +82,7 @@ namespace UnitTests.CharacterTests
         [Fact]
         public void GiveDamageToMonster2()
         {
-            IEnumerable<IMonster> result = _characterLogic.GiveDamage(10, 1, monsters);
+            IEnumerable<Monster> result = _characterLogic.GiveDamage(10, 1, monsters);
 
             //TODO check if ienumerable are the same
         }

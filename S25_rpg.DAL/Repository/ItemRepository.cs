@@ -4,7 +4,7 @@ using System.Text;
 using S25_rpg.DAL.Memory;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Interfaces.Item;
-using S25_rpg.Models.Interfaces.Model;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Repository
 {
@@ -17,17 +17,17 @@ namespace S25_rpg.DAL.Repository
             _itemContext = itemContext ?? new ItemContextMemory();
         }
 
-        public IEnumerable<IItem> GetAllCharacterItems(ICharacter character)
+        public IEnumerable<Item> GetAllCharacterItems(Character character)
         {
             return _itemContext.GetAllCharacterItems(character);
         }
 
-        public void AddItem(IItem item, ICharacter character)
+        public void AddItem(Item item, Character character)
         {
             _itemContext.AddItem(item, character);
         }
 
-        public void RemoveItem(IItem item, ICharacter character)
+        public void RemoveItem(Item item, Character character)
         {
             _itemContext.RemoveItem(item, character);
         }

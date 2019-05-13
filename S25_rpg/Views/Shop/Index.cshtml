@@ -1,9 +1,8 @@
-﻿@using S25_rpg.Models.Interfaces.Model
-
-@{
+﻿@{
     ViewData["Title"] = "Shop";
 }
 
+@using S25_rpg.Models.Models
 @model ItemBuyModel
 
 <div class="font-size text-center pt-10">
@@ -15,7 +14,7 @@
         <h1>@ViewBag.ShopName</h1><br/>
         <div class="border-dark border rounded container h-500px">
             @{
-                foreach (IItem item in ViewBag.ShopItems)
+                foreach (Item item in ViewBag.ShopItems)
                 {
                     <div class="row text-center pt-1 pb-1 border-bottom">
                         <div class="col-2">

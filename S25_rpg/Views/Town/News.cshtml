@@ -1,5 +1,4 @@
-﻿@using S25_rpg.Models.Interfaces.Model
-
+﻿@using S25_rpg.Models.Models
 @{
     ViewData["Title"] = "News";
 }
@@ -12,7 +11,7 @@
     <h1>News</h1>
     <div class="bg-info shadow-lg rounded wood-background">
         @{
-            foreach (INews n in ViewBag.News)
+            foreach (News n in ViewBag.News)
             {
                 <div class="py-3 px-10">
                     <div class="bg-white shadow-lg rounded">

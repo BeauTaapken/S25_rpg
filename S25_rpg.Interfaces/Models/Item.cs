@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.Models.Models
 {
-    public class Item : IItem
+    public class Item
     {
         public int Id { get; set; }
         public int Ammount { get; set; }

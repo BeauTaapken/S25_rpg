@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Controllers
@@ -21,10 +20,10 @@ namespace S25_rpg.Controllers
 
         public IActionResult Index()
         {
-            IShop shop = shopLogic.GetAllShopItems();
+            Shop shop = shopLogic.GetAllShopItems();
             ViewBag.ShopName = shop.shopName;
             ViewBag.ShopItems = shop.items;
-            ICharacter character = accountLogic.AccountHasCharacter(JsonConvert.DeserializeObject<Account>(Request.Cookies["account"]));
+            Character character = accountLogic.AccountHasCharacter(JsonConvert.DeserializeObject<Account>(Request.Cookies["account"]));
             Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
             ViewBag.CharacterGold = character.Gold;
             ViewBag.CharacterItems = itemContainerLogic.GetAllCharacterItems(character);
@@ -35,23 +34,24 @@ namespace S25_rpg.Controllers
         public IActionResult Index(ItemBuyModel model)
         {
             ModelState.Clear();
-            IShop shop = shopLogic.GetAllShopItems();
+            Shop shop = shopLogic.GetAllShopItems();
             ViewBag.ShopName = shop.shopName;
             ViewBag.ShopItems = shop.items;
-            ICharacter character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
+            Character character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
             ViewBag.CharacterGold = character.Gold;
             ViewBag.CharacterItems = itemContainerLogic.GetAllCharacterItems(character);
             if (ModelState.IsValid)
             {
-                int TotalPrice = model.Ammount * model.SellPrice;
-                if (TotalPrice <= character.Gold)
+                int totalPrice = model.Ammount * model.SellPrice;
+                if (totalPrice <= character.Gold)
                 {
-                    characterLogic.EditGold(TotalPrice *-1, character);
-                    character.Gold -= TotalPrice;
+                    characterLogic.EditGold(totalPrice * -1, character);
+                    character.Gold -= totalPrice;
                     Response.Cookies.Append("character", JsonConvert.SerializeObject(character));
-                    itemContainerLogic.AddItem(model, character);
+                    Item i = new Item(model.Id, model.Ammount, model.Name, model.Description, model.SellPrice, model.Equipable, model.Damage, model.Defence, model.Location);
+                    itemContainerLogic.AddItem(i, character);
                     ViewBag.CharacterGold = character.Gold;
-                    ViewBag.Message = "Your payed " + TotalPrice + ".";
+                    ViewBag.Message = "Your payed " + totalPrice + ".";
                     return View();
                 }
                 ViewBag.Message = "You don't have enough gold";

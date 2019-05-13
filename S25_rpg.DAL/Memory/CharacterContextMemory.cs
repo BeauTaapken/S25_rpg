@@ -5,39 +5,38 @@ using System.Text;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Interfaces.Character;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Memory
 {
     public class CharacterContextMemory : ICharacterContext
     {
-        private List<ICharacter> characters;
-        private List<IEquipped> equipped;
+        private List<Character> characters;
+        private List<Equipped> equipped;
         public CharacterContextMemory()
         {
-            characters = new List<ICharacter>();
+            characters = new List<Character>();
             characters.Add(new Character(1, 10, 10, 10, 10, 10, Eyecolor.Blue, Haircolor.Black, 0, CharacterClass.Warrior, "http://"));
-            equipped =  new List<IEquipped>();
+            equipped =  new List<Equipped>();
             equipped.Add(new Equipped(1, "Helmet", Equiplocation.Head));
             equipped.Add(new Equipped(1, "Sword", Equiplocation.Right));
         }
 
-        public ICharacter AddCharacter(ICharacter character, IAccount account)
+        public Character AddCharacter(Character character, Account account)
         {
             character.idCharacter = account.idAccount;
             characters.Add(character);
             return characters.FirstOrDefault(x => x.idCharacter == character.idCharacter);
         }
 
-        public void EditStartLink(string link, ICharacter character)
+        public void EditStartLink(string link, Character character)
         {
             characters.FirstOrDefault(x => x.idCharacter == character.idCharacter).StartPage = link;
         }
 
-        public void EquipItem(IItem item, ICharacter character)
+        public void EquipItem(Item item, Character character)
         {
-            IEquipped equip = new Equipped(character.idCharacter, item.Name, (Equiplocation)System.Enum.Parse(typeof(Equiplocation), item.Location.ToString()));
+            Equipped equip = new Equipped(character.idCharacter, item.Name, (Equiplocation)System.Enum.Parse(typeof(Equiplocation), item.Location.ToString()));
             if (equipped.Contains(equip))
             {
                 equipped.Remove(equip);
@@ -49,26 +48,26 @@ namespace S25_rpg.DAL.Memory
             }
         }
 
-        public void DequipItem(IItem item, ICharacter character)
+        public void DequipItem(Item item, Character character)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
+        public IEnumerable<Equipped> GetEquippedItems(Character character)
         {
 
-            IEnumerable<IEquipped> equip = equipped.FindAll(x => x.ItemId == character.idCharacter);
+            IEnumerable<Equipped> equip = equipped.FindAll(x => x.ItemId == character.idCharacter);
             return equip;
         }
 
-        public void EditGold(int gold, ICharacter character)
+        public void EditGold(int gold, Character character)
         {
             characters.FirstOrDefault(x => x.idCharacter == character.idCharacter).Gold += gold;
         }
 
-        public void EditExpAndLevel(ICharacter character, int gottenExp)
+        public void EditExpAndLevel(Character character, int gottenExp)
         {
-            ICharacter c = characters.FirstOrDefault(x => x.idCharacter == character.idCharacter);
+            Character c = characters.FirstOrDefault(x => x.idCharacter == character.idCharacter);
             c.CurrentExp += gottenExp;
             int leftExp = c.CurrentExp - c.CurrentLevel * 100;
             if (!(leftExp < -1))

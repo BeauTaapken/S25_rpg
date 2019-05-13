@@ -1,7 +1,7 @@
 ﻿using S25_rpg.DAL.Memory;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Interfaces.Account;
-using S25_rpg.Models.Interfaces.Model;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Repository
 {
@@ -14,17 +14,17 @@ namespace S25_rpg.DAL.Repository
             _accountContext = accountContext ?? new AccountContextMemory();
         }
 
-        public IAccount Login(IAccount account)
+        public Account Login(Account account)
         {
             return _accountContext.Login(account);
         }
 
-        public bool CheckIfAccountExist(IAccount account)
+        public bool CheckIfAccountExist(Account account)
         {
             return _accountContext.CheckIfAccountExist(account);
         }
 
-        public void CreateAccount(IAccount account)
+        public void CreateAccount(Account account)
         {
             _accountContext.CreateAccount(account);
         }
@@ -34,7 +34,7 @@ namespace S25_rpg.DAL.Repository
             throw new System.NotImplementedException();
         }
 
-        public ICharacter AccountHasCharacter(IAccount account)
+        public Character AccountHasCharacter(Account account)
         {
             return _accountContext.AccountHasCharacter(account);
         }

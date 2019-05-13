@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.Models
 {
-    public class ItemDequipViewModel : IItem
+    public class ItemDequipViewModel
     {
         [Required]
         public int Id { get; set; }

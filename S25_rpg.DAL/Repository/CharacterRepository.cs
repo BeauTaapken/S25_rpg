@@ -4,7 +4,7 @@ using System.Text;
 using S25_rpg.DAL.Memory;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Interfaces.Character;
-using S25_rpg.Models.Interfaces.Model;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Repository
 {
@@ -17,37 +17,37 @@ namespace S25_rpg.DAL.Repository
             _characterContext = characterContext ?? new CharacterContextMemory();
         }
 
-        public ICharacter AddCharacter(ICharacter character, IAccount account)
+        public Character AddCharacter(Character character, Account account)
         {
             return _characterContext.AddCharacter(character, account);
         }
 
-        public void EditStartLink(string link, ICharacter character)
+        public void EditStartLink(string link, Character character)
         {
             throw new NotImplementedException();
         }
 
-        public void EquipItem(IItem item, ICharacter character)
+        public void EquipItem(Item item, Character character)
         {
             _characterContext.EquipItem(item, character);
         }
 
-        public void DequipItem(IItem item, ICharacter character)
+        public void DequipItem(Item item, Character character)
         {
             _characterContext.DequipItem(item, character);
         }
 
-        public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
+        public IEnumerable<Equipped> GetEquippedItems(Character character)
         {
             return _characterContext.GetEquippedItems(character);
         }
 
-        public void EditGold(int gold, ICharacter character)
+        public void EditGold(int gold, Character character)
         {
             _characterContext.EditGold(gold, character);
         }
 
-        public void EditExpAndLevel(ICharacter character, int gottenExp)
+        public void EditExpAndLevel(Character character, int gottenExp)
         {
             _characterContext.EditExpAndLevel(character, gottenExp);
         }

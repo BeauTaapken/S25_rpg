@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using S25_rpg.Factory;
 using S25_rpg.Logic.Logic;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Interfaces.News;
 using S25_rpg.Models.Models;
 using Xunit;
@@ -23,7 +22,7 @@ namespace UnitTests.NewsTests
         [Fact]
         public void GetAllNews()
         {
-            IEnumerable<INews> result = _newsContainerLogic.getAllNews();
+            IEnumerable<News> result = _newsContainerLogic.getAllNews();
 
             Assert.Single(result);
         }

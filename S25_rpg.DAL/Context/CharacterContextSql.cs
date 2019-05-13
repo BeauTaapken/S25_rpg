@@ -5,7 +5,6 @@ using MySql.Data.MySqlClient;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Interfaces.Character;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Context
@@ -18,9 +17,9 @@ namespace S25_rpg.DAL.Context
         /// <param name="character"> <see cref="ICharacter"/></param>
         /// <param name="id"> <see cref="int"/></param>
         /// <returns><see cref="ICharacter"/></returns>
-        public ICharacter AddCharacter(ICharacter character, IAccount account)
+        public Character AddCharacter(Character character, Account account)
         {
-            ICharacter c = null;
+            Character c = null;
             try
             {
                 mySqlConnection.Open();
@@ -74,7 +73,7 @@ namespace S25_rpg.DAL.Context
         /// </summary>
         /// <param name="gold"><see cref="int"/></param>
         /// <param name="character"><see cref="ICharacter"/></param>
-        public void EditGold(int gold, ICharacter character)
+        public void EditGold(int gold, Character character)
         {
             try
             {
@@ -100,7 +99,7 @@ namespace S25_rpg.DAL.Context
         /// </summary>
         /// <param name="character"><see cref="ICharacter"/></param>
         /// <param name="gottenExp"><see cref="int"/></param>
-        public void EditExpAndLevel(ICharacter character, int gottenExp)
+        public void EditExpAndLevel(Character character, int gottenExp)
         {
             try
             {
@@ -148,7 +147,7 @@ namespace S25_rpg.DAL.Context
         /// </summary>
         /// <param name="item"><see cref="IItem"/></param>
         /// <param name="character"><see cref="ICharacter"/></param>
-        public void EquipItem(IItem item, ICharacter character)
+        public void EquipItem(Item item, Character character)
         {
             try
             {
@@ -174,7 +173,7 @@ namespace S25_rpg.DAL.Context
         /// </summary>
         /// <param name="item"><see cref="IItem"/></param>
         /// <param name="character"><see cref="ICharacter"/></param>
-        public void DequipItem(IItem item, ICharacter character)
+        public void DequipItem(Item item, Character character)
         {
             try
             {
@@ -199,16 +198,16 @@ namespace S25_rpg.DAL.Context
         /// </summary>
         /// <param name="character"><see cref="ICharacter"/></param>
         /// <returns><see cref="ICharacter"/></returns>
-        public IEnumerable<IEquipped> GetEquippedItems(ICharacter character)
+        public IEnumerable<Equipped> GetEquippedItems(Character character)
         {
-            IEnumerable<IEquipped> items = null;
+            IEnumerable<Equipped> items = null;
             try
             {
                 mySqlConnection.Open();
                 MySqlCommand getEquippedItems = new MySqlCommand("SELECT equipped.Item_id, equipped.EquipLocation, item.Name FROM `equipped` INNER JOIN `item` ON equipped.Item_id = item.Id WHERE Character_id = @charid", mySqlConnection);
                 getEquippedItems.Parameters.AddWithValue("@charid", character.idCharacter);
                 MySqlDataReader reader = getEquippedItems.ExecuteReader();
-                List<IEquipped> item = new List<IEquipped>();
+                List<Equipped> item = new List<Equipped>();
                 while (reader.Read())
                 {
                     item.Add(new Equipped((int)reader[0], (string)reader[2], (Equiplocation)System.Enum.Parse(typeof(Equiplocation), reader[1].ToString())));
@@ -227,7 +226,7 @@ namespace S25_rpg.DAL.Context
             }
         }
 
-        public void EditStartLink(string link, ICharacter character)
+        public void EditStartLink(string link, Character character)
         {
 
         }

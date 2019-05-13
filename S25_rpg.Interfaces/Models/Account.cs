@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.Models.Models
 {
-    public class Account : IAccount
+    public class Account
     {
         public int idAccount { get; set; }
         public string Username { get; set; }

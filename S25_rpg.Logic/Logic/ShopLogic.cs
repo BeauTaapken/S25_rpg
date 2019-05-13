@@ -5,8 +5,8 @@ using S25_rpg.DAL.Context;
 using S25_rpg.DAL.Repository;
 using S25_rpg.Factory;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Interfaces.Shop;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
 {
@@ -19,7 +19,7 @@ namespace S25_rpg.Logic.Logic
             repo = r ?? ShopFactory.MySqlShopRepo();
         }
 
-        public IShop GetAllShopItems()
+        public Shop GetAllShopItems()
         {
             return repo.GetAllShopItems();
         }

@@ -3,7 +3,6 @@ using S25_rpg.DAL.Repository;
 using S25_rpg.Factory;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Interfaces.Account;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
@@ -23,7 +22,7 @@ namespace S25_rpg.Logic.Logic
             repo.Logout();
         }
 
-        public ICharacter AccountHasCharacter(IAccount account)
+        public Character AccountHasCharacter(Account account)
         {
             return repo.AccountHasCharacter(account);
         }

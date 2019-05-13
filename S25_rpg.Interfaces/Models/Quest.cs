@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.Models.Models
 {
-    public class Quest : IQuest
+    public class Quest
     {
         public int Id { get; set; }
         public string Name { get; set; }

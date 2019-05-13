@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using S25_rpg.Factory;
 using S25_rpg.Logic.Logic;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 using Xunit;
 
@@ -22,7 +21,7 @@ namespace UnitTests.ShopTests
         [Fact]
         public void GetShopItems()
         {
-            IShop result = _shopLogic.GetAllShopItems();
+            Shop result = _shopLogic.GetAllShopItems();
 
             Assert.Equal("Testshop", result.shopName);
         }

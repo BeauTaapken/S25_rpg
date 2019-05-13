@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using S25_rpg.DAL.Memory;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Interfaces.Quest;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.DAL.Repository
 {
@@ -17,22 +17,22 @@ namespace S25_rpg.DAL.Repository
             _questContext = questContext ?? new QuestContextMemory();
         }
 
-        public IEnumerable<IQuest> GetAllAcceptedQuests(ICharacter character)
+        public IEnumerable<Quest> GetAllAcceptedQuests(Character character)
         {
             return _questContext.GetAllAcceptedQuests(character);
         }
 
-        public IEnumerable<IQuest> GetAllAccapteableQuests(ICharacter character)
+        public IEnumerable<Quest> GetAllAccapteableQuests(Character character)
         {
             return _questContext.GetAllAccapteableQuests(character);
         }
 
-        public void CompleteQuest(ICharacter character, IQuest quest)
+        public void CompleteQuest(Character character, Quest quest)
         {
             _questContext.CompleteQuest(character, quest);
         }
 
-        public void StartQuest(ICharacter character, IQuest quest)
+        public void StartQuest(Character character, Quest quest)
         {
             _questContext.StartQuest(character, quest);
         }

@@ -8,7 +8,6 @@ using S25_rpg.Factory;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Interfaces.Character;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Logic.Logic
@@ -22,7 +21,7 @@ namespace S25_rpg.Logic.Logic
             repo = r ?? CharacterContainerFactory.MySqlCharacterContainerRepo();
         }
 
-        public ICharacter AddCharacter(ICharacter iCharacter, IAccount iAccount)
+        public Character AddCharacter(Character iCharacter, Account iAccount)
         {
             return repo.AddCharacter(iCharacter, iAccount);
         }

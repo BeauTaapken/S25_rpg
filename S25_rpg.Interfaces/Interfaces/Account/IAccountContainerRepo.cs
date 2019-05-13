@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
+using S25_rpg.Models.Models;
 
 namespace S25_rpg.Models.Interfaces.Account
 {
     public interface IAccountContainerRepo
     {
-        IAccount Login(IAccount account);
+        Models.Account Login(Models.Account account);
 
-        void CreateAccount(IAccount account);
+        void CreateAccount(Models.Account account);
 
-        bool CheckIfAccountExist(IAccount account);
+        bool CheckIfAccountExist(Models.Account account);
     }
 }

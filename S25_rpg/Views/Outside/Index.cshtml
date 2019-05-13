@@ -1,5 +1,5 @@
 ﻿@using Newtonsoft.Json
-@using S25_rpg.Models.Interfaces.Model
+@using S25_rpg.Models.Models
 
 @{
     ViewData["Title"] = "Outside";
@@ -38,7 +38,7 @@
                             int monsterLocation = 0;
                             int health = ViewBag.health;
                             string monsters = JsonConvert.SerializeObject(ViewBag.monsters);
-                            foreach (IMonster monster in ViewBag.monsters)
+                            foreach (Monster monster in ViewBag.monsters)
                             {
                                 <div class="col">
                                     @monster.Name<br />

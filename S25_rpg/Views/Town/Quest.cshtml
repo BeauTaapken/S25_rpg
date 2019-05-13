@@ -1,9 +1,8 @@
-﻿@using S25_rpg.Models.Interfaces.Model
-
-@{
+﻿@{
     ViewData["Title"] = "Quest";
 }
 
+@using S25_rpg.Models.Models
 @model QuestCompleteViewModel
 
 <div class="font-size text-center pt-10">
@@ -18,7 +17,7 @@
         </h2>
         <div class="container">
             @{
-                foreach (IQuest quest in ViewBag.AcceptedQuests)
+                foreach (Quest quest in ViewBag.AcceptedQuests)
                 {
                     <hr />
                     <div class="pt-1 row">
@@ -62,7 +61,7 @@
         </h2>
         <div class="container">
             @{
-                foreach (IQuest quest in ViewBag.Quests)
+                foreach (Quest quest in ViewBag.Quests)
                 {
                     if (quest.Repeatable && quest.Completed || quest.Completed == false)
                     {

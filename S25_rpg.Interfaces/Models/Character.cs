@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.Models.Models
 {
-    public class Character : ICharacter
+    public class Character
     {
         public int idCharacter { get; set; }
         public int Weight { get; set; }

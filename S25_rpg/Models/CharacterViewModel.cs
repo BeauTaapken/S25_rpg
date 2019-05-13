@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 
 namespace S25_rpg.Models
 {
-    public class CharacterViewModel : ICharacter
+    public class CharacterViewModel
     {
         public int idCharacter { get; set; }
         [Required]

@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Controllers
@@ -42,8 +41,8 @@ namespace S25_rpg.Controllers
             if (ModelState.IsValid)
             {
                 ViewBag.ExploreType = AreaContent.Monster.ToString();
-                ICharacter character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
-                IEnumerable<IMonster> monsters = JsonConvert.DeserializeObject<IEnumerable<Monster>>(model.monsters);
+                Character character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
+                IEnumerable<Monster> monsters = JsonConvert.DeserializeObject<IEnumerable<Monster>>(model.monsters);
                 if (model.flee)
                 {
                     bool escaped = _characterLogic.Flee();
@@ -62,7 +61,7 @@ namespace S25_rpg.Controllers
 
                     if (monsters.All(x => x.Hp < 1))
                     {
-                        foreach (IMonster monster in monsters)
+                        foreach (Monster monster in monsters)
                         {
                             if (monster.ItemDropId != 0)
                             {

@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 using S25_rpg.Logic.Logic;
 using S25_rpg.Models;
 using S25_rpg.Models.Interfaces;
-using S25_rpg.Models.Interfaces.Model;
 using S25_rpg.Models.Models;
 
 namespace S25_rpg.Controllers
@@ -40,9 +39,9 @@ namespace S25_rpg.Controllers
 
         public IActionResult Quest()
         {
-            IEnumerable<IItem> items = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
-            IEnumerable<IQuest> acceptedQuests = _questContainerLogic.GetAllAcceptedQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), items);
-            IEnumerable<IQuest> acceptableQuests = _questContainerLogic.GetAllAcceptableQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
+            IEnumerable<Item> items = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
+            IEnumerable<Quest> acceptedQuests = _questContainerLogic.GetAllAcceptedQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), items);
+            IEnumerable<Quest> acceptableQuests = _questContainerLogic.GetAllAcceptableQuests(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
             acceptableQuests = _questContainerLogic.RemoveAcceptedQuests(acceptableQuests, acceptedQuests);
 
             ViewBag.AcceptedQuests = acceptedQuests;
@@ -52,17 +51,19 @@ namespace S25_rpg.Controllers
         
         public IActionResult AcceptQuest(QuestStartViewModel model)
         {
-            _questLogic.StartQuest(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), model);
+            Quest q = new Quest(model.Id, model.Name, model.RewardAmmount, model.RewardItemId, model.RewardItem, model.Description, model.ClearAmmount, model.ClearItemId, model.ClearItem, model.Repeatable, model.QuestLevel);
+            _questLogic.StartQuest(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]), q);
             return RedirectToAction("Quest");
         }
 
         public IActionResult CompleteQuest(QuestCompleteViewModel model)
         {
-            ICharacter character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
-            _questLogic.CompleteQuest(character, model);
+            Character character = JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]);
+            Quest q = new Quest(model.Id, model.Name, model.RewardAmmount, model.RewardItemId, model.RewardItem, model.Description, model.ClearAmmount, model.ClearItemId, model.ClearItem, model.Repeatable, model.QuestLevel);
+            _questLogic.CompleteQuest(character, q);
             _itemContainerLogic.RemoveItem(new Item(model.ClearItemId, model.ClearAmmount), character);
             _itemContainerLogic.AddItem(new Item(model.RewardItemId, model.RewardAmmount), character);
-            IEnumerable<IItem> item = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
+            IEnumerable<Item> item = _itemContainerLogic.GetAllCharacterItems(JsonConvert.DeserializeObject<Character>(Request.Cookies["character"]));
             Response.Cookies.Append("items", JsonConvert.SerializeObject(item));
             return RedirectToAction("Quest");
         }
