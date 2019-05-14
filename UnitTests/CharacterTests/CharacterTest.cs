@@ -116,7 +116,7 @@ namespace UnitTests.CharacterTests
         {
             int result = _characterLogic.CalculateHealth(warriorCharacter);
 
-            Assert.Equal(15, result);
+            Assert.Equal(55, result);
         }
 
         [Fact]
@@ -124,7 +124,7 @@ namespace UnitTests.CharacterTests
         {
             int result = _characterLogic.CalculateHealth(WizardCharacter);
 
-            Assert.Equal(15, result);
+            Assert.Equal(55, result);
         }
 
         [Fact]
@@ -132,7 +132,7 @@ namespace UnitTests.CharacterTests
         {
             int result = _characterLogic.CalculateHealth(ArcherCharacter);
 
-            Assert.Equal(17, result);
+            Assert.Equal(57, result);
         }
 
         [Fact]

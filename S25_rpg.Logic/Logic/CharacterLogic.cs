@@ -125,7 +125,7 @@ namespace S25_rpg.Logic.Logic
 
         public int CalculateHealth(Character character)
         {
-            int health = 10;
+            int health = 50;
             if (character.CharacterClass == CharacterClass.Archer)
             {
                 health += 2;
