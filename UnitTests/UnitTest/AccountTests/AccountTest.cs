@@ -8,7 +8,7 @@ using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Models;
 using Xunit;
 
-namespace UnitTests.AccountTests
+namespace Tests.UnitTest.AccountTests
 {
     public class AccountTest
     {

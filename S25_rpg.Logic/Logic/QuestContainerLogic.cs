@@ -57,7 +57,8 @@ namespace S25_rpg.Logic.Logic
         public IEnumerable<Quest> RemoveAcceptedQuests(IEnumerable<Quest> acceptableQuests, IEnumerable<Quest> acceptedQuests)
         {
             acceptableQuests = acceptableQuests.ToList().Where(x => acceptedQuests.ToList().All(y => x.Id != y.Id));
-            return acceptableQuests;
+            return acceptableQuests.ToList().Where(x => acceptedQuests.ToList().All(y => x.Id != y.Id));
+            //return acceptableQuests;
         }
     }
 }

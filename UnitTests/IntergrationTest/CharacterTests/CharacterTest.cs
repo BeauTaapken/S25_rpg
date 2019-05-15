@@ -9,9 +9,9 @@ using S25_rpg.Models;
 using S25_rpg.Models.Models;
 using Xunit;
 
-namespace UnitTests.CharacterTests
+namespace Tests.IntergrationTest.CharacterTests
 {
-    public class CharacterTest
+    public class CharacterTest : SetDatabase
     {
         private CharacterLogic _characterLogic;
         private Character equippedCharacter = new Character(1, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
@@ -25,7 +25,7 @@ namespace UnitTests.CharacterTests
 
         public CharacterTest()
         {
-            _characterLogic = new CharacterLogic(CharacterFactory.MemoryCharacterRepo());
+            _characterLogic = new CharacterLogic(CharacterFactory.MySqlCharacterRepo());
             m.Add(new Monster("Orc", 10, 4, 10, 2));
             m.Add(new Monster("slime", 10,10,10, 3));
             monsters = m;
@@ -76,7 +76,8 @@ namespace UnitTests.CharacterTests
         {
             IEnumerable<Monster> result = _characterLogic.GiveDamage(10, 0, monsters);
 
-            //TODO check if ienumerable are the same
+            Assert.Equal(0, result.ToList()[0].Hp);
+            Assert.Equal(10, result.ToList()[1].Hp);
         }
 
         [Fact]
@@ -84,7 +85,8 @@ namespace UnitTests.CharacterTests
         {
             IEnumerable<Monster> result = _characterLogic.GiveDamage(10, 1, monsters);
 
-            //TODO check if ienumerable are the same
+            Assert.Equal(10, result.ToList()[0].Hp);
+            Assert.Equal(0, result.ToList()[1].Hp);
         }
 
         [Fact]

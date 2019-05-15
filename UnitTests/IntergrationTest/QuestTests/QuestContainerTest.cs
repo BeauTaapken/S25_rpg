@@ -8,18 +8,18 @@ using S25_rpg.Models;
 using S25_rpg.Models.Models;
 using Xunit;
 
-namespace UnitTests.QuestTests
+namespace Tests.IntergrationTest.QuestTests
 {
-    public class QuestContainerTest
+    public class QuestContainerTest : SetDatabase
     {
         private QuestContainerLogic _questContainerLogic;
-        private Character charLvlTwo = new Character(1, 1, 1, 1, 1, 1, Eyecolor.Blue, Haircolor.Black, 2, CharacterClass.Warrior, "");
-        private Character charLvlFour = new Character(1, 1, 1, 1, 1, 1, Eyecolor.Blue, Haircolor.Black, 4, CharacterClass.Warrior, "");
+        private Character charLvlTwo = new Character(32, 1, 1, 1, 1, 1, Eyecolor.Blue, Haircolor.Black, 2, CharacterClass.Warrior, "");
+        private Character charLvlFour = new Character(47, 1, 1, 1, 1, 1, Eyecolor.Blue, Haircolor.Black, 4, CharacterClass.Warrior, "");
         private List<Item> items;
 
         public QuestContainerTest()
         {
-            _questContainerLogic = new QuestContainerLogic(QuestContainerFactory.MemoryQuestContainerRepo());
+            _questContainerLogic = new QuestContainerLogic(QuestContainerFactory.MySqlQuestContainerRepo());
             items = new List<Item>();
             items.Add(new Item(1, "testclear", "testquest for testing", 10, 10));
         }
@@ -49,13 +49,13 @@ namespace UnitTests.QuestTests
         }
 
         [Fact]
-        public void removeAcceptedQuests()
+        public void RemoveAcceptedQuests()
         {
             IEnumerable<Quest> acceptableQuests = _questContainerLogic.GetAllAcceptableQuests(charLvlFour);
             IEnumerable<Quest> acceptedQuests = _questContainerLogic.GetAllAcceptedQuests(charLvlFour, items);
             IEnumerable<Quest> result = _questContainerLogic.RemoveAcceptedQuests(acceptableQuests, acceptedQuests);
 
-            Assert.Equal(2, result.Count());
+            Assert.Single(result.ToList());
         }
     }
 }

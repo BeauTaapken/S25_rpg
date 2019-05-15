@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S25_rpg.Models", "S25_rpg.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S25_rpg.Logic", "S25_rpg.Logic\S25_rpg.Logic.csproj", "{AE0034F7-25CE-480D-A231-AE98140DD353}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E416ED98-090C-40A7-920B-8FD6D9908360}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "UnitTests\Tests.csproj", "{E416ED98-090C-40A7-920B-8FD6D9908360}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S25_rpg.Factory", "S25_rpg.Factory\S25_rpg.Factory.csproj", "{3A7F0D93-E976-4AD2-8C62-CF68943956F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S25_rpg.Factory", "S25_rpg.Factory\S25_rpg.Factory.csproj", "{3A7F0D93-E976-4AD2-8C62-CF68943956F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

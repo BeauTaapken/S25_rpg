@@ -8,15 +8,15 @@ using S25_rpg.Models.Interfaces.News;
 using S25_rpg.Models.Models;
 using Xunit;
 
-namespace UnitTests.NewsTests
+namespace Tests.IntergrationTest.NewsTests
 {
-    public class NewsContainerTest
+    public class NewsContainerTest : SetDatabase
     {
         private NewsContainerLogic _newsContainerLogic;
 
         public NewsContainerTest()
         {
-            _newsContainerLogic = new NewsContainerLogic(NewsContainerFactory.MemoryNewsContainerRepo());
+            _newsContainerLogic = new NewsContainerLogic(NewsContainerFactory.MySqlNewsContainerRepo());
         }
 
         [Fact]

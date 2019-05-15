@@ -8,17 +8,17 @@ using S25_rpg.Models;
 using S25_rpg.Models.Models;
 using Xunit;
 
-namespace UnitTests.ItemTests
+namespace Tests.IntergrationTest.ItemTests
 {
-    public class ItemContainerTest
+    public class ItemContainerTest : SetDatabase
     {
         private ItemContainerLogic _itemContainerLogic;
-        private Character existingItemCharacter = new Character(1, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
+        private Character existingItemCharacter = new Character(32, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
         private Character nonExistingItemCharacter = new Character(2, 10, 10, 10, 10, 1, Eyecolor.Red, Haircolor.Black, 1, CharacterClass.Wizard, "");
 
         public ItemContainerTest()
         {
-            _itemContainerLogic = new ItemContainerLogic(ItemContainerFactory.MemoryItemContainerRepo());
+            _itemContainerLogic = new ItemContainerLogic(ItemContainerFactory.MySqlItemContainerRepo());
         }
 
         [Fact]

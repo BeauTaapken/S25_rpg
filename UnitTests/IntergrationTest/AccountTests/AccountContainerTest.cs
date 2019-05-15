@@ -7,18 +7,21 @@ using S25_rpg.Logic.Logic;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Models;
 using Xunit;
+using Microsoft.AspNetCore.Hosting;
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
 
-namespace UnitTests.AccountTests
+namespace Tests.IntergrationTest.AccountTests
 {
-    public class AccountContainerTest
+    public class AccountContainerTest : SetDatabase
     {
         private AccountContainerLogic _accountContainerLogic;
-        private Account existingAccount = new Account(1, "beau", "test", "beau@lioncode.nl");
+        private Account existingAccount = new Account(6, "beau", "123", "beau@lioncode.nl");
         private Account nonExistengAccount = new Account(0, "FakeAccount", "fakePassword", "fake@fake.com");
 
         public AccountContainerTest()
         {
-            _accountContainerLogic = new AccountContainerLogic(AccountContainerFactory.MemoryAccountContainerRepo());
+            
+            _accountContainerLogic = new AccountContainerLogic(AccountContainerFactory.MySqlAccountContainerRepo());
         }
 
         [Fact]

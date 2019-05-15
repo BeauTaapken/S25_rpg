@@ -7,15 +7,15 @@ using S25_rpg.Models.Models;
 using Xunit;
 
 
-namespace UnitTests.ShopTests
+namespace Tests.IntergrationTest.ShopTests
 {
-    public class ShopTest
+    public class ShopTest : SetDatabase
     {
         private ShopLogic _shopLogic;
 
         public ShopTest()
         {
-            _shopLogic = new ShopLogic(ShopFactory.MemoryShopRepo());
+            _shopLogic = new ShopLogic(ShopFactory.MySqlShopRepo());
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace UnitTests.ShopTests
         {
             Shop result = _shopLogic.GetAllShopItems();
 
-            Assert.Equal("Testshop", result.shopName);
+            Assert.Equal("The Huge World Turtle", result.shopName);
         }
     }
 }

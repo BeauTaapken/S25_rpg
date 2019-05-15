@@ -7,7 +7,7 @@ using S25_rpg.Models;
 using S25_rpg.Models.Models;
 using Xunit;
 
-namespace UnitTests.CharacterTests
+namespace Tests.UnitTest.CharacterTests
 {
     public class CharacterContainerTest
     {
