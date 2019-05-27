@@ -86,22 +86,17 @@ namespace S25_rpg.Logic.Logic
         {
             //TODO add equipment to equation
             int damage = 4;
-            if (character.CharacterClass == CharacterClass.Wizard)
-            {
-                damage += 2;
-            }
-            damage += character.CurrentLevel;
+            //if (character.CharacterClass == CharacterClass.Wizard)
+            //{
+            //    damage += 2;
+            //}
+            damage += character.CurrentLevel + character.damage;
             return damage;
         }
 
         public Monster GiveDamage(int damage, Monster monster)
         {
             monster.Hp = Math.Max(0, monster.Hp - damage);
-            //monster.Hp -= damage; // check math.max
-            //if (monster.Hp < 0)
-            //{
-            //    monster.Hp = 0;
-            //}
             return monster;
         }
 
@@ -109,23 +104,23 @@ namespace S25_rpg.Logic.Logic
         {
             //TODO add equipment to equation
             int defence = 1;
-            if (character.CharacterClass == CharacterClass.Warrior)
-            {
-                defence += 2;
-            }
+            //if (character.CharacterClass == CharacterClass.Warrior)
+            //{
+            //    defence += 2;
+            //}
 
-            defence += character.CurrentLevel;
+            defence += character.CurrentLevel + character.defence;
             return defence;
         }
 
         public int CalculateHealth(Character character)
         {
             int health = 50;
-            if (character.CharacterClass == CharacterClass.Archer)
-            {
-                health += 2;
-            }
-            health += character.CurrentLevel;
+            //if (character.CharacterClass == CharacterClass.Archer)
+            //{
+            //    health += 2;
+            //}
+            health += character.CurrentLevel + character.health;
             return health;
         }
 
@@ -133,12 +128,7 @@ namespace S25_rpg.Logic.Logic
         {
             foreach (Monster monster in monsters.Where(x => x.Hp > 0))
             {
-                health -= Math.Max(monster.Damage - defense, 0);
-                int damage = monster.Damage - defense;
-                if (damage > 0)
-                {
-                    health -= damage;
-                }
+                health -= Math.Max(Math.Max(monster.Damage - defense, 0), 0);
             }
 
             return health;

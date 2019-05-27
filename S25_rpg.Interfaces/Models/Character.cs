@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using S25_rpg.Models.Abstract;
 using S25_rpg.Models.Interfaces;
 
 namespace S25_rpg.Models.Models
 {
-    public class Character
+    public class Character : AbstractCharacter
     {
         public int idCharacter { get; set; }
         public int Weight { get; set; }
@@ -18,6 +19,9 @@ namespace S25_rpg.Models.Models
         public int QuestLevel { get; set; }
         public CharacterClass CharacterClass { get; set; }
         public string StartPage { get; set; }
+        public override int health { get; set; } = 0;
+        public override int damage { get; set; } = 0;
+        public override int defence { get; set; } = 0;
 
         public Character(int idcharacter, int weight, int height, int currentExp, int currentLevel, int gold, Eyecolor eyecolor,
             Haircolor haircolor, int questLevel, CharacterClass characterClass, string startingPage)

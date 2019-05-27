@@ -133,18 +133,24 @@
                                         <i class="fas fa-info-circle pointer" onclick="openModalWithData('inventoryModal', '@item.Name', '@item.Description', '@item.Ammount', '')"></i>
                                         if (item.Equipable)
                                         {
-                                            <button class="btn btn-dark">@Html.ActionLink("Equip", "EquipItem", "Inventory", new {item.Id, item.Location}, new { @class = "white-link font-size" })</button>
+                                            <button class="btn btn-dark">@Html.ActionLink("Equip", "EquipItem", "Inventory", new { item.Id, item.Location }, new { @class = "white-link font-size" })</button>
                                         }
                                     }
                                 </div>
-                                itemsInDiv = itemsInDiv + 1;
-                                if (itemsInDiv == 3 || item == i)
+                                itemsInDiv += 1;
+                                if (itemsInDiv == 1 && item == i)
+                                {
+                                    @Html.Raw("<div class='col'>")
+                                    @Html.Raw("</div>")
+                                    @Html.Raw("</div>")
+                                }
+                                if (itemsInDiv == 2)
                                 {
                                     @Html.Raw("</div>");
                                     itemsInDiv = 0;
                                 }
                             }
-                            <hr class="border-dark"/>
+                            <hr class="border-dark" />
                         }
                     </div>
                 </div>
