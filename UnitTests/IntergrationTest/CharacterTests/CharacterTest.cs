@@ -21,14 +21,12 @@ namespace Tests.IntergrationTest.CharacterTests
         private Character WizardCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Wizard, "");
         private Character ArcherCharacter = new Character(3, 10, 10, 10, 5, 10, Eyecolor.Blue, Haircolor.Black, 1, CharacterClass.Archer, "");
         private List<Monster> m = new List<Monster>();
-        private IEnumerable<Monster> monsters;
 
         public CharacterTest()
         {
             _characterLogic = new CharacterLogic(CharacterFactory.MySqlCharacterRepo());
             m.Add(new Monster("Orc", 10, 4, 10, 2));
             m.Add(new Monster("slime", 10,10,10, 3));
-            monsters = m;
         }
 
         [Fact]
@@ -74,19 +72,17 @@ namespace Tests.IntergrationTest.CharacterTests
         [Fact]
         public void GiveDamageToMonster1()
         {
-            IEnumerable<Monster> result = _characterLogic.GiveDamage(10, 0, monsters);
+            Monster result = _characterLogic.GiveDamage(10, m[0]);
 
-            Assert.Equal(0, result.ToList()[0].Hp);
-            Assert.Equal(10, result.ToList()[1].Hp);
+            Assert.Equal(0, result.Hp);
         }
 
         [Fact]
         public void GiveDamageToMonster2()
         {
-            IEnumerable<Monster> result = _characterLogic.GiveDamage(10, 1, monsters);
-
-            Assert.Equal(10, result.ToList()[0].Hp);
-            Assert.Equal(0, result.ToList()[1].Hp);
+            Monster result = _characterLogic.GiveDamage(10, m[1]);
+            
+            Assert.Equal(0, result.Hp);
         }
 
         [Fact]
@@ -140,9 +136,9 @@ namespace Tests.IntergrationTest.CharacterTests
         [Fact]
         public void TakeDamage()
         {
-            int result = _characterLogic.TakeDamage(monsters, 50, 3);
+            int result = _characterLogic.TakeDamage(m, 50, 3);
 
-            Assert.Equal(44, result);
+            Assert.Equal(34, result);
         }
     }
 }

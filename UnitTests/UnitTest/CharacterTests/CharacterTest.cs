@@ -132,7 +132,7 @@ namespace Tests.UnitTest.CharacterTests
         {
             int result = _characterLogic.TakeDamage(monsters, 50, 3);
 
-            Assert.Equal(44, result);
+            Assert.Equal(34, result);
         }
     }
 }
