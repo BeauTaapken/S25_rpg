@@ -72,21 +72,11 @@ namespace Tests.UnitTest.CharacterTests
         }
 
         [Fact]
-        public void GiveDamageToMonster1()
+        public void GiveDamageToMonster()
         {
-            IEnumerable<Monster> result = _characterLogic.GiveDamage(10, 0, monsters);
+            Monster result = _characterLogic.GiveDamage(10, monsters.ToList()[0]);
 
-            Assert.Equal(0, result.ToList()[0].Hp);
-            Assert.Equal(10, result.ToList()[1].Hp);
-        }
-
-        [Fact]
-        public void GiveDamageToMonster2()
-        {
-            IEnumerable<Monster> result = _characterLogic.GiveDamage(10, 1, monsters);
-
-            Assert.Equal(10, result.ToList()[0].Hp);
-            Assert.Equal(0, result.ToList()[1].Hp);
+            Assert.Equal(0, result.Hp);
         }
 
         [Fact]

@@ -65,16 +65,24 @@ namespace S25_rpg.DAL.Memory
             characters.FirstOrDefault(x => x.idCharacter == character.idCharacter).Gold += gold;
         }
 
-        public void EditExpAndLevel(Character character, int gottenExp)
+        public int? GetCharacterExp(Character character)
+        {
+            return characters.FirstOrDefault(x => x.idCharacter == character.idCharacter).CurrentExp;
+        }
+
+        public int? GetCharacterLevel(Character character)
+        {
+            return characters.FirstOrDefault(x => x.idCharacter == character.idCharacter).CurrentLevel;
+        }
+
+        public void EditExpAndLevel(Character character, int TotalExp, bool LevelUp)
         {
             Character c = characters.FirstOrDefault(x => x.idCharacter == character.idCharacter);
-            c.CurrentExp += gottenExp;
-            int leftExp = c.CurrentExp - c.CurrentLevel * 100;
-            if (!(leftExp < -1))
+            if (LevelUp)
             {
-                characters.FirstOrDefault(x => x.idCharacter == character.idCharacter).CurrentExp = leftExp;
-                characters.FirstOrDefault(x => x.idCharacter == character.idCharacter).CurrentLevel++;
+                characters.FirstOrDefault(x => x == c).CurrentLevel++;
             }
+            characters.FirstOrDefault(x => x == c).CurrentExp = TotalExp;
         }
     }
 }

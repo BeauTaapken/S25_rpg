@@ -57,19 +57,24 @@ namespace S25_rpg.Controllers
                 if (!(model.flee))
                 {
                     int damage = _characterLogic.CalculateDamage(character);
-                    monsters = _characterLogic.GiveDamage(damage, model.monsterLocation, monsters);
+                    List<Monster> monsterList = monsters.ToList();
+                    monsterList[model.monsterLocation] = _characterLogic.GiveDamage(damage, monsters.ToList()[model.monsterLocation]);
+                    monsters = monsterList;
 
                     if (monsters.All(x => x.Hp < 1))
                     {
+                        int totalExp = 0;
                         foreach (Monster monster in monsters)
                         {
                             if (monster.ItemDropId != 0)
                             {
                                 _itemContainerLogic.AddItem(new Item(monster.ItemDropId, 1), character);
                             }
+
+                            totalExp += monster.Exp;
                         }
 
-                        _characterLogic.EarnExpAndLevelUp(character, monsters);
+                        _characterLogic.EarnExpAndLevelUp(character, totalExp);
                         return RedirectToAction("Index", "Outside");
                     }
                 }

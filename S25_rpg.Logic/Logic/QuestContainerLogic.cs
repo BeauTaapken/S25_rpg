@@ -58,7 +58,6 @@ namespace S25_rpg.Logic.Logic
         {
             acceptableQuests = acceptableQuests.ToList().Where(x => acceptedQuests.ToList().All(y => x.Id != y.Id));
             return acceptableQuests.ToList().Where(x => acceptedQuests.ToList().All(y => x.Id != y.Id));
-            //return acceptableQuests;
         }
     }
 }

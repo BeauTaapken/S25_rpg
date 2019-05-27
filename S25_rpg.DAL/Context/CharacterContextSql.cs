@@ -93,44 +93,81 @@ namespace S25_rpg.DAL.Context
             }
         }
 
+        public int? GetCharacterExp(Character character)
+        {
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand getExpAndLevel =
+                    new MySqlCommand("SELECT CurrentExp FROM `character` WHERE Id = @id", mySqlConnection);
+                getExpAndLevel.Parameters.AddWithValue("@id", character.idCharacter);
+                MySqlDataReader reader = getExpAndLevel.ExecuteReader();
+                while (reader.Read())
+                {
+                    return (int) reader[0];
+                }
+
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+        }
+
+        public int? GetCharacterLevel(Character character)
+        {
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand getExpAndLevel = new MySqlCommand("SELECT CurrentLevel FROM `character` WHERE Id = @id",
+                    mySqlConnection);
+                getExpAndLevel.Parameters.AddWithValue("@id", character.idCharacter);
+                MySqlDataReader reader = getExpAndLevel.ExecuteReader();
+                while (reader.Read())
+                {
+                    return (int) reader[0];
+                }
+
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+        }
 
         /// <summary>
         /// Function for editing the exp and level of a character
         /// </summary>
         /// <param name="character"><see cref="ICharacter"/></param>
         /// <param name="gottenExp"><see cref="int"/></param>
-        public void EditExpAndLevel(Character character, int gottenExp)
+        public void EditExpAndLevel(Character character, int totalExp, bool LevelUp)
         {
             try
             {
-                mySqlConnection.Open();
-                int exp = 0;
-                int lvl = 0;
-                MySqlCommand getExpAndLevel = new MySqlCommand("SELECT CurrentExp, CurrentLevel FROM `character` WHERE Id = @id", mySqlConnection);
-                getExpAndLevel.Parameters.AddWithValue("@id", character.idCharacter);
-                MySqlDataReader reader = getExpAndLevel.ExecuteReader();
-                while (reader.Read())
+                if (LevelUp)
                 {
-                    exp = (int) reader[0];
-                    lvl = (int) reader[1];
-                }
-                reader.Close();
-                int neededExp = lvl * 100;
-                if (exp + gottenExp >= neededExp)
-                {
-                    MySqlCommand editLvl = new MySqlCommand("UPDATE `character` SET CurrentLevel = CurrentLevel + 1 WHERE Id = @id", mySqlConnection);
-                    editLvl.Parameters.AddWithValue("@id", character.idCharacter);
-                    editLvl.ExecuteNonQuery();
-                    exp = (exp + gottenExp) - neededExp;
+                    MySqlCommand editExp = new MySqlCommand("UPDATE `character` SET CurrentExp = @exp, CurrentLevel = CurrentLevel + 1 WHERE Id = @id", mySqlConnection);
+                    editExp.Parameters.AddWithValue("@exp", totalExp);
+                    editExp.Parameters.AddWithValue("@id", character.idCharacter);
+                    editExp.ExecuteNonQuery();
                 }
                 else
                 {
-                    exp += gottenExp;
+                    MySqlCommand editExp = new MySqlCommand("UPDATE `character` SET CurrentExp = @exp WHERE Id = @id", mySqlConnection);
+                    editExp.Parameters.AddWithValue("@exp", totalExp);
+                    editExp.Parameters.AddWithValue("@id", character.idCharacter);
+                    editExp.ExecuteNonQuery();
                 }
-                MySqlCommand editExp = new MySqlCommand("UPDATE `character` SET CurrentExp = @exp WHERE Id = @id", mySqlConnection);
-                editExp.Parameters.AddWithValue("@exp", exp);
-                editExp.Parameters.AddWithValue("@id", character.idCharacter);
-                editExp.ExecuteNonQuery();
             }
             catch
             {

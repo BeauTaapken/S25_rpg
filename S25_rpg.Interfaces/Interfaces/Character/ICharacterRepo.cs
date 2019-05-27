@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Schema;
 using S25_rpg.Models.Interfaces;
 using S25_rpg.Models.Models;
 
@@ -13,6 +14,8 @@ namespace S25_rpg.Models.Interfaces.Character
         void DequipItem(Models.Item item, Models.Character character);
         IEnumerable<Equipped> GetEquippedItems(Models.Character character);
         void EditGold(int gold, Models.Character character);
-        void EditExpAndLevel(Models.Character character, int gottenExp);
+        int? GetCharacterExp(Models.Character character);
+        int? GetCharacterLevel(Models.Character character);
+        void EditExpAndLevel(Models.Character character, int TotalExp, bool LevelUp);
     }
 }

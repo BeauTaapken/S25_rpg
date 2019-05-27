@@ -9,11 +9,11 @@ namespace S25_rpg.Logic.Interface
     public interface IFight
     {
         int CalculateDamage(Character character);
-        IEnumerable<Monster> GiveDamage(int damage, int monsterLocation, IEnumerable<Monster> monsters);
+        Monster GiveDamage(int damage, Monster monsters);
         int CalculateDefence(Character character);
         int CalculateHealth(Character character);
         int TakeDamage(IEnumerable<Monster>monsters, int health, int defense);
         bool Flee();
-        void EarnExpAndLevelUp(Character character, IEnumerable<Monster> monsters);
+        void EarnExpAndLevelUp(Character character, int TotalExp);
     }
 }

@@ -15,6 +15,7 @@ namespace S25_rpg.Logic.Logic
     public class CharacterLogic : IExplore, IFight
     {
         private ICharacterRepo repo;
+        private Random random = new Random();
 
         public CharacterLogic(ICharacterRepo r = null)
         {
@@ -39,7 +40,7 @@ namespace S25_rpg.Logic.Logic
         public AreaContent NextArea()
         {
             Array areaContents = Enum.GetValues(typeof(AreaContent));
-            Random random = new Random();
+            
             AreaContent areaContent = (AreaContent)areaContents.GetValue(random.Next(areaContents.Length));
             return areaContent;
         }
@@ -47,7 +48,6 @@ namespace S25_rpg.Logic.Logic
         public IEnumerable<Monster> Monsters()
         {
             List<Monster> monsterList = new List<Monster>();
-            Random random = new Random();
             int monsterAmmount = random.Next(1, 6);
             for (int i = 0; i < monsterAmmount; i++)
             {
@@ -65,19 +65,15 @@ namespace S25_rpg.Logic.Logic
                         monsterList.Add(new Monster(monster.ToString(), 15, 15, 20, 4));
                         break;
                     default:
-                        monsterList.Add(new Monster("monster not found", 0 ,0, 0, 0));
                         break;
                 }
             }
 
-            IEnumerable<Monster> allMonsters = monsterList;
-
-            return allMonsters;
+            return monsterList;
         }
 
         public int Gold()
         {
-            Random random = new Random();
             return random.Next(10, 100);
         }
 
@@ -98,16 +94,15 @@ namespace S25_rpg.Logic.Logic
             return damage;
         }
 
-        public IEnumerable<Monster> GiveDamage(int damage, int monsterLocation, IEnumerable<Monster> monsters)
+        public Monster GiveDamage(int damage, Monster monster)
         {
-            List<Monster> monsterList = monsters.ToList();
-            monsterList[monsterLocation].Hp -= damage;
-            if (monsterList[monsterLocation].Hp < 0)
-            {
-                monsterList[monsterLocation].Hp = 0;
-            }
-            monsters = monsterList;
-            return monsters;
+            monster.Hp = Math.Max(0, monster.Hp - damage);
+            //monster.Hp -= damage; // check math.max
+            //if (monster.Hp < 0)
+            //{
+            //    monster.Hp = 0;
+            //}
+            return monster;
         }
 
         public int CalculateDefence(Character character)
@@ -138,7 +133,8 @@ namespace S25_rpg.Logic.Logic
         {
             foreach (Monster monster in monsters.Where(x => x.Hp > 0))
             {
-                int damage = monster.Damage = defense;
+                health -= Math.Max(monster.Damage - defense, 0);
+                int damage = monster.Damage - defense;
                 if (damage > 0)
                 {
                     health -= damage;
@@ -150,19 +146,32 @@ namespace S25_rpg.Logic.Logic
 
         public bool Flee()
         {
-            Random random = new Random();
             int chance = random.Next(0, 101);
             return chance >= 60;
         }
 
-        public void EarnExpAndLevelUp(Character character, IEnumerable<Monster> monsters)
+        public void EarnExpAndLevelUp(Character character, int totalExp)
         {
-            int totalExp = 0;
-            foreach (Monster monster in monsters)
+            int? exp = repo.GetCharacterExp(character);
+            if (exp != null)
             {
-                totalExp += monster.Exp;
+                int? lvl = repo.GetCharacterLevel(character);
+                if (lvl != null)
+                {
+                    int neededExp = (int)lvl * 100;
+                    bool LevelUp = false;
+                    if (exp + totalExp >= neededExp)
+                    {
+                        exp = (exp + totalExp) - neededExp;
+                        LevelUp = true;
+                    }
+                    else
+                    {
+                        exp += totalExp;
+                    }
+                    repo.EditExpAndLevel(character, (int)exp, LevelUp);
+                }
             }
-            repo.EditExpAndLevel(character, totalExp);
         }
     }
 }
