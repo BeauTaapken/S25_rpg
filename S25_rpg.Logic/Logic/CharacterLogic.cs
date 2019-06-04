@@ -86,10 +86,6 @@ namespace S25_rpg.Logic.Logic
         {
             //TODO add equipment to equation
             int damage = 4;
-            //if (character.CharacterClass == CharacterClass.Wizard)
-            //{
-            //    damage += 2;
-            //}
             damage += character.CurrentLevel + character.damage;
             return damage;
         }
@@ -104,10 +100,6 @@ namespace S25_rpg.Logic.Logic
         {
             //TODO add equipment to equation
             int defence = 1;
-            //if (character.CharacterClass == CharacterClass.Warrior)
-            //{
-            //    defence += 2;
-            //}
 
             defence += character.CurrentLevel + character.defence;
             return defence;
@@ -116,10 +108,6 @@ namespace S25_rpg.Logic.Logic
         public int CalculateHealth(Character character)
         {
             int health = 50;
-            //if (character.CharacterClass == CharacterClass.Archer)
-            //{
-            //    health += 2;
-            //}
             health += character.CurrentLevel + character.health;
             return health;
         }
