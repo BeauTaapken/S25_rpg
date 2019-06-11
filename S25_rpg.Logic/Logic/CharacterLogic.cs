@@ -86,7 +86,7 @@ namespace S25_rpg.Logic.Logic
         {
             //TODO add equipment to equation
             int damage = 4;
-            damage += character.CurrentLevel + character.damage;
+            //damage += character.CurrentLevel + character.damage;
             return damage;
         }
 
@@ -101,14 +101,14 @@ namespace S25_rpg.Logic.Logic
             //TODO add equipment to equation
             int defence = 1;
 
-            defence += character.CurrentLevel + character.defence;
+            //defence += character.CurrentLevel + character.defence;
             return defence;
         }
 
         public int CalculateHealth(Character character)
         {
             int health = 50;
-            health += character.CurrentLevel + character.health;
+            //health += character.CurrentLevel + character.health;
             return health;
         }
 
